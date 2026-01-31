@@ -34,6 +34,7 @@
       linear-gradient(180deg, var(--bg1), var(--bg2));
     overflow-x:hidden;
   }
+  a{color:inherit}
   .topbar{
     position:sticky; top:0; z-index:20;
     backdrop-filter: blur(10px);
@@ -44,7 +45,10 @@
     max-width:1120px; margin:0 auto; padding:14px 14px;
     display:flex; gap:10px; align-items:center; justify-content:space-between;
   }
-  .brand{display:flex; gap:10px; align-items:center; min-width:260px;}
+  .brand{
+    display:flex; gap:10px; align-items:center;
+    min-width: 260px;
+  }
   .logo{
     width:42px;height:42px;border-radius:14px;
     background: linear-gradient(135deg,#22c55e,#16a34a);
@@ -52,9 +56,18 @@
     box-shadow: var(--shadow2);
     color:#fff; font-size:22px; font-weight:900;
   }
-  .brand h1{margin:0; font-size:18px; line-height:1.1; letter-spacing:.5px;}
-  .brand small{display:block; margin-top:3px; color:var(--muted); font-size:12px;}
-  .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+  .brand h1{
+    margin:0; font-size:18px; line-height:1.1;
+    letter-spacing:.5px;
+  }
+  .brand small{
+    display:block; margin-top:3px; color:var(--muted);
+    font-size:12px;
+  }
+  .actions{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    justify-content:flex-end;
+  }
   .btn{
     border:0;
     border-radius: 14px;
@@ -62,7 +75,7 @@
     background: #fff;
     box-shadow: var(--shadow2);
     cursor:pointer;
-    font-weight:900;
+    font-weight:800;
     color:var(--ink);
     display:inline-flex; gap:8px; align-items:center;
     transition:.15s transform, .15s filter;
@@ -70,32 +83,64 @@
   }
   .btn:hover{transform: translateY(-1px); filter: brightness(1.02)}
   .btn:active{transform: translateY(0px); filter: brightness(.98)}
-  .btn.primary{background: linear-gradient(180deg, var(--primary), var(--primary2)); color:#fff;}
+  .btn.primary{
+    background: linear-gradient(180deg, var(--primary), var(--primary2));
+    color:#fff;
+  }
   .btn.ghost{
     background: rgba(255,255,255,.70);
     border: 1px solid rgba(148,163,184,.35);
     box-shadow:none;
   }
-  .wrap{max-width:1120px; margin:18px auto 40px; padding:0 14px;}
-  .grid{display:grid; grid-template-columns:420px 1fr; gap:16px; align-items:start;}
-  @media (max-width: 980px){ .grid{grid-template-columns:1fr;} .brand{min-width:auto} }
+  .btn.danger{
+    background: linear-gradient(180deg,#ef4444,#dc2626);
+    color:#fff;
+  }
+  .wrap{
+    max-width:1120px;
+    margin: 18px auto 40px;
+    padding: 0 14px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: 420px 1fr;
+    gap: 16px;
+    align-items:start;
+  }
+  @media (max-width: 980px){
+    .grid{grid-template-columns:1fr; }
+    .brand{min-width:auto}
+  }
   .card{
     background: rgba(255,255,255,.85);
     border: 1px solid rgba(148,163,184,.25);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
-  .panel{padding:16px;}
-  .panel h2{margin:0 0 10px; font-size:16px; letter-spacing:.5px;}
-  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
-  .label{font-weight:900; color: var(--muted); font-size:12px; letter-spacing:.5px;}
+  .panel{
+    padding: 16px;
+  }
+  .panel h2{
+    margin: 0 0 10px;
+    font-size:16px;
+    letter-spacing:.5px;
+  }
+  .row{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  }
+  .label{
+    font-weight:900;
+    color: var(--muted);
+    font-size:12px;
+    letter-spacing:.5px;
+  }
   .pill{
     display:inline-flex; gap:8px; align-items:center;
     padding:8px 10px;
     border-radius: 999px;
     background: rgba(226,232,240,.7);
     border: 1px solid rgba(148,163,184,.25);
-    font-weight:900;
+    font-weight:800;
   }
   .input{
     width:100%;
@@ -107,14 +152,21 @@
     background: rgba(255,255,255,.95);
   }
   .input:focus{border-color: rgba(37,99,235,.6); box-shadow: 0 0 0 4px rgba(37,99,235,.15)}
-  .help{margin:10px 0 0; color: var(--muted); font-size: 12px; line-height:1.45; font-weight:800;}
+  .help{
+    margin:10px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height:1.45;
+  }
   .kpi{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-top: 12px;
   }
-  @media(max-width: 540px){ .kpi{grid-template-columns:1fr} }
+  @media(max-width: 540px){
+    .kpi{grid-template-columns:1fr}
+  }
   .k{
     background: rgba(255,255,255,.9);
     border-radius: 16px;
@@ -122,10 +174,13 @@
     padding: 10px 12px;
   }
   .k b{display:block; font-size:18px}
-  .k small{color:var(--muted); font-weight:900}
-  .divider{height:1px; background: rgba(148,163,184,.25); margin: 14px 0;}
+  .k small{color:var(--muted); font-weight:800}
+  .divider{
+    height:1px; background: rgba(148,163,184,.25);
+    margin: 14px 0;
+  }
 
-  /* badges (home) */
+  /* badges */
   .badges{
     display:grid;
     grid-template-columns: repeat(4, 1fr);
@@ -144,7 +199,7 @@
   .badge .icon{
     width:40px;height:40px;border-radius:14px;
     display:grid; place-items:center;
-    font-size:18px; font-weight:900; color:#fff;
+    font-size:20px; font-weight:900; color:#fff;
     box-shadow: var(--shadow2);
   }
   .badge .t b{display:block; font-size:13px}
@@ -155,7 +210,7 @@
   .icon.purple{background:linear-gradient(135deg,#a855f7,#7c3aed)}
   .icon.gray{background:linear-gradient(135deg,#94a3b8,#64748b)}
 
-  /* world map layout */
+  /* map */
   .mapShell{ position:relative; overflow:hidden; }
   .mapHeader{
     display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
@@ -168,8 +223,14 @@
     font-weight:900;
     font-size: 12px;
   }
-  .mapWrap{padding:10px 12px 16px;}
+  .mapWrap{
+    position:relative;
+    padding: 10px 12px 16px;
+    height: 620px;
+  }
+  @media(max-width:980px){ .mapWrap{height: 520px;} }
   .mapCanvas{
+    position:absolute; inset: 10px 12px 16px;
     border-radius: 20px;
     background:
       radial-gradient(800px 400px at 20% 10%, rgba(34,197,94,.14), transparent 60%),
@@ -179,100 +240,60 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
     overflow:auto;
     -webkit-overflow-scrolling:touch;
-    max-height: 680px;
-    padding: 14px;
   }
-  .continentBlock{
-    background: rgba(255,255,255,.78);
-    border: 1px solid rgba(148,163,184,.18);
-    border-radius: 18px;
-    padding: 12px;
-    margin-bottom: 12px;
+  .mapInner{
+    position:relative;
+    min-width: 940px;
+    min-height: 900px;
+    padding: 18px;
   }
-  .continentTop{
-    display:flex; justify-content:space-between; align-items:flex-end; gap:10px; flex-wrap:wrap;
-    margin-bottom: 10px;
-  }
-  .continentTitle{
-    display:flex; gap:10px; align-items:center;
-    font-weight:1100;
-    font-size: 15px;
-    margin:0;
-  }
-  .continentTitle .cBadge{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:34px; height:34px;
-    border-radius: 12px;
-    color:#fff;
-    box-shadow: var(--shadow2);
-    font-size: 18px;
-    background: linear-gradient(135deg,#94a3b8,#64748b);
-    opacity:.45;
-    filter: grayscale(.2);
-  }
-  .continentTitle .cBadge.on{
-    opacity:1;
-    filter:none;
-  }
-  .continentMeta{
-    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-    color: var(--muted);
-    font-weight:900;
-    font-size: 12px;
-  }
-  .cProg{
-    display:flex; gap:8px; align-items:center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(226,232,240,.75);
-    border: 1px solid rgba(148,163,184,.22);
-  }
-  .cBar{
-    width: 160px;
-    height: 10px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.8);
-    border: 1px solid rgba(148,163,184,.25);
-    overflow:hidden;
-  }
-  .cBar > div{
-    height:100%;
-    width:0%;
-    background: linear-gradient(90deg,#22c55e,#16a34a);
-  }
-  .levelGrid{
-    display:grid;
-    grid-template-columns: repeat(6, minmax(120px, 1fr));
-    gap: 10px;
-  }
-  @media(max-width: 980px){ .levelGrid{grid-template-columns: repeat(3, minmax(120px, 1fr));} }
-  @media(max-width: 540px){ .levelGrid{grid-template-columns: repeat(2, minmax(120px, 1fr));} }
-
   .levelBtn{
-    border-radius: 18px;
+    position:absolute;
+    width: 84px;
+    height: 84px;
+    border-radius: 22px;
     border: 1px solid rgba(148,163,184,.25);
     background: rgba(255,255,255,.88);
     box-shadow: var(--shadow2);
     cursor:pointer;
-    padding: 10px 10px;
-    font-weight:1000;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-weight:900;
     transition: .12s transform, .12s filter;
     user-select:none;
-    min-height: 68px;
-    display:flex; flex-direction:column; justify-content:center;
   }
   .levelBtn:hover{transform:translateY(-1px); filter:brightness(1.03)}
   .levelBtn:active{transform:translateY(0px); filter:brightness(.99)}
-  .levelBtn.locked{opacity:.45; cursor:not-allowed; filter: grayscale(.2);}
-  .levelBtn.cleared{outline: 3px solid rgba(34,197,94,.22);}
-  .levelBtn .top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
-  .levelBtn .star{font-size:16px}
-  .levelBtn .mini{font-size:12px; color: var(--muted); font-weight:900; margin-top:4px; line-height:1.2;}
-  .levelBtn .name{font-size:13px; line-height:1.15;}
+  .levelBtn.locked{
+    opacity:.45;
+    cursor:not-allowed;
+    filter: grayscale(.25);
+  }
+  .levelBtn .n{
+    font-size:14px;
+    margin-top:4px;
+  }
+  .levelBtn .mini{
+    font-size:12px; color: var(--muted);
+    font-weight:900;
+  }
+  .levelBtn .star{ font-size:16px; margin-bottom:2px; }
+  .levelBtn.cleared{
+    outline: 3px solid rgba(34,197,94,.25);
+    box-shadow: 0 10px 22px rgba(34,197,94,.15), var(--shadow2);
+  }
+  .routeSvg{
+    position:absolute;
+    inset: 0;
+    pointer-events:none;
+  }
 
   /* game */
-  .gameHeader{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
-  .gameHeader .left{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .gameHeader{
+    display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  }
+  .gameHeader .left{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  }
   .progressBar{
     height: 10px;
     border-radius: 999px;
@@ -281,8 +302,16 @@
     overflow:hidden;
     width: 240px;
   }
-  .progressBar > div{height: 100%; width:0%; background: linear-gradient(90deg,#22c55e,#16a34a);}
-  .timer{font-weight:900; color: var(--bad); display:flex; gap:8px; align-items:center;}
+  .progressBar > div{
+    height: 100%;
+    width:0%;
+    background: linear-gradient(90deg,#22c55e,#16a34a);
+  }
+  .timer{
+    font-weight:900;
+    color: var(--bad);
+    display:flex; gap:8px; align-items:center;
+  }
   .modeTag{
     display:inline-flex; gap:8px; align-items:center;
     padding: 8px 10px;
@@ -290,20 +319,39 @@
     background: rgba(37,99,235,.08);
     border: 1px solid rgba(37,99,235,.20);
     color:#1d4ed8;
-    font-weight:1100;
+    font-weight:1000;
   }
-  .qTitle{margin: 14px 0 6px; font-size: 20px; font-weight: 1100; letter-spacing:.2px;}
-  .qSub{margin: 0 0 14px; color: var(--muted); font-weight: 900;}
-  .center{text-align:center;}
-  .wordBig{font-size: 54px; font-weight: 1200; letter-spacing: 1px; margin: 14px 0 14px;}
-  .choices{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;}
+  .qTitle{
+    margin: 14px 0 6px;
+    font-size: 20px;
+    font-weight: 1000;
+    letter-spacing:.5px;
+  }
+  .qSub{
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-weight: 900;
+  }
+  .center{ text-align:center; }
+  .wordBig{
+    font-size: 54px;
+    font-weight: 1100;
+    letter-spacing: 1px;
+    margin: 14px 0 14px;
+  }
+  .choices{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
   @media(max-width:540px){ .choices{grid-template-columns:1fr} }
   .choice{
     padding: 14px 14px;
     border-radius: 16px;
     background: rgba(241,245,249,.95);
     border: 1px solid rgba(148,163,184,.25);
-    font-weight: 1100;
+    font-weight: 1000;
     cursor:pointer;
     text-align:center;
     transition:.12s transform, .12s filter;
@@ -313,6 +361,7 @@
   .choice:active{transform: translateY(0px); filter:brightness(.99)}
   .choice.good{background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.35)}
   .choice.bad{background: rgba(220,38,38,.14); border-color: rgba(220,38,38,.35)}
+
   .hintBox{
     margin-top: 12px;
     padding: 12px 12px;
@@ -322,9 +371,22 @@
     color: var(--muted);
     font-weight:900;
   }
-  .listenRow{display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; margin: 6px 0 6px;}
-  .sliderWrap{display:flex; gap:10px; align-items:center; justify-content:center; margin-top: 8px; color: var(--muted); font-weight: 1100;}
+
+  /* listen controls */
+  .listenRow{
+    display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;
+    margin: 6px 0 6px;
+  }
+  .sliderWrap{
+    display:flex; gap:10px; align-items:center;
+    justify-content:center;
+    margin-top: 8px;
+    color: var(--muted);
+    font-weight: 1000;
+  }
   input[type="range"]{ width: 220px; }
+
+  /* typing */
   .typeWrap{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top: 10px;}
   .typeInput{
     width: min(360px, 90vw);
@@ -335,10 +397,12 @@
     outline:none;
     text-align:center;
     background: rgba(255,255,255,.95);
-    font-weight: 1200;
+    font-weight: 1100;
     letter-spacing: 1px;
   }
   .typeInput:focus{border-color: rgba(37,99,235,.6); box-shadow: 0 0 0 4px rgba(37,99,235,.15)}
+
+  /* matching */
   .match-grid{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -353,7 +417,7 @@
     background: rgba(241,245,249,.95);
     border: 1px solid rgba(148,163,184,.25);
     text-align:center;
-    font-weight: 1200;
+    font-weight: 1100;
     cursor:pointer;
     user-select:none;
     transition:.12s transform, .12s filter;
@@ -362,12 +426,14 @@
   .mcard:active{transform:translateY(0px); filter:brightness(.99)}
   .mcard.active{ background: rgba(37,99,235,.14); border-color: rgba(37,99,235,.35) }
   .mcard.done{ background: rgba(34,197,94,.18); border-color: rgba(34,197,94,.35); pointer-events:none; opacity:.95 }
+
+  /* footer buttons */
   .footRow{
     display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap;
     margin-top: 14px;
   }
   .msg{
-    font-weight:1100;
+    font-weight:1000;
     padding: 10px 12px;
     border-radius: 16px;
     background: rgba(255,255,255,.9);
@@ -401,13 +467,16 @@
   }
   .modalHead h3{ margin:0; font-size:16px; letter-spacing:.5px }
   .modalBody{ padding: 14px 16px 16px; }
-  .typePick{display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px;}
+  .typePick{
+    display:flex; gap:8px; flex-wrap:wrap;
+    margin-top: 8px;
+  }
   .chip{
     padding: 10px 12px;
     border-radius: 999px;
     background: rgba(226,232,240,.75);
     border: 1px solid rgba(148,163,184,.25);
-    font-weight:1200;
+    font-weight:1100;
     cursor:pointer;
     user-select:none;
   }
@@ -420,7 +489,10 @@
   }
 
   /* confetti */
-  #confetti{position:fixed; inset:0; pointer-events:none; z-index:60; overflow:hidden; display:none;}
+  #confetti{
+    position:fixed; inset:0; pointer-events:none; z-index:60;
+    overflow:hidden; display:none;
+  }
   .confettiPiece{
     position:absolute;
     width: 10px; height: 16px;
@@ -432,6 +504,8 @@
     0%{ transform: translateY(-20px) rotate(0deg); }
     100%{ transform: translateY(110vh) rotate(680deg); }
   }
+
+  /* streak pop */
   .pop{
     position:fixed; left:50%; top:16%;
     transform: translateX(-50%);
@@ -442,10 +516,20 @@
     border-radius: 20px;
     padding: 12px 14px;
     display:none;
-    font-weight:1200;
+    font-weight:1100;
   }
-  .fsTip{display:none; margin-left: 6px; color: var(--muted); font-weight: 900; font-size: 12px;}
-  @media (max-width: 980px){ .fsTip{display:inline} }
+
+  /* fullscreen hint */
+  .fsTip{
+    display:none;
+    margin-left: 6px;
+    color: var(--muted);
+    font-weight: 900;
+    font-size: 12px;
+  }
+  @media (max-width: 980px){
+    .fsTip{display:inline}
+  }
 </style>
 </head>
 <body>
@@ -456,7 +540,7 @@
       <div class="logo">Go</div>
       <div>
         <h1>南門國小拼字挑戰 Go</h1>
-        <small>世界地圖 100 城市｜每關 10 題｜過關門檻：答對 ≥8 題 才能到下一關｜A/B/C/D 或全選</small>
+        <small>100 關｜每關 10 題｜過關門檻：答對 8 題（含）｜A/B/C/D 或全選</small>
       </div>
     </div>
     <div class="actions">
@@ -476,28 +560,25 @@
         <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
         <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
       </div>
-
       <div style="margin-top:10px">
         <div class="label">輸入學生姓名（不可空白）</div>
         <div class="row" style="margin-top:6px">
-          <input class="input" id="studentName" placeholder="例：小明 / 小美" />
+          <input class="input" id="studentName" placeholder="例：小明 / 許Yoga" />
           <button class="btn primary" id="btnLogin">登入</button>
         </div>
         <div class="help">
           ✅ 同一台手機/平板會記住多位學生。<br/>
-          ⚠️ 不同手機登入：資料只存在各自裝置（localStorage）。要跨裝置同步需要伺服器，本檔不含。
+          ⚠️ 不同手機登入同名/不同名：資料只在該裝置（localStorage）。如果你要跨裝置同步，需要伺服器，純 GitHub Pages 做不到。
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <h2>🏅 徽章（首頁）</h2>
+      <h2>🏅 徽章（首頁顯示）</h2>
       <div class="badges" id="badgeBox"></div>
-
-      <div class="divider"></div>
-
-      <h2>🌍 洲際徽章與進度（首頁）</h2>
-      <div class="help" id="continentHint">登入後會顯示每洲進度與完成徽章。</div>
+      <div class="help">
+        徽章會依學生個人記錄解鎖：例如「首次通關」、「連續答對 5 題 / 10 題」、「單關滿分」、「通關數」等。
+      </div>
 
       <div class="divider"></div>
 
@@ -507,8 +588,8 @@
         <span class="pill">配對題：每題 4 組</span>
       </div>
       <div class="help">
-        若選「全選」，每關 10 題會混合 A/B/C/D（平均分配，並隨機排序）。<br/>
-        若只勾選部分題型，每關 10 題只會從你勾選的題型出題。
+        若選「全選」，每關 10 題會自動混合 A/B/C/D（平均分配，並隨機排序）。<br/>
+        若只勾 A/C/D，則每關 10 題只會從你勾選的題型出題。
       </div>
 
       <div class="divider"></div>
@@ -516,10 +597,10 @@
       <h2>▶️ 開始</h2>
       <div class="row">
         <button class="btn primary" id="btnStartNext">🚀 開始下一關</button>
-        <button class="btn ghost" id="btnGoMap">🗺️ 回到世界地圖</button>
+        <button class="btn ghost" id="btnGoMap">🗺️ 地圖</button>
       </div>
       <div class="kpi">
-        <div class="k"><b id="kLevel">—</b><small>下一關（城市）</small></div>
+        <div class="k"><b id="kLevel">—</b><small>下一關</small></div>
         <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
         <div class="k"><b id="kBest">—</b><small>本關最高分</small></div>
       </div>
@@ -528,17 +609,19 @@
     <!-- right -->
     <div class="card mapShell">
       <div class="mapHeader">
-        <h2>🗺️ 世界地圖（100 城市）</h2>
+        <h2>🗺️ 寶藏地圖（100 關）</h2>
         <div class="row">
-          <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
+          <span class="pill">⭐ 過關：答對 8 題（含）</span>
           <span class="pill">🔁 可重玩：重玩不影響解鎖</span>
         </div>
       </div>
-      <div class="mapNote">提示：沒達 8 分 → 下一關會鎖住「不能點」。</div>
+      <div class="mapNote">提示：未達 8 分的關卡，下一關會自動鎖住「不能點」。</div>
 
       <div class="mapWrap">
         <div class="mapCanvas" id="mapCanvas">
-          <div id="mapInner"></div>
+          <div class="mapInner" id="mapInner">
+            <svg class="routeSvg" id="routeSvg"></svg>
+          </div>
         </div>
       </div>
     </div>
@@ -549,7 +632,7 @@
 <div class="modalBack" id="gameBack">
   <div class="modal">
     <div class="modalHead">
-      <h3 id="gameTitle">📍 城市</h3>
+      <h3 id="gameTitle">第 X 關</h3>
       <button class="btn ghost" id="btnCloseGame">✖ 關閉</button>
     </div>
     <div class="modalBody">
@@ -557,7 +640,7 @@
         <div class="left">
           <span class="pill">題目：<b id="qIdx">1</b>/10</span>
           <span class="pill">得分：<b id="score">0</b>/10</span>
-          <span class="pill">目標：<b>≥8</b> 解鎖下一關</span>
+          <span class="pill">目標：<b>≥8</b> 才能解鎖下一關</span>
           <span class="modeTag" id="modeTag">A</span>
         </div>
         <div class="row">
@@ -568,6 +651,7 @@
 
       <div class="divider"></div>
 
+      <!-- Listen controls (always shown but may be used by A/D) -->
       <div class="listenRow">
         <button class="btn primary" id="btnPlay">🔊 播放</button>
         <button class="btn ghost" id="btnReplay">🔁 重播</button>
@@ -593,12 +677,10 @@
           <button class="btn primary" id="btnNext">➡️ 下一題</button>
         </div>
       </div>
-
       <div id="feedback" style="margin-top:12px"></div>
-
       <div class="small" style="margin-top:8px">
-        ※ A：聽→選中文（不顯示英文）｜D：聽→拼英文（不顯示英文）｜錯了會顯示正解。<br/>
-        ※ C：中英配對每題 4 組；點錯會提示正解，但這題記 0 分（仍可完成配對）。
+        ※ A 題型「聽力選字」：不會顯示英文單字，也不會念題號，只念單字本身。<br/>
+        ※ D 題型「聽力拼音」：不顯示英文，請輸入你聽到的拼字（大小寫不拘）。錯了會顯示正解。
       </div>
     </div>
   </div>
@@ -612,9 +694,7 @@
       <button class="btn ghost" id="btnCloseType">✖ 關閉</button>
     </div>
     <div class="modalBody">
-      <div class="pill" style="background:rgba(37,99,235,.14); border-color:rgba(37,99,235,.30); margin-bottom:10px">
-        選「全選」：每關 10 題會混合 A/B/C/D（平均分配＋隨機排序）
-      </div>
+      <div class="pill all" style="margin-bottom:10px">選「全選」：每關 10 題會混合 A/B/C/D（平均分配＋隨機排序）</div>
       <div class="typePick">
         <div class="chip all" id="chipAll">✅ 全選 A/B/C/D</div>
         <div class="chip" id="chipA">A：聽力選字（聽→選中文｜不顯示英文）</div>
@@ -623,7 +703,8 @@
         <div class="chip" id="chipD">D：聽力拼音（聽→拼英文｜不顯示英文）</div>
       </div>
       <div class="help" style="margin-top:10px">
-        至少要選 1 種題型。配對題（C）固定 4 組，點錯會直接提示正解。
+        你可只勾 A/C/D（或任意組合）。至少要選 1 種題型。<br/>
+        配對題（C）：每一題固定 4 組配對，點英文再點中文；點錯會直接告訴你「正確答案」。
       </div>
     </div>
     <div class="modalFoot">
@@ -637,82 +718,7 @@
 
 <script>
 /* ==============================
-   0) 世界地圖：100 關（城市＋洲別）
-================================ */
-const LEVELS = [
-  // 亞洲 Asia (30)
-  {city:"台北 Taipei", continent:"亞洲 Asia"}, {city:"新北 New Taipei", continent:"亞洲 Asia"},
-  {city:"台中 Taichung", continent:"亞洲 Asia"}, {city:"台南 Tainan", continent:"亞洲 Asia"},
-  {city:"高雄 Kaohsiung", continent:"亞洲 Asia"}, {city:"東京 Tokyo", continent:"亞洲 Asia"},
-  {city:"大阪 Osaka", continent:"亞洲 Asia"}, {city:"京都 Kyoto", continent:"亞洲 Asia"},
-  {city:"名古屋 Nagoya", continent:"亞洲 Asia"}, {city:"福岡 Fukuoka", continent:"亞洲 Asia"},
-  {city:"首爾 Seoul", continent:"亞洲 Asia"}, {city:"釜山 Busan", continent:"亞洲 Asia"},
-  {city:"濟州 Jeju", continent:"亞洲 Asia"}, {city:"北京 Beijing", continent:"亞洲 Asia"},
-  {city:"上海 Shanghai", continent:"亞洲 Asia"}, {city:"廣州 Guangzhou", continent:"亞洲 Asia"},
-  {city:"深圳 Shenzhen", continent:"亞洲 Asia"}, {city:"成都 Chengdu", continent:"亞洲 Asia"},
-  {city:"香港 Hong Kong", continent:"亞洲 Asia"}, {city:"澳門 Macau", continent:"亞洲 Asia"},
-  {city:"曼谷 Bangkok", continent:"亞洲 Asia"}, {city:"清邁 Chiang Mai", continent:"亞洲 Asia"},
-  {city:"普吉 Phuket", continent:"亞洲 Asia"}, {city:"新加坡 Singapore", continent:"亞洲 Asia"},
-  {city:"吉隆坡 Kuala Lumpur", continent:"亞洲 Asia"}, {city:"檳城 Penang", continent:"亞洲 Asia"},
-  {city:"河內 Hanoi", continent:"亞洲 Asia"}, {city:"胡志明市 Ho Chi Minh City", continent:"亞洲 Asia"},
-  {city:"雅加達 Jakarta", continent:"亞洲 Asia"}, {city:"峇里 Bali", continent:"亞洲 Asia"},
-
-  // 歐洲 Europe (25)
-  {city:"倫敦 London", continent:"歐洲 Europe"}, {city:"巴黎 Paris", continent:"歐洲 Europe"},
-  {city:"柏林 Berlin", continent:"歐洲 Europe"}, {city:"羅馬 Rome", continent:"歐洲 Europe"},
-  {city:"米蘭 Milan", continent:"歐洲 Europe"}, {city:"馬德里 Madrid", continent:"歐洲 Europe"},
-  {city:"巴塞隆納 Barcelona", continent:"歐洲 Europe"}, {city:"阿姆斯特丹 Amsterdam", continent:"歐洲 Europe"},
-  {city:"布魯塞爾 Brussels", continent:"歐洲 Europe"}, {city:"維也納 Vienna", continent:"歐洲 Europe"},
-  {city:"布拉格 Prague", continent:"歐洲 Europe"}, {city:"蘇黎世 Zurich", continent:"歐洲 Europe"},
-  {city:"日內瓦 Geneva", continent:"歐洲 Europe"}, {city:"斯德哥爾摩 Stockholm", continent:"歐洲 Europe"},
-  {city:"赫爾辛基 Helsinki", continent:"歐洲 Europe"}, {city:"哥本哈根 Copenhagen", continent:"歐洲 Europe"},
-  {city:"奧斯陸 Oslo", continent:"歐洲 Europe"}, {city:"里斯本 Lisbon", continent:"歐洲 Europe"},
-  {city:"都柏林 Dublin", continent:"歐洲 Europe"}, {city:"華沙 Warsaw", continent:"歐洲 Europe"},
-  {city:"布達佩斯 Budapest", continent:"歐洲 Europe"}, {city:"雅典 Athens", continent:"歐洲 Europe"},
-  {city:"伊斯坦堡 Istanbul", continent:"歐洲 Europe"}, {city:"雷克雅維克 Reykjavik", continent:"歐洲 Europe"},
-  {city:"愛丁堡 Edinburgh", continent:"歐洲 Europe"},
-
-  // 北美 North America (20)
-  {city:"紐約 New York", continent:"北美 North America"}, {city:"洛杉磯 Los Angeles", continent:"北美 North America"},
-  {city:"舊金山 San Francisco", continent:"北美 North America"}, {city:"西雅圖 Seattle", continent:"北美 North America"},
-  {city:"芝加哥 Chicago", continent:"北美 North America"}, {city:"波士頓 Boston", continent:"北美 North America"},
-  {city:"拉斯維加斯 Las Vegas", continent:"北美 North America"}, {city:"華盛頓 DC", continent:"北美 North America"},
-  {city:"溫哥華 Vancouver", continent:"北美 North America"}, {city:"多倫多 Toronto", continent:"北美 North America"},
-  {city:"蒙特婁 Montreal", continent:"北美 North America"}, {city:"卡加利 Calgary", continent:"北美 North America"},
-  {city:"墨西哥城 Mexico City", continent:"北美 North America"}, {city:"坎昆 Cancun", continent:"北美 North America"},
-  {city:"哈瓦那 Havana", continent:"北美 North America"}, {city:"邁阿密 Miami", continent:"北美 North America"},
-  {city:"奧斯汀 Austin", continent:"北美 North America"}, {city:"多倫多(再訪) Toronto+", continent:"北美 North America"},
-  {city:"波特蘭 Portland", continent:"北美 North America"}, {city:"丹佛 Denver", continent:"北美 North America"},
-
-  // 南美 South America (15)
-  {city:"里約 Rio", continent:"南美 South America"}, {city:"聖保羅 Sao Paulo", continent:"南美 South America"},
-  {city:"布宜諾斯艾利斯 Buenos Aires", continent:"南美 South America"}, {city:"聖地牙哥 Santiago", continent:"南美 South America"},
-  {city:"利馬 Lima", continent:"南美 South America"}, {city:"波哥大 Bogota", continent:"南美 South America"},
-  {city:"基多 Quito", continent:"南美 South America"}, {city:"拉巴斯 La Paz", continent:"南美 South America"},
-  {city:"蒙得維的亞 Montevideo", continent:"南美 South America"}, {city:"加拉加斯 Caracas", continent:"南美 South America"},
-  {city:"庫斯科 Cusco", continent:"南美 South America"}, {city:"馬那瓜 Managua", continent:"南美 South America"},
-  {city:"薩爾瓦多 Salvador", continent:"南美 South America"}, {city:"巴拿馬城 Panama City", continent:"南美 South America"},
-  {city:"卡塔赫納 Cartagena", continent:"南美 South America"},
-
-  // 大洋洲 Oceania (10)
-  {city:"雪梨 Sydney", continent:"大洋洲 Oceania"}, {city:"墨爾本 Melbourne", continent:"大洋洲 Oceania"},
-  {city:"布里斯本 Brisbane", continent:"大洋洲 Oceania"}, {city:"伯斯 Perth", continent:"大洋洲 Oceania"},
-  {city:"奧克蘭 Auckland", continent:"大洋洲 Oceania"}, {city:"威靈頓 Wellington", continent:"大洋洲 Oceania"},
-  {city:"基督城 Christchurch", continent:"大洋洲 Oceania"}, {city:"斐濟 Fiji", continent:"大洋洲 Oceania"},
-  {city:"大溪地 Tahiti", continent:"大洋洲 Oceania"}, {city:"夏威夷 Honolulu", continent:"大洋洲 Oceania"}
-];
-if (LEVELS.length !== 100) console.warn("LEVELS不是100，實際：", LEVELS.length);
-
-const CONTINENT_BADGE = {
-  "亞洲 Asia":"🌏",
-  "歐洲 Europe":"🌍",
-  "北美 North America":"🌎",
-  "南美 South America":"🌎",
-  "大洋洲 Oceania":"🌊"
-};
-
-/* ==============================
-   1) 題庫（153 題｜完整）
+   0) 題庫（153 題｜不要省略）
    格式：{en:"", zh:""}
 ================================ */
 const WORDS = [
@@ -816,31 +822,28 @@ const WORDS = [
   {en:"write", zh:"寫"}, {en:"yellow", zh:"黃色"}, {en:"yes", zh:"是"},
   {en:"you", zh:"你"}, {en:"your", zh:"你的"}
 ];
-if (WORDS.length !== 153) console.warn("題庫不是153，實際：", WORDS.length);
+// 確保正好 153 題（你要完整題庫）：
+if (WORDS.length !== 153) console.warn("題庫不是 153，實際：", WORDS.length);
 
 /* ==============================
-   Storage / Student
+   1) Storage / Student
 ================================ */
-const LS_KEY = "nmps_spelling_go_world_final_v1";
-const el = id=>document.getElementById(id);
-function loadAll(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||"{}"); }catch{ return {}; } }
-function saveAll(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
-
-let ALL = loadAll();
-let currentStudent = null;
-let currentName = "";
-let typeMode = (ALL.settings && ALL.settings.typeMode) || { all:true, A:true,B:true,C:true,D:true };
-let speechRate = (ALL.settings && ALL.settings.speechRate) || 0.90;
-
+const LS_KEY = "nmps_spelling_go_vFinal";
+function loadAll(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY)||"{}"); }catch{ return {}; }
+}
+function saveAll(obj){
+  localStorage.setItem(LS_KEY, JSON.stringify(obj));
+}
 function ensureStudent(all, name){
   if(!all.students) all.students = {};
   if(!all.students[name]){
     all.students[name]={
       name,
-      cleared: {},  // level -> {bestScore, passed, attempts, firstClearTs}
-      badges: {},
+      cleared: {},     // level -> {bestScore, passed, attempts, firstClearTs}
+      badges: {},      // badgeId -> true
       totalPassed:0,
-      lastPlayed:null
+      lastPlayed: null
     };
   }
   if(!all.settings) all.settings = {};
@@ -849,19 +852,25 @@ function ensureStudent(all, name){
   return all.students[name];
 }
 
-function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
+let ALL = loadAll();
+let currentStudent = null;
+let currentName = "";
+let typeMode = (ALL.settings && ALL.settings.typeMode) || { all:true, A:true,B:true,C:true,D:true };
+let speechRate = (ALL.settings && ALL.settings.speechRate) || 0.90;
 
 /* ==============================
-   UI refs
+   2) UI refs
 ================================ */
+const el = id=>document.getElementById(id);
 const curStudentEl = el("curStudent");
 const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
 const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
 const badgeBox = el("badgeBox");
+
 const mapInner = el("mapInner");
-const continentHint = el("continentHint");
+const routeSvg = el("routeSvg");
 
 const gameBack = el("gameBack");
 const gameTitle = el("gameTitle");
@@ -874,11 +883,12 @@ const qTitleEl = el("qTitle");
 const qSubEl = el("qSub");
 const questionArea = el("questionArea");
 const feedback = el("feedback");
+
 const rateSlider = el("rate");
 const rateVal = el("rateVal");
 
 /* ==============================
-   Fullscreen
+   3) Fullscreen
 ================================ */
 el("btnFullscreen").onclick = async()=>{
   try{
@@ -890,7 +900,7 @@ el("btnFullscreen").onclick = async()=>{
 };
 
 /* ==============================
-   Type modal (A/B/C/D / all)
+   4) Type modal (A/B/C/D / all)
 ================================ */
 const typeBack = el("typeBack");
 const chipAll = el("chipAll");
@@ -914,20 +924,31 @@ function refreshTypeChips(){
     typeSummaryEl.textContent = chosen.length? chosen.join(" / ") : "（未選）";
   }
 }
-function openTypeModal(){ refreshTypeChips(); typeBack.style.display="flex"; }
+function openTypeModal(){
+  refreshTypeChips();
+  typeBack.style.display="flex";
+}
 function closeTypeModal(){ typeBack.style.display="none"; }
+
 el("btnOpenTypeModal").onclick=openTypeModal;
 el("btnCloseType").onclick=closeTypeModal;
 typeBack.addEventListener("click",(e)=>{ if(e.target===typeBack) closeTypeModal(); });
 
-chipAll.onclick = ()=>{ typeMode = {all:true, A:true,B:true,C:true,D:true}; refreshTypeChips(); };
+chipAll.onclick = ()=>{
+  typeMode = {all:true, A:true,B:true,C:true,D:true};
+  refreshTypeChips();
+};
 function toggleOne(k){
   if(typeMode.all){
     typeMode.all=false;
+    // keep all true initially then allow toggles
     typeMode.A=true; typeMode.B=true; typeMode.C=true; typeMode.D=true;
   }
   typeMode[k] = !typeMode[k];
-  if(!typeMode.A && !typeMode.B && !typeMode.C && !typeMode.D) typeMode[k]=true;
+  // at least one
+  if(!typeMode.A && !typeMode.B && !typeMode.C && !typeMode.D){
+    typeMode[k]=true;
+  }
   refreshTypeChips();
 }
 chipA.onclick=()=>toggleOne("A");
@@ -944,7 +965,7 @@ el("btnSaveType").onclick=()=>{
 };
 
 /* ==============================
-   Home badges
+   5) Badges (home)
 ================================ */
 const BADGE_DEFS = [
   {id:"firstClear", icon:"🏁", color:"green", name:"首次通關", desc:"任一關第一次過關"},
@@ -956,19 +977,6 @@ const BADGE_DEFS = [
   {id:"pass60", icon:"🏝️", color:"purple", name:"通關 60", desc:"累積過關 60 關"},
   {id:"pass100", icon:"👑", color:"gold", name:"通關 100", desc:"全部 100 關完成"}
 ];
-
-function popToast(text){
-  const p = el("pop");
-  p.textContent = text;
-  p.style.display="block";
-  p.style.opacity="1";
-  p.style.transform="translateX(-50%) translateY(0)";
-  setTimeout(()=>{
-    p.style.opacity="0";
-    p.style.transform="translateX(-50%) translateY(-6px)";
-  }, 1200);
-  setTimeout(()=>{ p.style.display="none"; }, 1600);
-}
 
 function awardBadge(id){
   if(!currentStudent) return;
@@ -999,154 +1007,35 @@ function renderBadges(){
 }
 
 /* ==============================
-   Map helpers (unlock/pass/best)
+   6) Login / Reset
 ================================ */
-const LEVEL_COUNT = 100;
-const Q_PER_LEVEL = 10;
-const PASS_SCORE = 8;
-
-function levelPassed(level){
-  if(!currentStudent) return false;
-  return !!currentStudent.cleared?.[String(level)]?.passed;
+function sanitizeName(v){
+  return (v||"").replace(/\s+/g," ").trim();
 }
-function levelUnlocked(level){
-  if(level===1) return true;
-  return levelPassed(level-1);
-}
-function levelBest(level){
-  return currentStudent?.cleared?.[String(level)]?.bestScore ?? null;
-}
-function levelCity(level){
-  return LEVELS[level-1]?.city || ("Level "+level);
-}
-function levelContinent(level){
-  return LEVELS[level-1]?.continent || "—";
-}
-function groupLevelsByContinent(){
-  const grouped = {};
-  for(let i=1;i<=LEVEL_COUNT;i++){
-    const cont = levelContinent(i);
-    if(!grouped[cont]) grouped[cont]=[];
-    grouped[cont].push(i);
-  }
-  return grouped;
-}
-function continentProgress(cont){
-  const levels = groupLevelsByContinent()[cont] || [];
-  const passed = levels.filter(l=>levelPassed(l)).length;
-  return {passed, total: levels.length};
-}
-
-/* ==============================
-   Render world map (grid by continents)
-================================ */
-function renderMap(){
-  mapInner.innerHTML = "";
-
-  const grouped = groupLevelsByContinent();
-  const order = Object.keys(CONTINENT_BADGE).filter(c=>grouped[c]); // fixed order
-  const ordered = order.length ? order : Object.keys(grouped);
-
-  ordered.forEach(cont=>{
-    const levels = grouped[cont] || [];
-    const prog = currentStudent ? continentProgress(cont) : {passed:0,total:levels.length||0};
-    const done = (prog.total>0 && prog.passed===prog.total);
-    const badge = CONTINENT_BADGE[cont] || "🧭";
-
-    const block = document.createElement("div");
-    block.className="continentBlock";
-    block.innerHTML = `
-      <div class="continentTop">
-        <div class="continentTitle">
-          <span class="cBadge ${done?"on":""}" style="background:${done?'linear-gradient(135deg,#22c55e,#16a34a)':'linear-gradient(135deg,#94a3b8,#64748b)'}">${badge}</span>
-          <span>${cont}</span>
-        </div>
-        <div class="continentMeta">
-          <span class="cProg">進度：<b>${prog.passed}</b> / ${prog.total}</span>
-          <span class="cBar"><div style="width:${prog.total?Math.round((prog.passed/prog.total)*100):0}%"></div></span>
-          <span>${done ? "🏅 洲徽章已完成" : "尚未完成"}</span>
-        </div>
-      </div>
-      <div class="levelGrid"></div>
-    `;
-    const grid = block.querySelector(".levelGrid");
-
-    levels.forEach(lvl=>{
-      const passed = currentStudent ? levelPassed(lvl) : false;
-      const unlocked = currentStudent ? levelUnlocked(lvl) : (lvl===1);
-      const best = currentStudent ? levelBest(lvl) : null;
-
-      const btn = document.createElement("div");
-      btn.className="levelBtn";
-      if(passed) btn.classList.add("cleared");
-      if(!unlocked) btn.classList.add("locked");
-
-      const star = passed ? "⭐" : (unlocked ? "🎯" : "🔒");
-      const mini = passed ? `已通關｜最高 ${best ?? 0}/10` : (unlocked ? "可挑戰｜需 ≥8/10" : "未解鎖｜先過上一關");
-      const city = levelCity(lvl);
-
-      btn.innerHTML = `
-        <div class="top">
-          <div class="name">${city}</div>
-          <div class="star">${star}</div>
-        </div>
-        <div class="mini">第 ${lvl} 關｜${mini}</div>
-      `;
-
-      btn.onclick=()=>{
-        if(!currentStudent){ alert("請先輸入姓名登入。"); return; }
-        if(!levelUnlocked(lvl)){ alert("⚠️ 需要先通過上一關（≥8/10）才能點這一關。"); return; }
-        startLevel(lvl);
-      };
-
-      grid.appendChild(btn);
-    });
-
-    mapInner.appendChild(block);
-  });
-
-  refreshHomeStats();
-  refreshTypeChips();
-}
-
-/* ==============================
-   Home stats + login/reset
-================================ */
 function refreshHomeStats(){
   if(!currentStudent){
     curStudentEl.textContent="（尚未登入）";
     curClearedEl.textContent="0";
     kLevelEl.textContent="—";
     kBestEl.textContent="—";
-    continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
     renderBadges();
     return;
   }
   curStudentEl.textContent = currentStudent.name;
   const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
   curClearedEl.textContent = String(passedCount);
-
-  const next = Math.min(LEVEL_COUNT, passedCount+1);
-  kLevelEl.textContent = `${levelCity(next)}`;
+  const next = Math.min(100, passedCount+1);
+  kLevelEl.textContent = `第 ${next} 關`;
   const best = currentStudent.cleared?.[String(next)]?.bestScore;
   kBestEl.textContent = (best==null) ? "—" : `${best}/10`;
-
-  // update continent hint (summary)
-  const grouped = groupLevelsByContinent();
-  const lines = Object.keys(CONTINENT_BADGE).filter(c=>grouped[c]).map(c=>{
-    const p = continentProgress(c);
-    const done = (p.total>0 && p.passed===p.total);
-    const badge = CONTINENT_BADGE[c];
-    return `${badge} ${c}：${p.passed}/${p.total}${done?" ✅":""}`;
-  });
-  continentHint.textContent = lines.join(" ｜ ");
-
   renderBadges();
 }
-
 function login(name){
   name = sanitizeName(name);
-  if(!name){ alert("⚠️ 姓名不可空白"); return; }
+  if(!name){
+    alert("⚠️ 姓名不可空白");
+    return;
+  }
   ALL = loadAll();
   currentStudent = ensureStudent(ALL, name);
   currentName = name;
@@ -1154,7 +1043,6 @@ function login(name){
   refreshHomeStats();
   renderMap();
 }
-
 el("btnLogin").onclick=()=>login(el("studentName").value);
 el("studentName").addEventListener("keydown",(e)=>{ if(e.key==="Enter") login(el("studentName").value); });
 
@@ -1169,38 +1057,122 @@ el("btnResetStudent").onclick=()=>{
   alert("已清除。");
 };
 
+/* ==============================
+   7) Map layout + curved dashed path
+   - user later said "整齊排好" but also want curved dashed links
+   => use serpentine grid with curved bezier dashed between nodes.
+================================ */
+const LEVELS = 100;
+function levelPassed(level){
+  if(!currentStudent) return false;
+  return !!currentStudent.cleared?.[String(level)]?.passed;
+}
+function levelUnlocked(level){
+  if(level===1) return true;
+  return levelPassed(level-1); // must pass previous with >=8
+}
+function levelBest(level){
+  return currentStudent?.cleared?.[String(level)]?.bestScore ?? null;
+}
+function buildPositions(){
+  // serpentine 10 columns x 10 rows
+  const cols=10, rows=10;
+  const x0=60, y0=70;
+  const dx=88, dy=88;
+  const pos=[];
+  let n=1;
+  for(let r=0;r<rows;r++){
+    const leftToRight = (r%2===0);
+    for(let c=0;c<cols;c++){
+      const cc = leftToRight ? c : (cols-1-c);
+      pos[n]={x:x0+cc*dx, y:y0+r*dy};
+      n++;
+    }
+  }
+  return pos;
+}
+const POS = buildPositions();
+
+function renderMap(){
+  // clear nodes (keep routeSvg)
+  mapInner.querySelectorAll(".levelBtn").forEach(x=>x.remove());
+  routeSvg.innerHTML="";
+  routeSvg.setAttribute("width","100%");
+  routeSvg.setAttribute("height","100%");
+  routeSvg.setAttribute("viewBox","0 0 980 980");
+
+  // dashed routes
+  function p(i){ return POS[i]; }
+  const svgNS="http://www.w3.org/2000/svg";
+
+  for(let i=1;i<LEVELS;i++){
+    const a=p(i), b=p(i+1);
+    const path=document.createElementNS(svgNS,"path");
+    // curved bezier: control points offset based on direction
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+    const bend = (i%2===0) ? 26 : -26;
+    const c1x = mx, c1y = a.y + bend;
+    const c2x = mx, c2y = b.y - bend;
+    const d = `M ${a.x} ${a.y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${b.x} ${b.y}`;
+    path.setAttribute("d", d);
+    path.setAttribute("fill","none");
+    path.setAttribute("stroke","rgba(100,116,139,.55)");
+    path.setAttribute("stroke-width","3");
+    path.setAttribute("stroke-dasharray","7 10");
+    path.setAttribute("stroke-linecap","round");
+    routeSvg.appendChild(path);
+  }
+
+  // nodes
+  for(let lvl=1; lvl<=LEVELS; lvl++){
+    const btn=document.createElement("div");
+    btn.className="levelBtn";
+    const passed = currentStudent ? levelPassed(lvl) : false;
+    const unlocked = currentStudent ? levelUnlocked(lvl) : (lvl===1);
+    const best = currentStudent ? levelBest(lvl) : null;
+
+    if(passed) btn.classList.add("cleared");
+    if(!unlocked) btn.classList.add("locked");
+
+    const star = passed ? "⭐" : (unlocked ? "🎯" : "🔒");
+    const mini = passed ? `${best ?? 0}/10` : (unlocked ? "可挑戰" : "未解鎖");
+
+    btn.innerHTML = `<div class="star">${star}</div><div class="n">第${lvl}關</div><div class="mini">${mini}</div>`;
+    btn.style.left = (POS[lvl].x-42)+"px";
+    btn.style.top  = (POS[lvl].y-42)+"px";
+
+    btn.onclick=()=>{
+      if(!currentStudent){ alert("請先輸入姓名登入。"); return; }
+      if(!levelUnlocked(lvl)){ alert("⚠️ 需要先通過上一關（≥8/10）才能點這一關。"); return; }
+      startLevel(lvl);
+    };
+    mapInner.appendChild(btn);
+  }
+
+  // update summary
+  refreshHomeStats();
+  refreshTypeChips();
+}
+
+/* ==============================
+   8) Start Next / Go Map
+================================ */
 el("btnGoMap").onclick=()=>{ el("mapCanvas").scrollIntoView({behavior:"smooth"}); };
 
 el("btnStartNext").onclick=()=>{
   if(!currentStudent){ alert("請先輸入姓名登入。"); return; }
   const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
-  const next = Math.min(LEVEL_COUNT, passedCount+1);
+  const next = Math.min(100, passedCount+1);
   startLevel(next);
 };
 
 /* ==============================
-   Game engine
+   9) Game engine
 ================================ */
 let game = null;
-let tick=null, t0=0;
-
-function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
-function fmt(ms){
-  const s=Math.floor(ms/1000);
-  const mm=String(Math.floor(s/60)).padStart(2,"0");
-  const ss=String(s%60).padStart(2,"0");
-  return mm+":"+ss;
-}
-function startTimer(){
-  stopTimer();
-  t0=Date.now();
-  tick=setInterval(()=>{ timeEl.textContent = fmt(Date.now()-t0); }, 200);
-}
-function openGame(){ gameBack.style.display="flex"; }
-function closeGame(){ gameBack.style.display="none"; stopTimer(); }
-el("btnCloseGame").onclick=closeGame;
-gameBack.addEventListener("click",(e)=>{ if(e.target===gameBack) closeGame(); });
-el("btnBackToMap").onclick=closeGame;
+// per level: 10 questions
+const Q_PER_LEVEL = 10;
+const PASS_SCORE = 8;
 
 function shuffle(arr){
   const a=[...arr];
@@ -1210,23 +1182,74 @@ function shuffle(arr){
   }
   return a;
 }
-function pickWords(n){ return shuffle(WORDS).slice(0,n); }
-
+function pickWords(n){
+  // pick from full 153 randomly but stable per level attempt: use seeded-ish
+  return shuffle(WORDS).slice(0,n);
+}
 function getSelectedTypes(){
   if(typeMode.all) return ["A","B","C","D"];
   const t = ["A","B","C","D"].filter(k=>typeMode[k]);
   return t.length ? t : ["A"];
 }
 function buildTypePlan(){
+  const chosen = getSelectedTypes();
   if(typeMode.all){
+    // average distribution within 10: 3+3+2+2 randomized (or 3/3/2/2)
     const base=["A","A","A","B","B","B","C","C","D","D"];
     return shuffle(base);
   }else{
-    const chosen = getSelectedTypes();
+    // fill 10 from chosen random
     const plan=[];
-    while(plan.length<Q_PER_LEVEL) plan.push(chosen[Math.floor(Math.random()*chosen.length)]);
+    while(plan.length<Q_PER_LEVEL){
+      plan.push(chosen[Math.floor(Math.random()*chosen.length)]);
+    }
     return plan;
   }
+}
+
+let tick=null, t0=0;
+
+function fmt(ms){
+  const s=Math.floor(ms/1000);
+  const mm=String(Math.floor(s/60)).padStart(2,"0");
+  const ss=String(s%60).padStart(2,"0");
+  return mm+":"+ss;
+}
+
+function openGame(){
+  gameBack.style.display="flex";
+}
+function closeGame(){
+  gameBack.style.display="none";
+  stopTimer();
+}
+el("btnCloseGame").onclick=closeGame;
+gameBack.addEventListener("click",(e)=>{ if(e.target===gameBack) closeGame(); });
+
+el("btnBackToMap").onclick=()=>{
+  closeGame();
+  // keep on map
+};
+
+function startTimer(){
+  stopTimer();
+  t0=Date.now();
+  tick=setInterval(()=>{ timeEl.textContent = fmt(Date.now()-t0); }, 200);
+}
+function stopTimer(){
+  if(tick){ clearInterval(tick); tick=null; }
+}
+
+function setFeedback(kind, html){
+  feedback.innerHTML = `<div class="msg ${kind}">${html}</div>`;
+}
+function clearFeedback(){ feedback.innerHTML=""; }
+
+function updateTop(){
+  gameTitle.textContent = `第 ${game.level} 關`;
+  qIdxEl.textContent = String(game.qIndex+1);
+  scoreEl.textContent = String(game.score);
+  barEl.style.width = `${((game.qIndex)/Q_PER_LEVEL)*100}%`;
 }
 
 function updateRateUI(){
@@ -1242,12 +1265,14 @@ rateSlider.oninput=()=>{
 };
 
 function speakWord(word){
+  // Only speak the word (no question number)
   try{
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(word);
     u.lang="en-US";
     u.rate = speechRate;
 
+    // choose clearest English voice if possible
     const voices = window.speechSynthesis.getVoices();
     const prefer = voices.filter(v=>{
       const n=(v.name||"").toLowerCase();
@@ -1263,47 +1288,57 @@ function speakWord(word){
     alert("你的裝置不支援語音播放（SpeechSynthesis）。");
   }
 }
+
 el("btnPlay").onclick=()=>{
   if(!game) return;
   const q = game.questions[game.qIndex];
-  if(q.type==="A" || q.type==="D") speakWord(q.word.en);
-  else if(q.type==="B") speakWord(q.word.en);
-  else if(q.type==="C") speakWord(q.pairs[0].en);
+  if(q.type==="A" || q.type==="D"){
+    speakWord(q.word.en);
+  }else if(q.type==="B"){
+    // optional: allow pronounce too
+    speakWord(q.word.en);
+  }else{
+    // C: allow pronounce the currently selected? but keep simple: pronounce first en
+    speakWord(q.pairs[0].en);
+  }
 };
 el("btnReplay").onclick=()=>el("btnPlay").click();
 
-function setFeedback(kind, html){ feedback.innerHTML = `<div class="msg ${kind}">${html}</div>`; }
-function clearFeedback(){ feedback.innerHTML=""; }
-
 function buildChoices(correctZh){
+  // return 4 chinese options includes correct + 3 random
   const pool = WORDS.filter(w=>w.zh!==correctZh);
   const picks = shuffle(pool).slice(0,3).map(w=>w.zh);
-  return shuffle([correctZh, ...picks]);
-}
-
-function updateTop(){
-  const city = levelCity(game.level);
-  gameTitle.textContent = `📍 ${city}`;
-  qIdxEl.textContent = String(game.qIndex+1);
-  scoreEl.textContent = String(game.score);
-  barEl.style.width = `${((game.qIndex)/Q_PER_LEVEL)*100}%`;
+  const opts = shuffle([correctZh, ...picks]);
+  return opts;
 }
 
 function startLevel(level){
   if(!currentStudent){ alert("請先登入。"); return; }
-  if(!levelUnlocked(level)){ alert("⚠️ 需要先通過上一關（≥8/10）才能進入。"); return; }
+
+  // enforce locked on click
+  if(!levelUnlocked(level)){
+    alert("⚠️ 需要先通過上一關（≥8/10）才能進入。");
+    return;
+  }
 
   const plan = buildTypePlan();
-  const wordPicks = pickWords(40);
+  const wordPicks = pickWords(30); // more variety for 10 questions
+
   const questions = [];
   let wp=0;
 
   for(let i=0;i<Q_PER_LEVEL;i++){
     const type = plan[i];
     if(type==="C"){
+      // 4 pairs question
       const pairs = shuffle(wordPicks).slice(wp, wp+4);
       wp += 4;
-      questions.push({type, pairs, mistake:false, donePairs:0, selected:null});
+      questions.push({type, pairs, // array of 4 WORD objects
+        // for scoring: mistakeFlag
+        mistake:false,
+        donePairs:0,
+        selected:null
+      });
     }else{
       const word = wordPicks[wp % wordPicks.length];
       wp++;
@@ -1319,7 +1354,8 @@ function startLevel(level){
     streakBest:0,
     startedAt: Date.now(),
     questions,
-    history: Array(Q_PER_LEVEL).fill(null)
+    // record answers to support "上一題"
+    history: Array(Q_PER_LEVEL).fill(null) // {scoredDelta, streakBefore, streakAfter}
   };
 
   openGame();
@@ -1333,6 +1369,7 @@ function renderQuestion(){
   updateTop();
   const q = game.questions[game.qIndex];
 
+  // mode tag + title/sub
   modeTagEl.textContent = q.type;
   const modeTitle = {
     A:"A 聽力選字（聽→選中文｜不顯示英文）",
@@ -1340,17 +1377,18 @@ function renderQuestion(){
     C:"C 中英配對（4 組）",
     D:"D 聽力拼音（聽→拼英文｜不顯示英文）"
   }[q.type];
-
   qTitleEl.textContent = modeTitle;
   qSubEl.textContent = `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分才能解鎖下一關`;
 
+  // show/hide listen buttons: always show but useful in A/D
   questionArea.innerHTML = "";
 
   if(q.type==="A"){
+    // Listen -> choose Chinese (NO English displayed)
     const box = document.createElement("div");
     box.className="center";
     box.innerHTML = `
-      <div class="hintBox">按「播放」聽單字後，選出正確中文意思（不會顯示英文單字）。</div>
+      <div class="hintBox">規則：按「播放」聽英文後，選出正確中文意思（不會顯示英文單字）。</div>
       <div class="choices" id="choices"></div>
     `;
     questionArea.appendChild(box);
@@ -1369,7 +1407,7 @@ function renderQuestion(){
     box.className="center";
     box.innerHTML = `
       <div class="wordBig">${q.word.en}</div>
-      <div class="hintBox">看英文單字，選出正確中文意思。</div>
+      <div class="hintBox">規則：看英文單字，選出正確中文意思。</div>
       <div class="choices" id="choices"></div>
     `;
     questionArea.appendChild(box);
@@ -1387,7 +1425,7 @@ function renderQuestion(){
     const box = document.createElement("div");
     box.className="center";
     box.innerHTML = `
-      <div class="hintBox">按「播放」聽單字，輸入你聽到的英文拼字（不顯示英文）。</div>
+      <div class="hintBox">規則：按「播放」聽英文單字，輸入你聽到的拼字（不顯示英文）。</div>
       <div class="typeWrap">
         <input class="typeInput" id="typeAns" placeholder="請輸入英文拼字" autocomplete="off" autocapitalize="none" />
       </div>
@@ -1403,10 +1441,11 @@ function renderQuestion(){
   }
 
   if(q.type==="C"){
+    // matching: 4 pairs, show as cards
     const box = document.createElement("div");
     box.className="center";
     box.innerHTML = `
-      <div class="hintBox">先點「英文」再點「中文」。點錯會提示正解，但這一題記 0 分（仍可完成配對）。</div>
+      <div class="hintBox">規則：先點「英文」再點「中文」。點錯會告訴你正確答案，但仍可繼續完成配對。<br/>（本題 4 組全配對完成才算完成 1 題；若本題中曾答錯，這題記 0 分）</div>
       <div class="match-grid" id="mg">
         <div class="match-col" id="ml"></div>
         <div class="match-col" id="mr"></div>
@@ -1416,8 +1455,10 @@ function renderQuestion(){
 
     const left = shuffle(q.pairs);
     const right = shuffle(q.pairs);
+
     const ml = box.querySelector("#ml");
     const mr = box.querySelector("#mr");
+
     q.selected = null;
 
     left.forEach(w=>{
@@ -1438,12 +1479,14 @@ function renderQuestion(){
       const d=document.createElement("div");
       d.className="mcard";
       d.textContent=w.zh;
+      d.dataset.zh=w.zh;
       d.dataset.en=w.en;
       d.onclick=()=>{
         if(d.classList.contains("done")) return;
         if(!q.selected) return;
 
         if(q.selected.en === w.en){
+          // mark both done
           d.classList.add("done");
           [...ml.children].forEach(c=>{
             if(c.dataset.en === q.selected.en){
@@ -1455,12 +1498,16 @@ function renderQuestion(){
           q.donePairs = (q.donePairs||0)+1;
 
           if(q.donePairs>=4){
+            // finished this question: score if no mistakes
             const gained = q.mistake ? 0 : 1;
             applyScore(gained, gained? "✅ 配對完成！本題 +1 分" : "⚠️ 配對完成，但本題曾答錯，故本題 0 分");
+            lockAndAutoNext();
           }
         }else{
           q.mistake = true;
-          setFeedback("bad", `❌ 錯了！正確答案：<b>${q.selected.en}</b> = <b>${q.selected.zh}</b>`);
+          const correctZh = q.selected.zh;
+          setFeedback("bad", `❌ 錯了！正確答案：<b>${q.selected.en}</b> = <b>${correctZh}</b>`);
+          // clear selection
           q.selected = null;
           box.querySelectorAll(".mcard").forEach(x=>x.classList.remove("active"));
         }
@@ -1469,8 +1516,8 @@ function renderQuestion(){
     });
   }
 
+  // buttons state
   el("btnPrev").disabled = (game.qIndex===0);
-  el("btnNext").disabled = false;
 }
 
 function answerChoice(pickedZh){
@@ -1481,6 +1528,7 @@ function answerChoice(pickedZh){
   const correct = q.word.zh;
   const ok = pickedZh === correct;
 
+  // paint choices
   const nodes = questionArea.querySelectorAll(".choice");
   nodes.forEach(n=>{
     if(n.textContent===correct) n.classList.add("good");
@@ -1491,8 +1539,13 @@ function answerChoice(pickedZh){
   q.answered=true;
   q.correct=ok;
 
-  if(ok) applyScore(1, "✅ 答對！+1 分");
-  else applyScore(0, `❌ 錯了！正確答案是：<b>${correct}</b>`);
+  if(ok){
+    applyScore(1, "✅ 答對！+1 分");
+  }else{
+    applyScore(0, `❌ 錯了！正確答案是：<b>${correct}</b>`);
+  }
+
+  lockAndAutoNext();
 }
 
 function answerTyping(value){
@@ -1503,14 +1556,21 @@ function answerTyping(value){
   const correct = q.word.en.trim().toLowerCase();
   const ok = ans === correct;
 
+  // lock input
   const inp = questionArea.querySelector(".typeInput");
   if(inp) inp.disabled=true;
 
-  if(ok) applyScore(1, "✅ 答對！+1 分");
-  else applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
+  if(ok){
+    applyScore(1, "✅ 答對！+1 分");
+  }else{
+    applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
+  }
+
+  lockAndAutoNext();
 }
 
 function applyScore(gain, msg){
+  // update streak
   const before = game.streak;
   if(gain===1){
     game.score += 1;
@@ -1518,34 +1578,55 @@ function applyScore(gain, msg){
     game.streakBest = Math.max(game.streakBest, game.streak);
     setFeedback("good", msg);
 
-    if(game.streak===5){ awardBadge("streak5"); popToast("🔥 連續答對 5 題！"); }
+    if(game.streak===5) { awardBadge("streak5"); popToast("🔥 連續答對 5 題！"); }
     if(game.streak===10){ awardBadge("streak10"); popToast("🔥 連續答對 10 題！"); }
   }else{
     game.streak = 0;
     setFeedback("bad", msg);
   }
+  // record history for prev
+  game.history[game.qIndex] = {
+    gain,
+    streakBefore: before
+  };
 
-  game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
+}
+
+function lockAndAutoNext(){
+  // enable next; but if last question show finish summary
+  // user wants "回關卡" button always visible; already there.
 }
 
 function nextQuestion(){
   if(!game) return;
-  const q = game.questions[game.qIndex];
 
-  if((q.type==="A"||q.type==="B") && !q.answered){
-    alert("請先作答（選一個中文）。"); return;
+  // if question not answered in A/B/D, prevent skipping
+  const q = game.questions[game.qIndex];
+  if(q.type==="A" || q.type==="B"){
+    if(!q.answered){
+      alert("請先作答（選一個中文）。");
+      return;
+    }
   }
   if(q.type==="D"){
+    // allow next only after input disabled
     const inp = questionArea.querySelector(".typeInput");
-    if(inp && !inp.disabled){ alert("請先輸入並送出答案。"); return; }
+    if(inp && !inp.disabled){
+      alert("請先輸入並送出答案。");
+      return;
+    }
   }
-  if(q.type==="C" && (q.donePairs||0) < 4){
-    alert("請先完成 4 組配對。"); return;
+  if(q.type==="C"){
+    if((q.donePairs||0) < 4){
+      alert("請先完成 4 組配對。");
+      return;
+    }
   }
 
   if(game.qIndex < Q_PER_LEVEL-1){
     game.qIndex += 1;
+    barEl.style.width = `${((game.qIndex)/Q_PER_LEVEL)*100}%`;
     renderQuestion();
   }else{
     finishLevel();
@@ -1556,33 +1637,147 @@ function prevQuestion(){
   if(!game) return;
   if(game.qIndex===0) return;
 
+  // rollback scoring for current question if it had been scored
   const cur = game.history[game.qIndex];
   if(cur){
-    if(cur.gain===1) game.score -= 1;
+    // remove gain if it was 1
+    if(cur.gain===1){
+      game.score -= 1;
+    }
+    // restore streak to what it was before that question
     game.streak = cur.streakBefore;
     game.history[game.qIndex] = null;
   }
 
+  // move back
   game.qIndex -= 1;
 
+  // also rollback previous question scoring to allow re-answer:
   const prev = game.history[game.qIndex];
   if(prev){
-    if(prev.gain===1) game.score -= 1;
+    if(prev.gain===1){
+      game.score -= 1;
+    }
     game.streak = prev.streakBefore;
     game.history[game.qIndex] = null;
   }
 
   renderQuestion();
-  setFeedback("bad","↩️ 已回到上一題，請重新作答。");
+  setFeedback("bad", "↩️ 已回到上一題，請重新作答。");
+  updateTop();
 }
 
 el("btnNext").onclick=nextQuestion;
 el("btnPrev").onclick=prevQuestion;
 
+function finishLevel(){
+  stopTimer();
+  const spent = Date.now() - game.startedAt;
+  const s = game.score;
+  const passed = s >= PASS_SCORE;
+
+  // update student record
+  const lvl = String(game.level);
+  currentStudent.cleared = currentStudent.cleared || {};
+  const old = currentStudent.cleared[lvl] || {bestScore:0, passed:false, attempts:0, firstClearTs:null};
+
+  old.attempts = (old.attempts||0) + 1;
+  old.bestScore = Math.max(old.bestScore||0, s);
+
+  const wasPassed = !!old.passed;
+  if(passed) old.passed = true;
+
+  // first clear confetti only once per level
+  const firstTimeClear = passed && !old.firstClearTs;
+  if(firstTimeClear){
+    old.firstClearTs = Date.now();
+    awardBadge("firstClear");
+  }
+
+  currentStudent.cleared[lvl] = old;
+
+  // compute totals
+  const passedCount = Object.values(currentStudent.cleared).filter(x=>x.passed).length;
+  currentStudent.totalPassed = passedCount;
+  currentStudent.lastPlayed = Date.now();
+
+  // milestone badges
+  if(s===10) awardBadge("perfect10");
+  if(passedCount>=10) awardBadge("pass10");
+  if(passedCount>=30) awardBadge("pass30");
+  if(passedCount>=60) awardBadge("pass60");
+  if(passedCount>=100) awardBadge("pass100");
+
+  saveAll(ALL);
+
+  // summary UI
+  const msg = passed
+    ? `🎉 第 ${game.level} 關通過！得分：<b>${s}/10</b>（≥8 會解鎖下一關）<br/><span class="small">時間：${fmt(spent)}</span>`
+    : `❌ 第 ${game.level} 關未通過。得分：<b>${s}/10</b>（需要 ≥8 才能解鎖下一關）<br/><span class="small">可以重玩這一關再挑戰。</span>`;
+
+  questionArea.innerHTML = `
+    <div class="center">
+      <div class="qTitle">${passed ? "🎯 通關結果" : "⛳ 再試一次"}</div>
+      <div class="msg ${passed?"good":"bad"}" style="display:inline-block; max-width:860px">${msg}</div>
+      <div style="margin-top:14px" class="row" >
+        <button class="btn ghost" id="btnReplayLevel">🔁 重玩本關</button>
+        <button class="btn primary" id="btnGoMap2">🗺️ 回關卡地圖</button>
+        <button class="btn ${passed?"primary":"ghost"}" id="btnNextLevel">${passed?"➡️ 前往下一關":"🔒 下一關（未解鎖）"}</button>
+      </div>
+      <div class="help" style="max-width:860px; margin:12px auto 0">
+        ✅ 下一關是否可點：取決於本關是否達到 8 分（含）。<br/>
+        🔁 重玩：不會取消已解鎖關卡；但本關最高分會更新。
+      </div>
+    </div>
+  `;
+
+  // confetti only on first-time clear
+  if(firstTimeClear){
+    fireConfetti();
+  }
+
+  // update top bar / map
+  refreshHomeStats();
+  renderMap();
+
+  // wire buttons
+  document.getElementById("btnGoMap2").onclick=()=>{ closeGame(); };
+  document.getElementById("btnReplayLevel").onclick=()=>{ startLevel(game.level); };
+
+  const next = Math.min(100, game.level+1);
+  const btnNextLevel = document.getElementById("btnNextLevel");
+  if(passed && next<=100){
+    btnNextLevel.onclick=()=>{
+      if(!levelUnlocked(next)){ alert("下一關尚未解鎖。"); return; }
+      startLevel(next);
+    };
+  }else{
+    btnNextLevel.onclick=()=>alert("下一關尚未解鎖（本關需 ≥8 分）。");
+  }
+
+  // freeze nav buttons
+  el("btnPrev").disabled=true;
+  el("btnNext").disabled=true;
+}
+
+function popToast(text){
+  const p = el("pop");
+  p.textContent = text;
+  p.style.display="block";
+  p.style.opacity="1";
+  p.style.transform="translateX(-50%) translateY(0)";
+  setTimeout(()=>{
+    p.style.opacity="0";
+    p.style.transform="translateX(-50%) translateY(-6px)";
+  }, 1200);
+  setTimeout(()=>{ p.style.display="none"; }, 1600);
+}
+
 function fireConfetti(){
   const box = el("confetti");
   box.innerHTML="";
   box.style.display="block";
+
   const colors = ["#22c55e","#2563eb","#f59e0b","#a855f7","#ef4444","#06b6d4"];
   const W = window.innerWidth;
   const N = 120;
@@ -1603,105 +1798,29 @@ function fireConfetti(){
   setTimeout(()=>{ box.style.display="none"; box.innerHTML=""; }, 1500);
 }
 
-function finishLevel(){
-  stopTimer();
-  const spent = Date.now() - game.startedAt;
-  const s = game.score;
-  const passed = s >= PASS_SCORE;
-
-  const lvl = String(game.level);
-  currentStudent.cleared = currentStudent.cleared || {};
-  const old = currentStudent.cleared[lvl] || {bestScore:0, passed:false, attempts:0, firstClearTs:null};
-
-  old.attempts = (old.attempts||0) + 1;
-  old.bestScore = Math.max(old.bestScore||0, s);
-
-  if(passed) old.passed = true;
-
-  const firstTimeClear = passed && !old.firstClearTs;
-  if(firstTimeClear){
-    old.firstClearTs = Date.now();
-    awardBadge("firstClear");
-  }
-  currentStudent.cleared[lvl] = old;
-
-  const passedCount = Object.values(currentStudent.cleared).filter(x=>x.passed).length;
-  currentStudent.totalPassed = passedCount;
-  currentStudent.lastPlayed = Date.now();
-
-  if(s===10) awardBadge("perfect10");
-  if(passedCount>=10) awardBadge("pass10");
-  if(passedCount>=30) awardBadge("pass30");
-  if(passedCount>=60) awardBadge("pass60");
-  if(passedCount>=100) awardBadge("pass100");
-
-  saveAll(ALL);
-
-  const msg = passed
-    ? `🎉 通過！得分：<b>${s}/10</b>（≥8 會解鎖下一關）<br/><span class="small">時間：${fmt(spent)}</span>`
-    : `❌ 未通過。得分：<b>${s}/10</b>（需要 ≥8 才能解鎖下一關）<br/><span class="small">可以重玩本關再挑戰。</span>`;
-
-  const city = levelCity(game.level);
-  const next = Math.min(LEVEL_COUNT, game.level+1);
-  const nextCity = levelCity(next);
-
-  questionArea.innerHTML = `
-    <div class="center">
-      <div class="qTitle">${passed ? "🎯 關卡結果" : "⛳ 再試一次"}</div>
-      <div class="msg ${passed?"good":"bad"}" style="display:inline-block; max-width:860px">
-        <b>📍 ${city}</b><br/>${msg}
-      </div>
-      <div style="margin-top:14px" class="row">
-        <button class="btn ghost" id="btnReplayLevel">🔁 重玩本關</button>
-        <button class="btn primary" id="btnGoMap2">🗺️ 回世界地圖</button>
-        <button class="btn ${passed?"primary":"ghost"}" id="btnNextLevel">${passed?`➡️ 下一關：${nextCity}`:"🔒 下一關（未解鎖）"}</button>
-      </div>
-      <div class="help" style="max-width:860px; margin:12px auto 0">
-        ✅ 下一關是否可點：取決於本關是否達到 8 分（含）。<br/>
-        🔁 重玩：不會取消已解鎖關卡；本關最高分會更新。
-      </div>
-    </div>
-  `;
-
-  if(firstTimeClear) fireConfetti();
-
-  refreshHomeStats();
-  renderMap();
-
-  document.getElementById("btnGoMap2").onclick=closeGame;
-  document.getElementById("btnReplayLevel").onclick=()=>startLevel(game.level);
-
-  const btnNextLevel = document.getElementById("btnNextLevel");
-  if(passed && next<=LEVEL_COUNT){
-    btnNextLevel.onclick=()=>{
-      if(!levelUnlocked(next)){ alert("下一關尚未解鎖。"); return; }
-      startLevel(next);
-    };
-  }else{
-    btnNextLevel.onclick=()=>alert("下一關尚未解鎖（本關需 ≥8 分）。");
-  }
-
-  el("btnPrev").disabled=true;
-  el("btnNext").disabled=true;
-}
-
 /* ==============================
-   Init
+   10) Initial render
 ================================ */
 (function init(){
+  // persist rate
   updateRateUI();
 
+  // preload voices for better first speak
   if("speechSynthesis" in window){
     window.speechSynthesis.onvoiceschanged = ()=>{};
   }
 
+  // render empty badges initially
   renderBadges();
+
+  // map
   renderMap();
 
-  // auto login last played student if exists
+  // default: try auto-login last student if exists
   const all = loadAll();
   const names = all.students ? Object.keys(all.students) : [];
   if(names.length){
+    // pick the most recently played
     let best = names[0], bestTs=0;
     names.forEach(n=>{
       const s = all.students[n];
@@ -1709,8 +1828,6 @@ function finishLevel(){
       if(ts>bestTs){ bestTs=ts; best=n; }
     });
     login(best);
-  }else{
-    refreshHomeStats();
   }
 })();
 </script>
