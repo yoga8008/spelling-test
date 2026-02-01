@@ -568,7 +568,6 @@
 
       <div class="listenRow">
         <button class="btn primary" id="btnPlay">🔊 播放</button>
-        <button class="btn ghost" id="btnReplay">🔁 重播</button>
       </div>
       <div class="sliderWrap">
         🐢 慢
@@ -1268,7 +1267,6 @@ el("btnPlay").onclick=()=>{
   else if(q.type==="B") speakWord(q.word.en);
   else if(q.type==="C") speakWord(q.pairs[0].en);
 };
-el("btnReplay").onclick=()=>el("btnPlay").click();
 
 function setFeedback(kind, html){ feedback.innerHTML = `<div class="msg ${kind}">${html}</div>`; }
 function clearFeedback(){ feedback.innerHTML=""; }
@@ -1392,7 +1390,7 @@ if(q.type==="D"){
         autocapitalize="none" />
     </div>
     <div class="row" style="justify-content:center; margin-top:12px">
-      <button class="btn primary" id="btnCheck">✅ 送出</button>
+      <button class="btn primary" id="btnCheck">✅ 確認</button>
     </div>
   `;
   questionArea.appendChild(box);
@@ -1580,7 +1578,7 @@ function nextQuestion(){
   }
   if(q.type==="D"){
     const inp = questionArea.querySelector(".typeInput");
-    if(inp && !inp.disabled){ alert("請先輸入並送出答案。"); return; }
+    if(inp && !inp.disabled){ alert("請先輸入並確認答案。"); return; }
   }
   if(q.type==="C" && (q.donePairs||0) < 4){
     alert("請先完成 4 組配對。"); return;
