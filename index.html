@@ -22,6 +22,13 @@
     --shadow2: 0 8px 22px rgba(2,6,23,.10);
     --radius: 18px;
   }
+    button:disabled{
+    background:#ccc !important;
+    color:#888 !important;
+    cursor:not-allowed;
+    box-shadow:none;
+    filter:grayscale(0.4);
+  }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
@@ -944,13 +951,13 @@ el("btnSaveType").onclick=()=>{
    Home badges
 ================================ */
 const BADGE_DEFS = [
-  {id:"firstClear", icon:"🏁", color:"green", name:"首次通關", desc:"第一次過關"},
+  {id:"firstClear", icon:"🏁", color:"gold", name:"首次通關", desc:"第一次過關"},
   {id:"streak5", icon:"🏅", color:"gold", name:"連勝 5 題", desc:"同一關連續答對 5 題"},
-  {id:"streak10", icon:"🏆", color:"purple", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
-  {id:"perfect10", icon:"💯", color:"blue", name:"單關滿分", desc:"任一關 10/10"},
+  {id:"streak10", icon:"🏆", color:"gold", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
+  {id:"perfect10", icon:"💯", color:"gold", name:"單關滿分", desc:"任一關 10/10"},
   {id:"pass10", icon:"🗻", color:"gold", name:"日本小達人", desc:"累積過關 10 關"},
-  {id:"pass30", icon:"🌏", color:"blue", name:"亞洲小達人", desc:"過關 30 關"},
-  {id:"pass60", icon:"🌍", color:"purple", name:"歐洲小達人", desc:"累積過關 60 關"},
+  {id:"pass30", icon:"🌏", color:"gold", name:"亞洲小達人", desc:"過關 30 關"},
+  {id:"pass60", icon:"🌍", color:"gold", name:"歐洲小達人", desc:"累積過關 60 關"},
   {id:"pass100", icon:"🗺️", color:"gold", name:"環遊世界", desc:"全部 100 關完成"}
 ];
 
@@ -1156,10 +1163,13 @@ function login(name){
   refreshHomeStats();
   renderMap();
 
-  // ⭐ 關鍵這一行
   el("studentName").value = "";
+
+  // ✅ 登入成功提示（一定要在 function 裡）
+  popToast(`歡迎 ${name} 👋`);
 }
 
+  
 el("btnLogin").onclick=()=>login(el("studentName").value);
 el("studentName").addEventListener("keydown",(e)=>{ if(e.key==="Enter") login(el("studentName").value); });
 
