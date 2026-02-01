@@ -478,25 +478,25 @@
       </div>
 
       <div style="margin-top:10px">
-        <div class="label">輸入學生姓名（不可空白）</div>
+        <div class="label">輸入姓名（不可空白）</div>
         <div class="row" style="margin-top:6px">
           <input class="input" id="studentName" placeholder="例：小明 / 小美" />
           <button class="btn primary" id="btnLogin">登入</button>
         </div>
         <div class="help">
           ✅ 同一台手機/平板會記住多位學生。<br/>
-          ⚠️ 不同手機登入：資料只存在各自裝置（localStorage）。要跨裝置同步需要伺服器，本檔不含。
+          ⚠️ 不同手機登入：資料只存在各自裝置。無線上即時同步資料。
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <h2>🏅 徽章（首頁）</h2>
+      <h2>🏅 徽章</h2>
       <div class="badges" id="badgeBox"></div>
 
       <div class="divider"></div>
 
-      <h2>🌍 洲際進度</h2>
+      <h2>🌍 旅遊進度</h2>
       <div class="help" id="continentHint">登入後會顯示每洲進度。</div>
 
       <div class="divider"></div>
@@ -526,7 +526,7 @@
     <!-- right -->
     <div class="card mapShell">
       <div class="mapHeader">
-        <h2>🗺️ 世界地圖（100 城市）</h2>
+        <h2>🗺️ 世界地圖</h2>
         <div class="row">
           <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
           <span class="pill">🔁 可重玩：重玩不影響解鎖</span>
@@ -670,27 +670,27 @@ const LEVELS = [
   {city:"伊斯坦堡 Istanbul", continent:"歐洲 Europe"}, {city:"雷克雅維克 Reykjavik", continent:"歐洲 Europe"},
   {city:"愛丁堡 Edinburgh", continent:"歐洲 Europe"},
 
-  // 北美 North America (20)
-  {city:"紐約 New York", continent:"北美 North America"}, {city:"洛杉磯 Los Angeles", continent:"北美 North America"},
-  {city:"舊金山 San Francisco", continent:"北美 North America"}, {city:"西雅圖 Seattle", continent:"北美 North America"},
-  {city:"芝加哥 Chicago", continent:"北美 North America"}, {city:"波士頓 Boston", continent:"北美 North America"},
-  {city:"拉斯維加斯 Las Vegas", continent:"北美 North America"}, {city:"華盛頓 DC", continent:"北美 North America"},
-  {city:"溫哥華 Vancouver", continent:"北美 North America"}, {city:"多倫多 Toronto", continent:"北美 North America"},
-  {city:"蒙特婁 Montreal", continent:"北美 North America"}, {city:"卡加利 Calgary", continent:"北美 North America"},
-  {city:"墨西哥城 Mexico City", continent:"北美 North America"}, {city:"坎昆 Cancun", continent:"北美 North America"},
-  {city:"哈瓦那 Havana", continent:"北美 North America"}, {city:"邁阿密 Miami", continent:"北美 North America"},
-  {city:"奧斯汀 Austin", continent:"北美 North America"}, {city:"多倫多(再訪) Toronto+", continent:"北美 North America"},
-  {city:"波特蘭 Portland", continent:"北美 North America"}, {city:"丹佛 Denver", continent:"北美 North America"},
+  // 美洲 Americas (20)
+  {city:"紐約 New York", continent:"美洲 Americas"}, {city:"洛杉磯 Los Angeles", continent:"美洲 Americas"},
+  {city:"舊金山 San Francisco", continent:"美洲 Americas"}, {city:"西雅圖 Seattle", continent:"美洲 Americas"},
+  {city:"芝加哥 Chicago", continent:"美洲 Americas"}, {city:"華盛頓 DC", continent:"美洲 Americas"},
+  {city:"溫哥華 Vancouver", continent:"美洲 Americas"}, {city:"多倫多 Toronto", continent:"美洲 Americas"},
+  {city:"墨西哥城 Mexico City", continent:"美洲 Americas"}, {city:"邁阿密 Miami", continent:"美洲 Americas"},
+  {city:"里約 Rio de Janeiro", continent:"美洲 Americas"}, {city:"聖保羅 Sao Paulo", continent:"美洲 Americas"},
+  {city:"布宜諾斯艾利斯 Buenos Aires", continent:"美洲 Americas"}, {city:"聖地牙哥 Santiago", continent:"美洲 Americas"},
+  {city:"利馬 Lima", continent:"美洲 Americas"}, {city:"波哥大 Bogota", continent:"美洲 Americas"},
+  {city:"庫斯科 Cusco", continent:"美洲 Americas"}, {city:"巴拿馬城 Panama City", continent:"美洲 Americas"},
+  {city:"卡塔赫納 Cartagena", continent:"美洲 Americas"}, {city:"坎昆 Cancun", continent:"美洲 Americas"},
 
-  // 南美 South America (15)
-  {city:"里約 Rio", continent:"南美 South America"}, {city:"聖保羅 Sao Paulo", continent:"南美 South America"},
-  {city:"布宜諾斯艾利斯 Buenos Aires", continent:"南美 South America"}, {city:"聖地牙哥 Santiago", continent:"南美 South America"},
-  {city:"利馬 Lima", continent:"南美 South America"}, {city:"波哥大 Bogota", continent:"南美 South America"},
-  {city:"基多 Quito", continent:"南美 South America"}, {city:"拉巴斯 La Paz", continent:"南美 South America"},
-  {city:"蒙得維的亞 Montevideo", continent:"南美 South America"}, {city:"加拉加斯 Caracas", continent:"南美 South America"},
-  {city:"庫斯科 Cusco", continent:"南美 South America"}, {city:"馬那瓜 Managua", continent:"南美 South America"},
-  {city:"薩爾瓦多 Salvador", continent:"南美 South America"}, {city:"巴拿馬城 Panama City", continent:"南美 South America"},
-  {city:"卡塔赫納 Cartagena", continent:"南美 South America"},
+  // 非洲 Africa (15)
+  {city:"開羅 Cairo", continent:"非洲 Africa"}, {city:"亞歷山卓 Alexandria", continent:"非洲 Africa"},
+  {city:"卡薩布蘭卡 Casablanca", continent:"非洲 Africa"}, {city:"馬拉喀什 Marrakech", continent:"非洲 Africa"},
+  {city:"拉哥斯 Lagos", continent:"非洲 Africa"}, {city:"阿布賈 Abuja", continent:"非洲 Africa"},
+  {city:"奈洛比 Nairobi", continent:"非洲 Africa"}, {city:"亞的斯亞貝巴 Addis Ababa", continent:"非洲 Africa"},
+  {city:"約翰尼斯堡 Johannesburg", continent:"非洲 Africa"}, {city:"開普敦 Cape Town", continent:"非洲 Africa"},
+  {city:"達卡 Dakar", continent:"非洲 Africa"}, {city:"阿比讓 Abidjan", continent:"非洲 Africa"},
+  {city:"突尼斯 Tunis", continent:"非洲 Africa"}, {city:"阿爾及爾 Algiers", continent:"非洲 Africa"},
+  {city:"達累斯薩拉姆 Dar es Salaam", continent:"非洲 Africa"},
 
   // 大洋洲 Oceania (10)
   {city:"雪梨 Sydney", continent:"大洋洲 Oceania"}, {city:"墨爾本 Melbourne", continent:"大洋洲 Oceania"},
@@ -702,11 +702,11 @@ const LEVELS = [
 if (LEVELS.length !== 100) console.warn("LEVELS不是100，實際：", LEVELS.length);
 
 const CONTINENT_BADGE = {
-  "亞洲 Asia":"🌏",
-  "歐洲 Europe":"🌍",
-  "北美 North America":"🌎",
-  "南美 South America":"🌎",
-  "大洋洲 Oceania":"🌊"
+  "亞洲 Asia":"🏯",
+  "歐洲 Europe":"🏰",
+  "美洲 Americas":"🗽",
+  "非洲 Africa":"🦁",
+  "大洋洲 Oceania":"🦘"
 };
 
 /* ==============================
@@ -949,10 +949,10 @@ const BADGE_DEFS = [
   {id:"streak5", icon:"🔥5", color:"gold", name:"連勝 5 題", desc:"同一關連續答對 5 題"},
   {id:"streak10", icon:"🔥10", color:"purple", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
   {id:"perfect10", icon:"💯", color:"blue", name:"單關滿分", desc:"任一關 10/10"},
-  {id:"pass10", icon:"🗝️", color:"gold", name:"日本通", desc:"累積過關 10 關"},
-  {id:"pass30", icon:"🧭", color:"blue", name:"亞洲小博士", desc:"過關 30 關"},
-  {id:"pass60", icon:"🏝️", color:"purple", name:"歐洲小博士", desc:"累積過關 60 關"},
-  {id:"pass100", icon:"👑", color:"gold", name:"環遊世界", desc:"全部 100 關完成"}
+  {id:"pass10", icon:"🗻", color:"gold", name:"日本通", desc:"累積過關 10 關"},
+  {id:"pass30", icon:"🌏", color:"blue", name:"亞洲小博士", desc:"過關 30 關"},
+  {id:"pass60", icon:"🌍", color:"purple", name:"歐洲小博士", desc:"累積過關 60 關"},
+  {id:"pass100", icon:"🗺️", color:"gold", name:"環遊世界", desc:"全部 100 關完成"}
 ];
 
 function popToast(text){
@@ -1385,7 +1385,7 @@ function renderQuestion(){
     const box = document.createElement("div");
     box.className="center";
     box.innerHTML = `
-      <div class="hintBox">按「播放」聽單字，輸入你聽到的英文拼字（不顯示英文）。</div>
+      <div class="hintBox">按「播放」聽單字，輸入你聽到的英文拼字。</div>
       <div class="typeWrap">
         <input class="typeInput" id="typeAns" placeholder="請輸入英文拼字" autocomplete="off" autocapitalize="none" />
       </div>
@@ -1404,7 +1404,7 @@ function renderQuestion(){
     const box = document.createElement("div");
     box.className="center";
     box.innerHTML = `
-      <div class="hintBox">先點「英文」再點「中文」。點錯會提示正解，但這一題記 0 分（仍可完成配對）。</div>
+      <div class="hintBox">先點「英文」再點「中文」。點錯會提示正解，但這一題記 0 分。</div>
       <div class="match-grid" id="mg">
         <div class="match-col" id="ml"></div>
         <div class="match-col" id="mr"></div>
