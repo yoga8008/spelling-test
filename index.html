@@ -456,7 +456,7 @@
       <div class="logo">Go</div>
       <div>
         <h1>國小拼字挑戰 Go</h1>
-        <small>世界地圖 100 城市｜每關 10 題｜過關門檻：答對 ≥8 題 才能到下一關｜A/B/C/D 或全選</small>
+        <small>世界地圖 100 城市｜每關 10 題｜過關門檻：答對 ≥8 題 解鎖關卡</small>
       </div>
     </div>
     <div class="actions">
@@ -471,7 +471,7 @@
   <div class="grid">
     <!-- left -->
     <div class="card panel">
-      <h2>👤 學生登入（不用密碼）</h2>
+      <h2>👤 登入</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
         <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
@@ -484,7 +484,7 @@
           <button class="btn primary" id="btnLogin">登入</button>
         </div>
         <div class="help">
-          ✅ 同一台手機/平板會記住多位學生。<br/>
+          ✅ 同一台手機/平板會記住多位使用者。<br/>
           ⚠️ 不同手機登入：資料只存在各自裝置。無線上即時同步資料。
         </div>
       </div>
@@ -513,11 +513,11 @@
 
       <h2>▶️ 開始</h2>
       <div class="row">
-        <button class="btn primary" id="btnStartNext">🚀 開始下一關</button>
+        <button class="btn primary" id="btnStartNext">🚀 開始挑戰</button>
         <button class="btn ghost" id="btnGoMap">🗺️ 回到世界地圖</button>
       </div>
       <div class="kpi">
-        <div class="k"><b id="kLevel">—</b><small>下一關（城市）</small></div>
+        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
         <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
         <div class="k"><b id="kBest">—</b><small>本關最高分</small></div>
       </div>
@@ -573,7 +573,7 @@
       <div class="sliderWrap">
         🐢 慢
         <input type="range" min="0.6" max="1.2" step="0.05" id="rate" />
-        🐇 快
+        ✈️ 快
         <span class="pill">速度：<b id="rateVal">0.90</b></span>
       </div>
 
@@ -615,10 +615,10 @@
       </div>
       <div class="typePick">
         <div class="chip all" id="chipAll">✅ 全選 A/B/C/D</div>
-        <div class="chip" id="chipA">A：聽力選字（聽→選中文｜不顯示英文）</div>
+        <div class="chip" id="chipA">A：聽力選字（聽→選中文）</div>
         <div class="chip" id="chipB">B：看英選字（看英文→選中文）</div>
         <div class="chip" id="chipC">C：中英配對（每題 4 組）</div>
-        <div class="chip" id="chipD">D：聽力拼音（聽→拼英文｜不顯示英文）</div>
+        <div class="chip" id="chipD">D：聽力拼音（聽→拼英文）</div>
       </div>
       <div class="help" style="margin-top:10px">
         至少要選 1 種題型。配對題（C）固定 4 組，點錯會直接提示正解。
@@ -946,12 +946,12 @@ el("btnSaveType").onclick=()=>{
 ================================ */
 const BADGE_DEFS = [
   {id:"firstClear", icon:"🏁", color:"green", name:"首次通關", desc:"第一次過關"},
-  {id:"streak5", icon:"🔥5", color:"gold", name:"連勝 5 題", desc:"同一關連續答對 5 題"},
-  {id:"streak10", icon:"🔥10", color:"purple", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
+  {id:"streak5", icon:"🏅", color:"gold", name:"連勝 5 題", desc:"同一關連續答對 5 題"},
+  {id:"streak10", icon:"🏆", color:"purple", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
   {id:"perfect10", icon:"💯", color:"blue", name:"單關滿分", desc:"任一關 10/10"},
-  {id:"pass10", icon:"🗻", color:"gold", name:"日本通", desc:"累積過關 10 關"},
-  {id:"pass30", icon:"🌏", color:"blue", name:"亞洲小博士", desc:"過關 30 關"},
-  {id:"pass60", icon:"🌍", color:"purple", name:"歐洲小博士", desc:"累積過關 60 關"},
+  {id:"pass10", icon:"🗻", color:"gold", name:"日本小達人", desc:"累積過關 10 關"},
+  {id:"pass30", icon:"🌏", color:"blue", name:"亞洲小達人", desc:"過關 30 關"},
+  {id:"pass60", icon:"🌍", color:"purple", name:"歐洲小達人", desc:"累積過關 60 關"},
   {id:"pass100", icon:"🗺️", color:"gold", name:"環遊世界", desc:"全部 100 關完成"}
 ];
 
@@ -1080,7 +1080,7 @@ function renderMap(){
       if(!unlocked) btn.classList.add("locked");
 
       const star = passed ? "⭐" : (unlocked ? "🎯" : "🔒");
-      const mini = passed ? `已通關｜最高 ${best ?? 0}/10` : (unlocked ? "可挑戰｜需 ≥8/10" : "未解鎖｜先過上一關");
+      const mini = passed ? `已通關｜最高 ${best ?? 0}/10` : (unlocked ? "可挑戰" : "未解鎖");
       const city = levelCity(lvl);
 
       btn.innerHTML = `
@@ -1333,10 +1333,10 @@ function renderQuestion(){
 
   modeTagEl.textContent = q.type;
   const modeTitle = {
-    A:"A 聽力選字（聽→選中文｜不顯示英文）",
+    A:"A 聽力選字（聽→選中文）",
     B:"B 看英選字（看英文→選中文）",
     C:"C 中英配對（4 組）",
-    D:"D 聽力拼音（聽→拼英文｜不顯示英文）"
+    D:"D 聽力拼音（聽→拼英文）"
   }[q.type];
 
   qTitleEl.textContent = modeTitle;
@@ -1381,24 +1381,68 @@ function renderQuestion(){
     });
   }
 
-  if(q.type==="D"){
-    const box = document.createElement("div");
-    box.className="center";
-    box.innerHTML = `
-      <div class="hintBox">按「播放」聽單字，輸入你聽到的英文拼字。</div>
-      <div class="typeWrap">
-        <input class="typeInput" id="typeAns" placeholder="請輸入英文拼字" autocomplete="off" autocapitalize="none" />
-      </div>
-      <div class="row" style="justify-content:center; margin-top:12px">
-        <button class="btn primary" id="btnCheck">✅ 送出</button>
+if(q.type==="D"){
+  const box = document.createElement("div");
+  box.className="center";
+  box.innerHTML = `
+    <div class="typeWrap">
+      <input class="typeInput" id="typeAns"
+        placeholder="請輸入英文拼字"
+        autocomplete="off"
+        autocapitalize="none" />
+    </div>
+    <div class="row" style="justify-content:center; margin-top:12px">
+      <button class="btn primary" id="btnCheck">✅ 送出</button>
+    </div>
+  `;
+  questionArea.appendChild(box);
+
+  /* ✅ 新增：前 30 關拼字框框提示 */
+  const isEarlyLevel = game.level <= 30;
+  const hint = document.createElement("div");
+  hint.className = "hintBox";
+
+  if(isEarlyLevel){
+    const letters = q.word.en.split("");
+    const len = letters.length;
+
+    // 短字露 1 個，長字露 2 個
+    const revealCount = len <= 4 ? 1 : 2;
+
+    // 隨機挑位置（不限首字）
+    const idxs = [];
+    while(idxs.length < revealCount){
+      const r = Math.floor(Math.random() * len);
+      if(!idxs.includes(r)) idxs.push(r);
+    }
+
+    // 產生 _ _ p l _ 這種框框
+    const masked = letters
+      .map((ch,i)=> idxs.includes(i) ? ch : "_")
+      .join(" ");
+
+    hint.innerHTML = `
+      🔔 拼字小提醒<br>
+      ・這個單字有 <b>${len}</b> 個字母<br>
+      <div style="margin-top:6px;font-size:22px;letter-spacing:4px">
+        ${masked}
       </div>
     `;
-    questionArea.appendChild(box);
-    const inp = box.querySelector("#typeAns");
-    inp.focus();
-    box.querySelector("#btnCheck").onclick=()=>answerTyping(inp.value);
-    inp.addEventListener("keydown",(e)=>{ if(e.key==="Enter") box.querySelector("#btnCheck").click(); });
+  }else{
+    hint.textContent = "請聽發音，拼出正確英文單字。";
   }
+
+  // ⬆️ 提示放在輸入框上方
+  box.prepend(hint);
+
+  // 原本事件維持不變
+  const inp = box.querySelector("#typeAns");
+  inp.focus();
+  box.querySelector("#btnCheck").onclick = ()=>answerTyping(inp.value);
+  inp.addEventListener("keydown",(e)=>{
+    if(e.key==="Enter") box.querySelector("#btnCheck").click();
+  });
+}
 
   if(q.type==="C"){
     const box = document.createElement("div");
