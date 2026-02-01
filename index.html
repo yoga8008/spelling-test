@@ -509,7 +509,7 @@
   <div class="grid">
     <!-- left -->
     <div class="card panel">
-      <h2>👤 登入</h2>
+      <h2>👤 使用者</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
         <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
@@ -1048,22 +1048,29 @@ function renderBadges(){
 function renderMistakeCard(){
   if(!mistakeBox || !currentStudent) return;
 
-  const m = currentStudent.mistakes || {};
-  const arr = Object.entries(m)
-    .sort((a,b)=> b[1]-a[1])
+  const stats = currentStudent.wordStats || {};
+
+  const arr = Object.entries(stats)
+    // 連對 >=3 → 消失
+    .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
+    // 錯多的排前面
+    .sort((a,b)=> (b[1].wrong||0) - (a[1].wrong||0))
     .slice(0,12);
 
   if(arr.length===0){
-    mistakeBox.innerHTML = `<div class="small" style="color:#64748b">尚無錯誤紀錄 🎉</div>`;
+    mistakeBox.innerHTML = `<div class="small">尚無錯誤紀錄 🎉</div>`;
     return;
   }
 
-  mistakeBox.innerHTML = arr.map(([w,c])=>`
-    <div class="mistakeCard">
-      <b>${w}</b>
-      <small>錯誤 ${c} 次</small>
-    </div>
-  `).join("");
+  mistakeBox.innerHTML = arr.map(([w,st])=>{
+    const danger = st.wrong >= 3;
+    return `
+      <div class="mistakeCard ${danger ? "danger":""}">
+        <b>${w} ${danger ? "⚠️":""}</b>
+        <small>錯 ${st.wrong} 次</small>
+      </div>
+    `;
+  }).join("");
 }
 
 const LEVEL_COUNT = 100;
@@ -1662,20 +1669,37 @@ function applyScore(gain, msg){
 
     if(game.streak===5){ awardBadge("streak5"); popToast("🔥 連續答對 5 題！"); }
     if(game.streak===10){ awardBadge("streak10"); popToast("🔥 連續答對 10 題！"); }
-  }else{
-    game.streak = 0;
-    setFeedback("bad", msg);
-
-    // ✅ 只在答錯時記錄（A/B/D 才有 q.word）
+    
+        // ⭐ 新增：同一單字連續答對次數
     const q = game.questions[game.qIndex];
     if(q.word){
-      currentStudent.mistakes = currentStudent.mistakes || {};
       const w = q.word.en;
-      currentStudent.mistakes[w] = (currentStudent.mistakes[w] || 0) + 1;
+      currentStudent.wordStats = currentStudent.wordStats || {};
+      currentStudent.wordStats[w] = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
+
+      currentStudent.wordStats[w].correctStreak += 1;
+
       saveAll(ALL);
       renderMistakeCard();
     }
+
+}else{
+  game.streak = 0;
+  setFeedback("bad", msg);
+
+  const q = game.questions[game.qIndex];
+  if(q.word){
+    const w = q.word.en;
+    currentStudent.wordStats = currentStudent.wordStats || {};
+    currentStudent.wordStats[w] = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
+
+    currentStudent.wordStats[w].wrong += 1;      // 錯誤 +1
+    currentStudent.wordStats[w].correctStreak = 0; // 錯了就斷連對
+
+    saveAll(ALL);
+    renderMistakeCard();
   }
+}
 
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
