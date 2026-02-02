@@ -538,8 +538,6 @@
 <div class="wrap">
   <div class="grid">
     <!-- left -->
-    <div class="card panel">
-      <h2>👤 使用者</h2>
 <div class="card panel">
   <h2>📋 功能清單</h2>
 
@@ -1267,6 +1265,7 @@ if(t){
   t.textContent = currentStudent
     ? `目前：${currentStudent.name}（已通 ${curClearedEl.textContent} 關）`
     : "尚未登入";
+  }
 }
 
 function login(name){
@@ -1278,7 +1277,6 @@ function login(name){
   if(!name){
     alert("⚠️ 姓名不可空白");
     return;
-    renderMistakeCard();
   }
 
   ALL = loadAll();
