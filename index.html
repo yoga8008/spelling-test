@@ -486,6 +486,12 @@
   color:var(--muted);
   font-weight:900;
 }
+  .mapRight{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
 </style>
 </head>
 <body>
@@ -570,30 +576,38 @@
     </div>
 
     <!-- right -->
-    <div class="card mapShell">
-      <div class="mapHeader">
-        <h2>🗺️ 世界地圖</h2>
-        <div class="row">
-          <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
-          <span class="pill">🔁 可重玩：重玩不影響解鎖</span>
-        </div>
-      </div>
-      <div class="mapNote">提示：達 8 分 → 解鎖下一個城市。</div>
+<!-- right -->
+<div class="mapRight">
 
-      <div class="mapWrap">
-        <div class="mapCanvas" id="mapCanvas">
-          <div id="mapInner"></div>
-        </div>
+  <!-- 世界地圖 -->
+  <div class="card mapShell">
+    <div class="mapHeader">
+      <h2>🗺️ 世界地圖</h2>
+      <div class="row">
+        <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
+        <span class="pill">🔁 可重玩</span>
       </div>
+    </div>
 
-    <div class="card errorShell" style="margin-top:16px">
-     <h2>🧠 常錯誤單字</h2>
-     <div id="mistakeBox" class="mistakeGrid">
-       <div class="small" style="color:#64748b">
-      尚無錯誤紀錄 🎉
+    <div class="mapNote">提示：達 8 分 → 解鎖下一個城市。</div>
+
+    <div class="mapWrap">
+      <div class="mapCanvas" id="mapCanvas">
+        <div id="mapInner"></div>
+      </div>
     </div>
   </div>
+
+  <!-- 常錯誤單字（獨立一塊） -->
+  <div class="card errorShell" style="margin-top:16px">
+    <h2>🧠 常錯誤單字</h2>
+    <div id="mistakeBox" class="mistakeGrid">
+      <div class="small">尚無錯誤紀錄 🎉</div>
+    </div>
+  </div>
+
 </div>
+
 
 <!-- Game Modal -->
 <div class="modalBack" id="gameBack">
