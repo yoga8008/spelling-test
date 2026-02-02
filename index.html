@@ -904,7 +904,7 @@ function ensureStudent(all, name){
       cleared: {},  // level -> {bestScore, passed, attempts, firstClearTs}
       badges: {},
       totalPassed:0,
-      lastPlayed:null
+      lastPlayed:null,
       wordStats:{},
     };
   }
@@ -1239,6 +1239,23 @@ function refreshHomeStats(){
   renderBadges();
   updateQuickPracticeBtn();
 }
+  
+  function updateQuickPracticeBtn(){
+  const btn = el("btnQuickPractice");
+  if(!btn || !currentStudent) return;
+
+  const stats = currentStudent.wordStats || {};
+  const count = Object.values(stats)
+    .filter(st => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
+    .length;
+
+  if(count === 0){
+    btn.style.display = "none";
+  }else{
+    btn.style.display = "inline-flex";
+    btn.textContent = `🧠 快練（${count} 字）`;
+  }
+}
 
 function login(name){
   // ⭐ 先清空舊狀態（關鍵）
@@ -1298,23 +1315,6 @@ el("btnQuickPractice").onclick = startMistakePractice;
 ================================ */
 let game = null;
 let tick=null, t0=0;
-function updateQuickPracticeBtn(){
-  const btn = el("btnQuickPractice");
-  if(!btn || !currentStudent) return;
-
-  const stats = currentStudent.wordStats || {};
-  const count = Object.values(stats)
-    .filter(st => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
-    .length;
-
-  if(count === 0){
-    btn.style.display = "none";
-  }else{
-    btn.style.display = "inline-flex";
-    btn.textContent = `🧠 快練（${count} 字）`;
-  }
-}
-
   function startMistakePractice(){
   if(!currentStudent){
     alert("請先登入");
@@ -1356,6 +1356,10 @@ function updateQuickPracticeBtn(){
   startTimer();
   renderQuestion();
 }
+  modeTagEl.textContent = "快練";
+  el("btnBackToMap").style.display = "none";
+  el("btnPrev").style.display = "none";
+}
 
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
 function fmt(ms){
@@ -1371,9 +1375,9 @@ function startTimer(){
 }
 function openGame(){ gameBack.style.display="flex"; }
 function closeGame(){ gameBack.style.display="none"; stopTimer(); }
-el("btnCloseGame").onclick=closeGame;
-gameBack.addEventListener("click",(e)=>{ if(e.target===gameBack) closeGame(); });
-el("btnBackToMap").onclick=closeGame;
+el("btnBackToMap").style.display = "";
+  el("btnPrev").style.display = "";
+}
 
 function shuffle(arr){
   const a=[...arr];
