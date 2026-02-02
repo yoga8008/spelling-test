@@ -905,6 +905,7 @@ function ensureStudent(all, name){
       badges: {},
       totalPassed:0,
       lastPlayed:null
+      wordStats:{},
     };
   }
   if(!all.settings) all.settings = {};
@@ -1236,6 +1237,7 @@ function refreshHomeStats(){
   continentHint.textContent = lines.join(" ｜ ");
 
   renderBadges();
+  updateQuickPracticeBtn();
 }
 
 function login(name){
@@ -1296,6 +1298,22 @@ el("btnQuickPractice").onclick = startMistakePractice;
 ================================ */
 let game = null;
 let tick=null, t0=0;
+function updateQuickPracticeBtn(){
+  const btn = el("btnQuickPractice");
+  if(!btn || !currentStudent) return;
+
+  const stats = currentStudent.wordStats || {};
+  const count = Object.values(stats)
+    .filter(st => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
+    .length;
+
+  if(count === 0){
+    btn.style.display = "none";
+  }else{
+    btn.style.display = "inline-flex";
+    btn.textContent = `🧠 快練（${count} 字）`;
+  }
+}
 
   function startMistakePractice(){
   if(!currentStudent){
@@ -1911,7 +1929,8 @@ function finishLevel(){
 
   refreshHomeStats();
   renderMap();
-  renderMistakeCard();  
+  renderMistakeCard();
+  updateQuickPracticeBtn();
 
   document.getElementById("btnGoMap2").onclick=closeGame;
   document.getElementById("btnReplayLevel").onclick=()=>startLevel(game.level);
