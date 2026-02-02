@@ -484,36 +484,6 @@
   color:var(--muted);
   font-weight:900;
 }
-  .menuList{
-  display:grid;
-  gap:12px;
-  margin-top:10px;
-}
-
-.menuCard{
-  background:rgba(255,255,255,.95);
-  border:1px solid rgba(148,163,184,.25);
-  border-radius:16px;
-  padding:14px 16px;
-  cursor:pointer;
-  box-shadow: var(--shadow2);
-}
-
-.menuCard:hover{
-  transform:translateY(-1px);
-  filter:brightness(1.02);
-}
-
-.menuCard b{
-  display:block;
-  font-size:16px;
-}
-
-.menuCard small{
-  color:var(--muted);
-  font-weight:900;
-}
-
 </style>
 </head>
 <body>
@@ -534,48 +504,86 @@
     </div>
   </div>
 </div>
+
 <div class="wrap">
   <div class="grid">
+    <!-- left -->
+    <div class="card panel">
+      <h2>👤 使用者</h2>
+      <div class="row" style="justify-content:space-between">
+        <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
+        <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
+      </div>
 
-    <!-- ⬅ 左欄 -->
-    <div>
-
-  <div class="card panel">
-
-  <div class="pill">👤 <b id="curStudent">（尚未登入）</b></div>
-
-  <div class="help">已通關：<b id="curCleared">0</b></div>
-  <div class="help">下一關：<b id="kLevel">—</b></div>
-  <div class="help" id="typeSummary">題型：全選</div>
-  <div class="help" id="continentHint"></div>
-
-  <div class="divider"></div>
-
-  <div class="badges" id="badgeBox"></div>
-
-</div>
-
-    <!-- ➡ 右欄（重點在這裡） -->
-    <div>
-
-      <div class="card mapShell">
-        <h2 style="padding:14px 16px 0">🗺️ 世界地圖</h2>
-        <div class="mapWrap">
-          <div class="mapCanvas" id="mapCanvas">
-            <div id="mapInner"></div>
-          </div>
+      <div style="margin-top:10px">
+        <div class="label">輸入姓名（不可空白）</div>
+        <div class="row" style="margin-top:6px">
+          <input class="input" id="studentName" placeholder="例：小明 / 小美" />
+          <button class="btn primary" id="btnLogin">登入</button>
+        </div>
+        <div class="help">
+          ✅ 同一台手機/平板會記住多位使用者。<br/>
+          ⚠️ 不同手機登入：資料只存在各自裝置。無線上即時同步資料。
         </div>
       </div>
 
-      <div class="card errorShell" style="margin-top:16px">
-        <h2>🧠 常錯誤單字</h2>
-        <div id="mistakeBox" class="mistakeGrid">
-          <div class="small">尚無錯誤紀錄 🎉</div>
-        </div>
+      <div class="divider"></div>
+
+      <h2>🏅 徽章</h2>
+      <div class="badges" id="badgeBox"></div>
+
+      <div class="divider"></div>
+
+      <h2>🌍 旅遊進度</h2>
+      <div class="help" id="continentHint">登入後會顯示每洲進度。</div>
+
+      <div class="divider"></div>
+
+      <h2>⚙️ 題型設定</h2>
+      <div class="row">
+        <span class="pill">目前題型：<b id="typeSummary">全選 A/B/C/D</b></span>
+      </div>
+      <div class="help">
+        若選「全選」，每關 10 題會混合 A/B/C/D（平均分配，並隨機排序）。<br/>
       </div>
 
+      <div class="divider"></div>
+
+      <h2>▶️ 開始</h2>
+      <div class="row">
+        <button class="btn primary" id="btnStartNext">🚀 開始挑戰</button>
+        <button class="btn ghost" id="btnGoMap">🗺️ 回到世界地圖</button>
+      </div>
+      <div class="kpi">
+        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
+        <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
+        <div class="k"><b id="kBest">—</b><small>本關最高分</small></div>
+      </div>
     </div>
 
+    <!-- right -->
+    <div class="card mapShell">
+      <div class="mapHeader">
+        <h2>🗺️ 世界地圖</h2>
+        <div class="row">
+          <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
+          <span class="pill">🔁 可重玩：重玩不影響解鎖</span>
+        </div>
+      </div>
+      <div class="mapNote">提示：達 8 分 → 解鎖下一個城市。</div>
+
+      <div class="mapWrap">
+        <div class="mapCanvas" id="mapCanvas">
+          <div id="mapInner"></div>
+        </div>
+      </div>
+
+    <div class="card errorShell" style="margin-top:16px">
+     <h2>🧠 常錯誤單字</h2>
+     <div id="mistakeBox" class="mistakeGrid">
+       <div class="small" style="color:#64748b">
+      尚無錯誤紀錄 🎉
+    </div>
   </div>
 </div>
 
@@ -890,6 +898,7 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
 const curStudentEl = el("curStudent");
 const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
+const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
 const badgeBox = el("badgeBox");
 const mapInner = el("mapInner");
@@ -1179,6 +1188,7 @@ function refreshHomeStats(){
     curStudentEl.textContent="（尚未登入）";
     curClearedEl.textContent="0";
     kLevelEl.textContent="—";
+    kBestEl.textContent="—";
     continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
     renderBadges();
     return;
@@ -1190,6 +1200,7 @@ function refreshHomeStats(){
   const next = Math.min(LEVEL_COUNT, passedCount+1);
   kLevelEl.textContent = `${levelCity(next)}`;
   const best = currentStudent.cleared?.[String(next)]?.bestScore;
+  kBestEl.textContent = (best==null) ? "—" : `${best}/10`;
 
   // update continent hint (summary)
   const grouped = groupLevelsByContinent();
@@ -1202,12 +1213,6 @@ function refreshHomeStats(){
   continentHint.textContent = lines.join(" ｜ ");
 
   renderBadges();
-  const t = el("menuProfileText");
-if(t){
-  t.textContent = currentStudent
-    ? `目前：${currentStudent.name}（已通 ${curClearedEl.textContent} 關）`
-    : "尚未登入";
-  }
 }
 
 function login(name){
@@ -1219,6 +1224,7 @@ function login(name){
   if(!name){
     alert("⚠️ 姓名不可空白");
     return;
+    renderMistakeCard();
   }
 
   ALL = loadAll();
@@ -1884,19 +1890,6 @@ function finishLevel(){
   }
 })();
 
- el("menuProfile").onclick = ()=>{
-  document.getElementById("studentName").focus();
-};
-
-el("menuMap").onclick = ()=>{
-  document.getElementById("mapCanvas")
-    .scrollIntoView({behavior:"smooth"});
-};
-
-el("menuMistake").onclick = ()=>{
-  document.getElementById("mistakeBox")
-    .scrollIntoView({behavior:"smooth"});
-}; 
 </script>
 </body>
 </html>
