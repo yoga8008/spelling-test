@@ -628,7 +628,6 @@
         </div>
       </div>
    
-<div class="card mapShell">
   <!-- 世界地圖 -->
 </div>
 
@@ -950,7 +949,6 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
 const curStudentEl = el("curStudent");
 const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
-const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
 const badgeBox = el("badgeBox");
 const mapInner = el("mapInner");
@@ -1240,7 +1238,6 @@ function refreshHomeStats(){
     curStudentEl.textContent="（尚未登入）";
     curClearedEl.textContent="0";
     kLevelEl.textContent="—";
-    kBestEl.textContent="—";
     continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
     renderBadges();
     return;
@@ -1252,7 +1249,6 @@ function refreshHomeStats(){
   const next = Math.min(LEVEL_COUNT, passedCount+1);
   kLevelEl.textContent = `${levelCity(next)}`;
   const best = currentStudent.cleared?.[String(next)]?.bestScore;
-  kBestEl.textContent = (best==null) ? "—" : `${best}/10`;
 
   // update continent hint (summary)
   const grouped = groupLevelsByContinent();
