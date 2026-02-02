@@ -618,11 +618,6 @@
     </div>
     <div class="modalBody">
       <div class="gameHeader">
-        <!-- Side Mistake Helper -->
-<div id="sideMistake" class="card panel" style="margin-top:12px; display:none">
-  <h2>🧠 本關易錯字</h2>
-  <div id="sideMistakeList" class="mistakeGrid"></div>
-</div>
         <div class="left">
           <span class="pill">題目：<b id="qIdx">1</b>/10</span>
           <span class="pill">得分：<b id="score">0</b>/10</span>
@@ -1070,54 +1065,7 @@ function renderBadges(){
 /* ==============================
    Map helpers (unlock/pass/best)
 ================================ */
-function renderSideMistake(questions){
-  const box = el("sideMistake");
-  const list = el("sideMistakeList");
-  if(!box || !currentStudent) return;
 
-  const stats = currentStudent.wordStats || {};
-
-  // 本關會用到的單字
-  const wordsInLevel = [
-    ...new Set(
-      questions
-        .filter(q=>q.word)
-        .map(q=>q.word.en)
-    )
-  ];
-
-  const targets = wordsInLevel
-    .map(en=>({
-      en,
-      st: stats[en] || {wrong:0, correctStreak:0}
-    }))
-    .filter(x=>x.st.wrong>=2 || x.st.correctStreak<3);
-
-  if(!targets.length){
-    box.style.display="none";
-    return;
-  }
-
-  box.style.display="block";
-  list.innerHTML = "";
-
-  targets.forEach(x=>{
-    const d=document.createElement("div");
-    d.className="mistakeCard";
-    d.innerHTML = `
-      <b>${x.en} ${x.st.wrong>=3?"⚠️":""}</b>
-      <small>錯 ${x.st.wrong} 次</small>
-      <div style="margin-top:6px">
-        <button class="btn ghost">練一下</button>
-      </div>
-    `;
-    d.querySelector("button").onclick=()=>{
-      startMistakePractice(x.en); // ⬅ 接到你已有的快練
-    };
-    list.appendChild(d);
-  });
-}
-  
 function renderMistakeCard(){
   if(!mistakeBox || !currentStudent) return;
 
@@ -1486,7 +1434,6 @@ function startLevel(level){
   updateRateUI();
   startTimer();
   renderQuestion();
-  renderSideMistake(game.questions);
 }
 
 function renderQuestion(){
