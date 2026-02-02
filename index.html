@@ -565,9 +565,9 @@
 
       <h2>▶️ 選單</h2>
       <div class="row" style="flex-wrap:nowrap; gap:10px">
-        <button class="btn primary" id="btnStartNext">🚀 開始挑戰</button>
+        <button class="btn primary" id="btnStartNext">🚀 關卡模式</button>
         <button class="btn ghost" id="btnQuickPractice" style="display:none">🧠 複習模式</button>
-        <button class="btn ghost" id="btnGoMap">🗺️ 回到世界地圖</button>
+        <button class="btn ghost" id="btnGoMap">🗺️ 世界地圖</button>
       </div>
       <div class="kpi">
         <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
@@ -1910,7 +1910,7 @@ function finishLevel(){
 
   const msg = passed
     ? `🎉 通過！得分：<b>${s}/10</b>（≥8 會解鎖下一關）<br/><span class="small">時間：${fmt(spent)}</span>`
-    : `❌ 未通過。得分：<b>${s}/10</b>（需要 ≥8 才能解鎖下一關）<br/><span class="small">可以重玩本關再挑戰。</span>`;
+    : `❌ 未通過。得分：<b>${s}/10</b>（需要 ≥8 才能解鎖下一關）<br/><span class="small">可以重新挑戰。</span>`;
 
   const city = levelCity(game.level);
   const next = Math.min(LEVEL_COUNT, game.level+1);
