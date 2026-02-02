@@ -1315,7 +1315,7 @@ el("btnQuickPractice").onclick = startMistakePractice;
 ================================ */
 let game = null;
 let tick=null, t0=0;
-  function startMistakePractice(){
+function startMistakePractice(){
   if(!currentStudent){
     alert("請先登入");
     return;
@@ -1334,7 +1334,6 @@ let tick=null, t0=0;
     return;
   }
 
-  // ⚠️ 關鍵：這裡不是關卡模式
   game = {
     level: "mistake",
     qIndex: 0,
@@ -1343,7 +1342,7 @@ let tick=null, t0=0;
     streakBest: 0,
     startedAt: Date.now(),
     questions: mistakeWords.map(w=>({
-      type: "D",              // 快練用拼字（最有效）
+      type: "D",
       word: w,
       answered:false
     })),
@@ -1355,7 +1354,8 @@ let tick=null, t0=0;
   updateRateUI();
   startTimer();
   renderQuestion();
-}
+
+  // ⭐ 一定要在 function 裡
   modeTagEl.textContent = "快練";
   el("btnBackToMap").style.display = "none";
   el("btnPrev").style.display = "none";
@@ -1374,11 +1374,17 @@ function startTimer(){
   tick=setInterval(()=>{ timeEl.textContent = fmt(Date.now()-t0); }, 200);
 }
 function openGame(){ gameBack.style.display="flex"; }
-function closeGame(){ gameBack.style.display="none"; stopTimer(); }
-el("btnBackToMap").style.display = "";
+function closeGame(){
+  gameBack.style.display="none";
+  stopTimer();
+
+  el("btnBackToMap").style.display = "";
   el("btnPrev").style.display = "";
 }
-
+el("btnCloseGame").onclick = closeGame;
+gameBack.addEventListener("click",(e)=>{ if(e.target===gameBack) closeGame(); });
+el("btnBackToMap").onclick = closeGame;
+  
 function shuffle(arr){
   const a=[...arr];
   for(let i=a.length-1;i>0;i--){
