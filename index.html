@@ -1289,13 +1289,55 @@ el("btnStartNext").onclick=()=>{
 };
 
   // ⭐ 快練模式按鈕（貼這行）
-el("btnStartMistake").onclick = startMistakePractice;
+el("btnQuickPractice").onclick = startMistakePractice;
   
 /* ==============================
    Game engine
 ================================ */
 let game = null;
 let tick=null, t0=0;
+
+  function startMistakePractice(){
+  if(!currentStudent){
+    alert("請先登入");
+    return;
+  }
+
+  const stats = currentStudent.wordStats || {};
+  const mistakeWords = Object.entries(stats)
+    .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
+    .sort((a,b)=> (b[1].wrong||0)-(a[1].wrong||0))
+    .slice(0,10)
+    .map(([w])=> WORDS.find(x=>x.en===w))
+    .filter(Boolean);
+
+  if(mistakeWords.length===0){
+    alert("🎉 沒有需要快練的單字！");
+    return;
+  }
+
+  // ⚠️ 關鍵：這裡不是關卡模式
+  game = {
+    level: "mistake",
+    qIndex: 0,
+    score: 0,
+    streak: 0,
+    streakBest: 0,
+    startedAt: Date.now(),
+    questions: mistakeWords.map(w=>({
+      type: "D",              // 快練用拼字（最有效）
+      word: w,
+      answered:false
+    })),
+    history:[]
+  };
+
+  gameTitle.textContent = "🧠 錯誤快練";
+  openGame();
+  updateRateUI();
+  startTimer();
+  renderQuestion();
+}
 
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
 function fmt(ms){
@@ -1422,48 +1464,6 @@ function startLevel(level){
       questions.push({type, word, choices: buildChoices(word.zh), answered:false, correct:null});
     }
   }
-
-  function startMistakePractice(){
-  if(!currentStudent){
-    alert("請先登入");
-    return;
-  }
-
-  const stats = currentStudent.wordStats || {};
-  const mistakeWords = Object.entries(stats)
-    .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
-    .sort((a,b)=> (b[1].wrong||0)-(a[1].wrong||0))
-    .slice(0,10)
-    .map(([w])=> WORDS.find(x=>x.en===w))
-    .filter(Boolean);
-
-  if(mistakeWords.length===0){
-    alert("🎉 沒有需要快練的單字！");
-    return;
-  }
-
-  // ⚠️ 關鍵：這裡不是關卡模式
-  game = {
-    level: "mistake",
-    qIndex: 0,
-    score: 0,
-    streak: 0,
-    streakBest: 0,
-    startedAt: Date.now(),
-    questions: mistakeWords.map(w=>({
-      type: "D",              // 快練用拼字（最有效）
-      word: w,
-      answered:false
-    })),
-    history:[]
-  };
-
-  gameTitle.textContent = "🧠 錯誤快練";
-  openGame();
-  updateRateUI();
-  startTimer();
-  renderQuestion();
-}
 
   game = {
     level,
