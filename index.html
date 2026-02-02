@@ -484,6 +484,36 @@
   color:var(--muted);
   font-weight:900;
 }
+  .menuList{
+  display:grid;
+  gap:12px;
+  margin-top:10px;
+}
+
+.menuCard{
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(148,163,184,.25);
+  border-radius:16px;
+  padding:14px 16px;
+  cursor:pointer;
+  box-shadow: var(--shadow2);
+}
+
+.menuCard:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.02);
+}
+
+.menuCard b{
+  display:block;
+  font-size:16px;
+}
+
+.menuCard small{
+  color:var(--muted);
+  font-weight:900;
+}
+
 </style>
 </head>
 <body>
@@ -510,10 +540,28 @@
     <!-- left -->
     <div class="card panel">
       <h2>👤 使用者</h2>
-      <div class="row" style="justify-content:space-between">
-        <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
-        <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
-      </div>
+<div class="card panel">
+  <h2>📋 功能清單</h2>
+
+  <div class="menuList">
+
+    <div class="menuCard" id="menuProfile">
+      <b>👤 使用者</b>
+      <small id="menuProfileText">尚未登入</small>
+    </div>
+
+    <div class="menuCard" id="menuMap">
+      <b>🗺️ 世界地圖</b>
+      <small>查看關卡與進度</small>
+    </div>
+
+    <div class="menuCard" id="menuMistake">
+      <b>🧠 常錯單字</b>
+      <small>需要加強的單字</small>
+    </div>
+
+  </div>
+</div>
 
       <div style="margin-top:10px">
         <div class="label">輸入姓名（不可空白）</div>
@@ -1214,6 +1262,11 @@ function refreshHomeStats(){
   continentHint.textContent = lines.join(" ｜ ");
 
   renderBadges();
+  const t = el("menuProfileText");
+if(t){
+  t.textContent = currentStudent
+    ? `目前：${currentStudent.name}（已通 ${curClearedEl.textContent} 關）`
+    : "尚未登入";
 }
 
 function login(name){
@@ -1891,6 +1944,19 @@ function finishLevel(){
   }
 })();
 
+ el("menuProfile").onclick = ()=>{
+  document.getElementById("studentName").focus();
+};
+
+el("menuMap").onclick = ()=>{
+  document.getElementById("mapCanvas")
+    .scrollIntoView({behavior:"smooth"});
+};
+
+el("menuMistake").onclick = ()=>{
+  document.getElementById("mistakeBox")
+    .scrollIntoView({behavior:"smooth"});
+}; 
 </script>
 </body>
 </html>
