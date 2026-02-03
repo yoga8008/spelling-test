@@ -1569,8 +1569,11 @@ function renderQuestion(){
     D:"D 聽力拼音（聽→拼英文）"
   }[q.type];
 
-  qTitleEl.textContent = modeTitle;
-  qSubEl.textContent = `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分才能解鎖下一關`;
+  if(game.mode === "challenge"){
+  qSubEl.textContent = "限時挑戰中｜剩餘時間內盡量得分";
+}else{
+  qSubEl.textContent =
+    `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分才能解鎖下一關`;
 
   questionArea.innerHTML = "";
 
