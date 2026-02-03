@@ -1005,7 +1005,7 @@ function renderMistakeCard(){
     .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
     // 錯多的排前面
     .sort((a,b)=> (b[1].wrong||0) - (a[1].wrong||0))
-    .slice(0,12);
+    .slice(0,10);
 
   if(arr.length===0){
     mistakeBox.innerHTML = `<div class="small">尚無錯誤紀錄 🎉</div>`;
