@@ -806,8 +806,6 @@ const CONTINENT_BADGE = {
   "大洋洲 Oceania":"🦘"
 };
 
-console.log("📚 題庫載入完成，共", WORDS.length, "筆");
-
 /* ==============================
    Storage / Student
 ================================ */
@@ -1262,7 +1260,7 @@ el("btnStartNext").onclick=()=>{
     alert("請先輸入姓名登入。");
     return;
   }
-  startChallenge(); // ⭐ 關卡模式 = 挑戰模式
+  startChallenge(); // ⭐ 進入限時挑戰模式
 };
 
   // ⭐ 複習模式按鈕（貼這行）
@@ -1594,7 +1592,6 @@ function startChallenge(){
 }
   
 function renderQuestion(){
-  game.playCount = game.playCount || 0;
   clearFeedback();
   updateTop();
   const q = game.questions[game.qIndex];
