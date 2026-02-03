@@ -1507,11 +1507,21 @@ function buildChoices(correctZh){
 }
 
 function updateTop(){
+  // 🏁 限時挑戰
+  if(game.mode === "challenge"){
+    gameTitle.textContent = "🏁 限時挑戰";
+    qIdxEl.textContent = String(game.qIndex + 1);
+    scoreEl.textContent = String(game.score);
+    barEl.style.width = "0%";
+    return;
+  }
+
+  // 🗺️ 關卡模式（原本）
   const city = levelCity(game.level);
   gameTitle.textContent = `📍 ${city}`;
-  qIdxEl.textContent = String(game.qIndex+1);
+  qIdxEl.textContent = String(game.qIndex + 1);
   scoreEl.textContent = String(game.score);
-  barEl.style.width = `${((game.qIndex)/Q_PER_LEVEL)*100}%`;
+  barEl.style.width = `${((game.qIndex) / Q_PER_LEVEL) * 100}%`;
 }
 
 function startLevel(level){
@@ -1581,6 +1591,8 @@ function startChallenge(){
   modeTagEl.textContent = "挑戰";
   el("btnBackToMap").style.display = "none";
   el("btnPrev").style.display = "none";
+  document.querySelector(".gameHeader .pill:nth-child(3)").innerHTML =
+  "目標：<b>盡量得分</b>";
 }
   
 function renderQuestion(){
