@@ -618,11 +618,31 @@
     <div class="modalBody">
       <div class="gameHeader">
         <div class="left">
-          <span class="pill">✅ 已答對：<b id="qIdx">0</b> 題</span>
-          <span class="pill">🔥 連對中：<b id="streak">0</b></span>
-          <span class="pill">🏆 最高連對：<b id="streakBest">0</b></span>
-          <span class="modeTag" id="modeTag">A</span>
+  <!-- 🗺️ 關卡模式顯示 -->
+  <span class="pill levelOnly">
+    📘 已作答：<b id="qIdx">0</b>/10
+  </span>
+  <span class="pill levelOnly">
+    🎯 得分：<b id="score">0</b>/10
+  </span>
+  <span class="pill levelOnly">
+    ⭐ 目標：≥8 解鎖下一關
+  </span>
+
+  <!-- 🏁 挑戰模式顯示 -->
+  <span class="pill challengeOnly" style="display:none">
+    ✅ 已答對：<b id="qIdx2">0</b>
+  </span>
+  <span class="pill challengeOnly" style="display:none">
+    🔥 連對中：<b id="streak">0</b>
+  </span>
+  <span class="pill challengeOnly" style="display:none">
+    🏆 最高連對：<b id="streakBest">0</b>
+  </span>
+
+  <span class="modeTag" id="modeTag">A</span>
 </div>
+
         <div class="row">
           <div class="timer">⏱️ <span id="time">00:00</span></div>
           <div class="progressBar"><div id="bar"></div></div>
