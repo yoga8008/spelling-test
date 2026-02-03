@@ -1619,11 +1619,15 @@ function renderQuestion(){
     D:"D 聽力拼音（聽→拼英文）"
   }[q.type];
 
-  if(game.mode === "challenge"){
-  qSubEl.textContent = "挑戰模式中｜時間內盡量得分";
-}else{
+if(game.mode === "practice"){
+  qSubEl.textContent = "📖 複習常錯單字｜加強記憶多練習";
+}
+else if(game.mode === "challenge"){
+  qSubEl.textContent = "限時挑戰中｜時間內盡量得分";
+}
+else{
   qSubEl.textContent =
-    `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分才能解鎖下一關`;
+    `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分解鎖下一關`;
 }
   questionArea.innerHTML = "";
 
