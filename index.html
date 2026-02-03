@@ -1533,28 +1533,37 @@ function buildChoices(correctZh){
 
 function updateTop(){
   // 🏁 限時挑戰
-if(game.mode === "challenge"){
-  gameTitle.textContent = "🏁 限時挑戰";
+  if(game.mode === "challenge"){
+    gameTitle.textContent = "🏁 限時挑戰";
 
-  // 顯示 / 隱藏
-  document.querySelectorAll(".levelOnly").forEach(e=>e.style.display="none");
-  document.querySelectorAll(".challengeOnly").forEach(e=>e.style.display="inline-flex");
+    // 🔥 只顯示挑戰用
+    document.querySelectorAll(".levelOnly")
+      .forEach(e=>e.style.display="none");
+    document.querySelectorAll(".challengeOnly")
+      .forEach(e=>e.style.display="inline-flex");
 
-  // 數字
-  qIdx2El.textContent = game.score;
-  streakEl.textContent = game.streak;
-  streakBestEl.textContent = game.streakBest;
+    qIdx2El.textContent = game.score;
+    streakEl.textContent = game.streak;
+    streakBestEl.textContent = game.streakBest;
 
-  barEl.style.width = "0%";
-  return;
-}
+    barEl.style.width = "0%";
+    return;
+  }
 
-  // 🗺️ 關卡模式（原本）
+  // 🗺️ 關卡模式（⭐ 目標 ≥8 只在這裡出現）
+  document.querySelectorAll(".levelOnly")
+    .forEach(e=>e.style.display="inline-flex");
+  document.querySelectorAll(".challengeOnly")
+    .forEach(e=>e.style.display="none");
+
   const city = levelCity(game.level);
   gameTitle.textContent = `📍 ${city}`;
-  qIdxEl.textContent = String(game.qIndex + 1);
-  scoreEl.textContent = String(game.score);
-  barEl.style.width = `${((game.qIndex) / Q_PER_LEVEL) * 100}%`;
+
+  qIdxEl.textContent = game.qIndex + 1;
+  scoreEl.textContent = game.score;
+
+  barEl.style.width =
+    `${(game.qIndex / Q_PER_LEVEL) * 100}%`;
 }
 
 function startLevel(level){
