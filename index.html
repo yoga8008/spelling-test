@@ -1295,7 +1295,24 @@ el("btnResetStudent").onclick=()=>{
   alert("已清除。");
 };
 
-el("btnGoMap").onclick=()=>{ el("mapCanvas").scrollIntoView({behavior:"smooth"}); };
+el("btnGoMap").onclick=()=>{
+  if(!currentStudent){
+    alert("請先輸入姓名登入。");
+    return;
+  }
+
+  const passedCount = Object.values(currentStudent.cleared||{})
+    .filter(x=>x.passed).length;
+
+  const next = Math.min(LEVEL_COUNT, passedCount + 1);
+
+  if(!levelUnlocked(next)){
+    alert("⚠️ 目前尚未解鎖任何關卡。");
+    return;
+  }
+
+  startLevel(next); // ⭐ 直接進當前城市關卡
+};
 
 el("btnStartNext").onclick=()=>{
   if(!currentStudent){
