@@ -1745,7 +1745,8 @@ if(q.type==="D"){
   questionArea.appendChild(box);
 
   /* ✅ 新增：前 30 關拼字框框提示 */
-  const isEarlyLevel = game.level <= 30;
+  const isEarlyLevel =
+  game.mode === "practice" || game.level <= 30;
   const hint = document.createElement("div");
   hint.className = "hintBox";
 
