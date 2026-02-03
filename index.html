@@ -1332,6 +1332,7 @@ function startMistakePractice(){
   }
 
   game = {
+    mode: "practice",
     level: "mistake",
     qIndex: 0,
     score: 0,
@@ -1491,6 +1492,7 @@ function startLevel(level){
   }
 
   game = {
+    mode: "level",
     level,
     qIndex:0,
     score:0,
@@ -1873,6 +1875,10 @@ function fireConfetti(){
 }
 
 function finishLevel(){
+  if(game.mode !== "level"){
+  finishPractice();
+  return;
+}
   stopTimer();
   const spent = Date.now() - game.startedAt;
   const s = game.score;
@@ -1956,6 +1962,25 @@ function finishLevel(){
   el("btnNext").disabled=true;
 }
 
+function finishPractice(){
+  const s = game.score;
+  const spent = Date.now() - game.startedAt;
+
+  questionArea.innerHTML = `
+    <div class="center">
+      <div class="qTitle">📖 複習完成</div>
+      <div class="msg good" style="display:inline-block">
+        本次答對 <b>${s}</b> 題<br/>
+        <span class="small">時間：${fmt(spent)}</span>
+      </div>
+      <div style="margin-top:14px">
+        <button class="btn primary" id="btnBackHome">⬅️ 回主畫面</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("btnBackHome").onclick = closeGame;
+}  
 /* ==============================
    Init
 ================================ */
