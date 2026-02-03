@@ -1260,7 +1260,7 @@ el("btnStartNext").onclick=()=>{
     alert("請先輸入姓名登入。");
     return;
   }
-  startChallenge(); // ⭐ 進入限時挑戰模式
+  startChallenge(); // ⭐ 進入挑戰模式
 };
 
   // ⭐ 複習模式按鈕（貼這行）
@@ -1485,9 +1485,9 @@ function buildChoices(correctZh){
 }
 
 function updateTop(){
-  // 🏁 限時挑戰
+  // 🏁 挑戰模式
   if(game.mode === "challenge"){
-    gameTitle.textContent = "🏁 限時挑戰";
+    gameTitle.textContent = "🏁 挑戰模式";
 
     // 🔥 只顯示挑戰用
     document.querySelectorAll(".levelOnly")
@@ -1580,7 +1580,7 @@ function startChallenge(){
     usedWords: new Set()
   };
 
-  gameTitle.textContent = "🏁 限時挑戰";
+  gameTitle.textContent = "🏁 挑戰模式";
   openGame();
   updateRateUI();
   startTimer();
@@ -1605,7 +1605,7 @@ function renderQuestion(){
   }[q.type];
 
   if(game.mode === "challenge"){
-  qSubEl.textContent = "限時挑戰中｜剩餘時間內盡量得分";
+  qSubEl.textContent = "挑戰模式中｜時間內盡量得分";
 }else{
   qSubEl.textContent =
     `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分才能解鎖下一關`;
@@ -2090,7 +2090,7 @@ function finishPractice(){
 
   questionArea.innerHTML = `
     <div class="center">
-      <div class="qTitle">🏁 限時挑戰結束</div>
+      <div class="qTitle">🏁 挑戰模式結束</div>
       <div class="msg good" style="display:inline-block">
         本次得分：<b>${s}</b> 分<br/>
         🏆 最高紀錄：<b>${currentStudent.challengeBest}</b> 分<br/>
