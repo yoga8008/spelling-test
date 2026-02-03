@@ -507,8 +507,8 @@
     </div>
     <div class="actions">
       <button class="btn ghost" id="btnFullscreen">🖥️ 全螢幕<span class="fsTip">（平板建議）</span></button>
-      <button class="btn ghost" id="btnOpenTypeModal">🧩 題型選擇</button>
-      <button class="btn ghost" id="btnResetStudent">🧹 清除本機資料</button>
+      <button class="btn ghost" id="btnOpenTypeModal">🧩 題型設定</button>
+      <button class="btn ghost" id="btnResetStudent">🧹 本機重置</button>
     </div>
   </div>
 </div>
@@ -530,7 +530,7 @@
   <input
     class="input"
     id="studentName"
-    placeholder="例：小明 / 小美"
+    placeholder="e.g. Name"
     style="flex:1"
   />
   <button class="btn primary" id="btnLogin">登入</button>
@@ -566,7 +566,7 @@
       <h2>▶️ 選單</h2>
       <div class="row" style="flex-wrap:nowrap; gap:10px">
         <button class="btn primary" id="btnStartNext">🚀 關卡模式</button>
-        <button class="btn ghost" id="btnQuickPractice" style="display:none">🧠 複習模式</button>
+        <button class="btn ghost" id="btnQuickPractice" style="display:none">📖 複習模式</button>
         <button class="btn ghost" id="btnGoMap">🗺️ 世界地圖</button>
       </div>
       <div class="kpi">
@@ -601,14 +601,12 @@
 
   <!-- 常錯誤單字（獨立一塊） -->
   <div class="card errorShell" style="margin-top:16px">
-    <h2>🧠 常錯誤單字</h2>
+    <h2>⚠️ 常錯誤單字</h2>
     <div id="mistakeBox" class="mistakeGrid">
       <div class="small">尚無錯誤紀錄 🎉</div>
     </div>
   </div>
-
 </div>
-
 
 <!-- Game Modal -->
 <div class="modalBack" id="gameBack">
@@ -1253,7 +1251,7 @@ function refreshHomeStats(){
     btn.style.display = "none";
   }else{
     btn.style.display = "inline-flex";
-    btn.textContent = `🧠 複習模式（${count} 字）`;
+    btn.textContent = "📖 複習模式";
   }
 }
 
