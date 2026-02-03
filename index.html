@@ -951,6 +951,9 @@ const gameBack = el("gameBack");
 const gameTitle = el("gameTitle");
 const qIdxEl = el("qIdx");
 const scoreEl = el("score");
+const qIdx2El = el("qIdx2");      // 挑戰用 已答對
+const streakEl = el("streak");
+const streakBestEl = el("streakBest");  
 const modeTagEl = el("modeTag");
 const streakEl = el("streak");
 const streakBestEl = el("streakBest");
@@ -1533,9 +1536,14 @@ function updateTop(){
 if(game.mode === "challenge"){
   gameTitle.textContent = "🏁 限時挑戰";
 
-  qIdxEl.textContent = game.score;            // 已答對
-  streakEl.textContent = game.streak;         // 目前連對
-  streakBestEl.textContent = game.streakBest; // 最高連對
+  // 顯示 / 隱藏
+  document.querySelectorAll(".levelOnly").forEach(e=>e.style.display="none");
+  document.querySelectorAll(".challengeOnly").forEach(e=>e.style.display="inline-flex");
+
+  // 數字
+  qIdx2El.textContent = game.score;
+  streakEl.textContent = game.streak;
+  streakBestEl.textContent = game.streakBest;
 
   barEl.style.width = "0%";
   return;
