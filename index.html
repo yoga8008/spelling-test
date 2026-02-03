@@ -1875,6 +1875,7 @@ function fireConfetti(){
 }
 
 function finishLevel(){
+  stopTimer();
   if(game.mode !== "level"){
   finishPractice();
   return;
