@@ -1759,9 +1759,14 @@ if(q.type==="D"){
   `;
   questionArea.appendChild(box);
 
-  /* ✅ 新增：前 30 關拼字框框提示 */
+  // ✅ Lv71+：D 題完全不顯示提示
+const isNoHint =
+  game.mode === "level" && game.level >= 71;
+
+if(!isNoHint){
   const isEarlyLevel =
-  game.mode === "practice" || game.level <= 30;
+    game.mode === "practice" || game.level <= 30;
+
   const hint = document.createElement("div");
   hint.className = "hintBox";
 
@@ -1769,17 +1774,13 @@ if(q.type==="D"){
     const letters = q.word.en.split("");
     const len = letters.length;
 
-    // 短字露 1 個，長字露 2 個
     const revealCount = len <= 4 ? 1 : 2;
-
-    // 隨機挑位置（不限首字）
     const idxs = [];
     while(idxs.length < revealCount){
       const r = Math.floor(Math.random() * len);
       if(!idxs.includes(r)) idxs.push(r);
     }
 
-    // 產生 _ _ p l _ 這種框框
     const masked = letters
       .map((ch,i)=> idxs.includes(i) ? ch : "_")
       .join(" ");
@@ -1795,8 +1796,9 @@ if(q.type==="D"){
     hint.textContent = "請聽發音，拼出正確英文單字。";
   }
 
-  // ⬆️ 提示放在輸入框上方
   box.prepend(hint);
+}
+
 
 const inp = box.querySelector("#typeAns");
 const btn = box.querySelector("#btnCheck");
