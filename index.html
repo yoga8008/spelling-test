@@ -1550,7 +1550,20 @@ function speakWord(word){
 }
 el("btnPlay").onclick=()=>{
   if(!game) return;
+
+  const lv = game.level;
   const q = game.questions[game.qIndex];
+
+  // 🔒 Lv 51–70：只能播放 1 次
+  if(game.mode==="level" && lv >= 51 && lv <= 70){
+    if(game.playCount >= 1){
+      setFeedback("bad", "🔒 本題只能播放一次");
+      return;
+    }
+  }
+
+  game.playCount += 1;
+
   if(q.type==="A" || q.type==="D") speakWord(q.word.en);
   else if(q.type==="B") speakWord(q.word.en);
   else if(q.type==="C") speakWord(q.pairs[0].en);
@@ -1632,6 +1645,7 @@ function startLevel(level){
     startedAt: Date.now(),
     questions,
     history: Array(Q_PER_LEVEL).fill(null)
+    playCount: 0
   };
 
   openGame();
@@ -1671,6 +1685,7 @@ function startChallenge(){
 }
   
 function renderQuestion(){
+  game.playCount = 0;
   clearFeedback();
   updateTop();
   const q = game.questions[game.qIndex];
