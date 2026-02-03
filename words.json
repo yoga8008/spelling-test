@@ -40,7 +40,7 @@
   { "en": "blue", "zh": "藍色" },
   { "en": "boat", "zh": "船" },
   { "en": "book", "zh": "書" },
-  {({ "en": "box", "zh": "盒子" },
+  { "en": "box", "zh": "盒子" },
   { "en": "boy", "zh": "男孩" },
   { "en": "bread", "zh": "麵包" },
   { "en": "breakfast", "zh": "早餐" },
