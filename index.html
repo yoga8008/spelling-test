@@ -718,6 +718,18 @@
 <div class="pop" id="pop"></div>
 
 <script>
+  let WORDS = [];
+
+fetch("./words.json")
+  .then(res => res.json())
+  .then(data=>{
+  WORDS = data;
+  realInit();
+});
+  .catch(err=>{
+    alert("題庫載入失敗");
+    console.error(err);
+  });
 /* ==============================
    0) 世界地圖：100 關（城市＋洲別）
 ================================ */
@@ -793,112 +805,7 @@ const CONTINENT_BADGE = {
   "大洋洲 Oceania":"🦘"
 };
 
-/* ==============================
-   1) 題庫（153 題｜完整）
-   格式：{en:"", zh:""}
-================================ */
-const WORDS = [
-  {en:"able", zh:"能夠的"}, {en:"about", zh:"關於"}, {en:"above", zh:"在上面"},
-  {en:"across", zh:"穿過；在對面"}, {en:"act", zh:"行動；表演"}, {en:"add", zh:"加"},
-  {en:"afraid", zh:"害怕的"}, {en:"after", zh:"在…之後"}, {en:"again", zh:"再一次"},
-  {en:"air", zh:"空氣"}, {en:"all", zh:"全部"}, {en:"always", zh:"總是"},
-  {en:"animal", zh:"動物"}, {en:"answer", zh:"答案；回答"}, {en:"apple", zh:"蘋果"},
-  {en:"arm", zh:"手臂"}, {en:"around", zh:"在周圍"}, {en:"ask", zh:"問"},
-  {en:"away", zh:"離開"}, {en:"baby", zh:"寶寶"}, {en:"back", zh:"後面；回來"},
-  {en:"ball", zh:"球"}, {en:"banana", zh:"香蕉"}, {en:"basket", zh:"籃子"},
-  {en:"bath", zh:"洗澡"}, {en:"beach", zh:"海灘"}, {en:"bear", zh:"熊"},
-  {en:"because", zh:"因為"}, {en:"bed", zh:"床"}, {en:"bee", zh:"蜜蜂"},
-  {en:"before", zh:"在…之前"}, {en:"begin", zh:"開始"}, {en:"behind", zh:"在後面"},
-  {en:"best", zh:"最好"}, {en:"big", zh:"大的"}, {en:"bird", zh:"鳥"},
-  {en:"birthday", zh:"生日"}, {en:"black", zh:"黑色"}, {en:"blue", zh:"藍色"},
-  {en:"boat", zh:"船"}, {en:"book", zh:"書"}, {en:"box", zh:"盒子"},
-  {en:"boy", zh:"男孩"}, {en:"bread", zh:"麵包"}, {en:"breakfast", zh:"早餐"},
-  {en:"bring", zh:"帶來"}, {en:"brother", zh:"兄弟"}, {en:"brown", zh:"棕色"},
-  {en:"bus", zh:"公車"}, {en:"busy", zh:"忙碌的"}, {en:"but", zh:"但是"},
-  {en:"buy", zh:"買"}, {en:"cake", zh:"蛋糕"}, {en:"call", zh:"打電話；呼叫"},
-  {en:"can", zh:"可以"}, {en:"cap", zh:"帽子"}, {en:"car", zh:"汽車"},
-  {en:"careful", zh:"小心的"}, {en:"carry", zh:"搬；拿"}, {en:"cat", zh:"貓"},
-  {en:"chair", zh:"椅子"}, {en:"chicken", zh:"雞；雞肉"}, {en:"children", zh:"孩子們"},
-  {en:"clean", zh:"乾淨的；打掃"}, {en:"clock", zh:"時鐘"}, {en:"close", zh:"關；靠近"},
-  {en:"cloud", zh:"雲"}, {en:"cold", zh:"冷的"}, {en:"color", zh:"顏色"},
-  {en:"come", zh:"來"}, {en:"cook", zh:"煮"}, {en:"cookie", zh:"餅乾"},
-  {en:"cool", zh:"涼爽的；很酷"}, {en:"corn", zh:"玉米"}, {en:"cow", zh:"牛"},
-  {en:"cry", zh:"哭"}, {en:"cup", zh:"杯子"}, {en:"cute", zh:"可愛的"},
-  {en:"dance", zh:"跳舞"}, {en:"day", zh:"天；白天"}, {en:"dear", zh:"親愛的"},
-  {en:"desk", zh:"書桌"}, {en:"dinner", zh:"晚餐"}, {en:"do", zh:"做"},
-  {en:"dog", zh:"狗"}, {en:"door", zh:"門"}, {en:"down", zh:"向下；下面"},
-  {en:"draw", zh:"畫"}, {en:"dream", zh:"夢"}, {en:"drink", zh:"喝"},
-  {en:"drive", zh:"開車"}, {en:"duck", zh:"鴨子"}, {en:"ear", zh:"耳朵"},
-  {en:"eat", zh:"吃"}, {en:"egg", zh:"蛋"}, {en:"eight", zh:"八"},
-  {en:"end", zh:"結束"}, {en:"enjoy", zh:"享受；喜歡"}, {en:"evening", zh:"晚上"},
-  {en:"every", zh:"每一個"}, {en:"eye", zh:"眼睛"}, {en:"face", zh:"臉"},
-  {en:"family", zh:"家人"}, {en:"far", zh:"遠的"}, {en:"farm", zh:"農場"},
-  {en:"fast", zh:"快的"}, {en:"father", zh:"爸爸"}, {en:"feel", zh:"感覺"},
-  {en:"find", zh:"找到"}, {en:"fish", zh:"魚"}, {en:"five", zh:"五"},
-  {en:"flower", zh:"花"}, {en:"fly", zh:"飛；蒼蠅"}, {en:"food", zh:"食物"},
-  {en:"four", zh:"四"}, {en:"friend", zh:"朋友"}, {en:"from", zh:"從"},
-  {en:"fruit", zh:"水果"}, {en:"fun", zh:"有趣"}, {en:"game", zh:"遊戲"},
-  {en:"garden", zh:"花園"}, {en:"get", zh:"得到；去拿"}, {en:"girl", zh:"女孩"},
-  {en:"give", zh:"給"}, {en:"go", zh:"去"}, {en:"good", zh:"好的"},
-  {en:"green", zh:"綠色"}, {en:"hair", zh:"頭髮"}, {en:"hand", zh:"手"},
-  {en:"happy", zh:"開心的"}, {en:"hat", zh:"帽子"}, {en:"have", zh:"有"},
-  {en:"he", zh:"他"}, {en:"hear", zh:"聽見"}, {en:"help", zh:"幫忙"},
-  {en:"here", zh:"這裡"}, {en:"home", zh:"家"}, {en:"hot", zh:"熱的"},
-  {en:"house", zh:"房子"}, {en:"how", zh:"如何"}, {en:"hungry", zh:"肚子餓"},
-  {en:"ice", zh:"冰"}, {en:"in", zh:"在裡面"}, {en:"jump", zh:"跳"},
-  {en:"kid", zh:"小孩"}, {en:"king", zh:"國王"}, {en:"kitchen", zh:"廚房"},
-  {en:"lake", zh:"湖"}, {en:"lamp", zh:"燈"}, {en:"laugh", zh:"笑"},
-  {en:"leaf", zh:"葉子"}, {en:"learn", zh:"學習"}, {en:"left", zh:"左邊"},
-  {en:"leg", zh:"腿"}, {en:"like", zh:"喜歡"}, {en:"lion", zh:"獅子"},
-  {en:"listen", zh:"聽"}, {en:"little", zh:"小的"}, {en:"live", zh:"住；活著"},
-  {en:"long", zh:"長的"}, {en:"look", zh:"看"}, {en:"love", zh:"愛"},
-  {en:"lunch", zh:"午餐"}, {en:"make", zh:"做；製作"}, {en:"man", zh:"男人"},
-  {en:"many", zh:"許多"}, {en:"meet", zh:"遇見"}, {en:"milk", zh:"牛奶"},
-  {en:"mom", zh:"媽媽"}, {en:"money", zh:"錢"}, {en:"moon", zh:"月亮"},
-  {en:"morning", zh:"早上"}, {en:"mother", zh:"媽媽"}, {en:"mouse", zh:"老鼠"},
-  {en:"music", zh:"音樂"}, {en:"name", zh:"名字"}, {en:"near", zh:"靠近"},
-  {en:"need", zh:"需要"}, {en:"new", zh:"新的"}, {en:"night", zh:"夜晚"},
-  {en:"nine", zh:"九"}, {en:"no", zh:"不"}, {en:"nose", zh:"鼻子"},
-  {en:"now", zh:"現在"}, {en:"number", zh:"數字"}, {en:"ocean", zh:"海洋"},
-  {en:"of", zh:"的"}, {en:"off", zh:"關掉；離開"}, {en:"on", zh:"在上面"},
-  {en:"one", zh:"一"}, {en:"open", zh:"打開"}, {en:"orange", zh:"橘子"},
-  {en:"outside", zh:"外面"}, {en:"over", zh:"在上方；結束"}, {en:"page", zh:"頁"},
-  {en:"paint", zh:"畫；油漆"}, {en:"paper", zh:"紙"}, {en:"park", zh:"公園"},
-  {en:"party", zh:"派對"}, {en:"pen", zh:"筆"}, {en:"pencil", zh:"鉛筆"},
-  {en:"people", zh:"人們"}, {en:"pet", zh:"寵物"}, {en:"phone", zh:"電話"},
-  {en:"pig", zh:"豬"}, {en:"pink", zh:"粉紅色"}, {en:"play", zh:"玩"},
-  {en:"please", zh:"請"}, {en:"pool", zh:"游泳池"}, {en:"purple", zh:"紫色"},
-  {en:"rain", zh:"雨"}, {en:"read", zh:"讀"}, {en:"red", zh:"紅色"},
-  {en:"right", zh:"右邊；正確"}, {en:"river", zh:"河"}, {en:"run", zh:"跑"},
-  {en:"sad", zh:"難過的"}, {en:"safe", zh:"安全的"}, {en:"say", zh:"說"},
-  {en:"school", zh:"學校"}, {en:"sea", zh:"海"}, {en:"see", zh:"看見"},
-  {en:"seven", zh:"七"}, {en:"she", zh:"她"}, {en:"ship", zh:"船"},
-  {en:"shirt", zh:"襯衫"}, {en:"shoe", zh:"鞋子"}, {en:"shop", zh:"商店"},
-  {en:"short", zh:"短的"}, {en:"show", zh:"展示"}, {en:"sing", zh:"唱歌"},
-  {en:"sister", zh:"姊妹"}, {en:"sit", zh:"坐"}, {en:"six", zh:"六"},
-  {en:"sleep", zh:"睡覺"}, {en:"small", zh:"小的"}, {en:"smart", zh:"聰明的"},
-  {en:"snow", zh:"雪"}, {en:"so", zh:"所以"}, {en:"some", zh:"一些"},
-  {en:"song", zh:"歌曲"}, {en:"sorry", zh:"對不起"}, {en:"spell", zh:"拼字"},
-  {en:"star", zh:"星星"}, {en:"start", zh:"開始"}, {en:"stay", zh:"停留"},
-  {en:"stop", zh:"停止"}, {en:"store", zh:"商店"}, {en:"sun", zh:"太陽"},
-  {en:"sweet", zh:"甜的"}, {en:"table", zh:"桌子"}, {en:"take", zh:"拿"},
-  {en:"talk", zh:"說話"}, {en:"teacher", zh:"老師"}, {en:"ten", zh:"十"},
-  {en:"thank", zh:"感謝"}, {en:"that", zh:"那個"}, {en:"the", zh:"這個(冠詞)"},
-  {en:"there", zh:"那裡"}, {en:"they", zh:"他們"}, {en:"three", zh:"三"},
-  {en:"time", zh:"時間"}, {en:"tired", zh:"累的"}, {en:"to", zh:"到；向"},
-  {en:"today", zh:"今天"}, {en:"tomorrow", zh:"明天"}, {en:"toy", zh:"玩具"},
-  {en:"train", zh:"火車；訓練"}, {en:"tree", zh:"樹"}, {en:"two", zh:"二"},
-  {en:"up", zh:"向上"}, {en:"use", zh:"使用"}, {en:"very", zh:"非常"},
-  {en:"walk", zh:"走路"}, {en:"want", zh:"想要"}, {en:"warm", zh:"溫暖的"},
-  {en:"water", zh:"水"}, {en:"we", zh:"我們"}, {en:"weather", zh:"天氣"},
-  {en:"welcome", zh:"歡迎"}, {en:"what", zh:"什麼"}, {en:"when", zh:"何時"},
-  {en:"where", zh:"哪裡"}, {en:"white", zh:"白色"}, {en:"who", zh:"誰"},
-  {en:"why", zh:"為什麼"}, {en:"win", zh:"贏"}, {en:"window", zh:"窗戶"},
-  {en:"with", zh:"和；跟"}, {en:"woman", zh:"女人"}, {en:"work", zh:"工作"},
-  {en:"write", zh:"寫"}, {en:"yellow", zh:"黃色"}, {en:"yes", zh:"是"},
-  {en:"you", zh:"你"}, {en:"your", zh:"你的"}
-];
-if (WORDS.length !== 153) console.warn("題庫不是153，實際：", WORDS.length);
+console.log("📚 題庫載入完成，共", WORDS.length, "筆");
 
 /* ==============================
    Storage / Student
@@ -1644,7 +1551,7 @@ function startLevel(level){
     streakBest:0,
     startedAt: Date.now(),
     questions,
-    history: Array(Q_PER_LEVEL).fill(null)
+    history: Array(Q_PER_LEVEL).fill(null),
     playCount: 0
   };
 
@@ -2205,7 +2112,7 @@ function finishPractice(){
 /* ==============================
    Init
 ================================ */
-(function init(){
+(function realInit(){
   updateRateUI();
 
   if("speechSynthesis" in window){
@@ -2228,7 +2135,7 @@ function finishPractice(){
   }else{
     refreshHomeStats();
   }
-})();
+}
 
 </script>
 </body>
