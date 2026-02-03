@@ -722,12 +722,13 @@
 
 fetch("./words.json")
   .then(res => res.json())
-  .then(data=>{
-  WORDS = data;
-  realInit();
-});
-  .catch(err=>{
-    alert("題庫載入失敗");
+  .then(data => {
+    WORDS = data;
+    console.log("📚 題庫載入完成，共", WORDS.length, "筆");
+    realInit(); // 題庫載好才啟動
+  })
+  .catch(err => {
+    alert("題庫載入失敗，請確認 words.json 是否存在");
     console.error(err);
   });
 /* ==============================
@@ -1500,11 +1501,12 @@ function updateTop(){
     streakEl.textContent = game.streak;
     streakBestEl.textContent = game.streakBest;
 
-    barEl.style.width = "0%";
+    barEl.parentElement.style.display = "none";
     return;
   }
 
   // 🗺️ 關卡模式（⭐ 目標 ≥8 只在這裡出現）
+  barEl.parentElement.style.display = "";
   document.querySelectorAll(".levelOnly")
     .forEach(e=>e.style.display="inline-flex");
   document.querySelectorAll(".challengeOnly")
@@ -1517,7 +1519,7 @@ function updateTop(){
   scoreEl.textContent = game.score;
 
   barEl.style.width =
-    `${(game.qIndex / Q_PER_LEVEL) * 100}%`;
+  `${((game.qIndex + 1) / Q_PER_LEVEL) * 100}%`;
 }
 
 function startLevel(level){
@@ -1592,7 +1594,7 @@ function startChallenge(){
 }
   
 function renderQuestion(){
-  game.playCount = 0;
+  game.playCount = game.playCount || 0;
   clearFeedback();
   updateTop();
   const q = game.questions[game.qIndex];
