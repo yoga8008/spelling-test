@@ -470,28 +470,28 @@
 .mistakeCard{
   background: rgba(255,255,255,.95);
   border:1px solid rgba(148,163,184,.25);
-  border-radius:16px;
-  padding:12px;
+  border-radius:14px;
+  padding:8px 6px;       
   box-shadow: var(--shadow2);
   text-align:center;
 }
 
 .mistakeCard b{
-  display:block;
-  font-size:16px;
-  margin-bottom:4px;
+  font-size:14px;         
+  margin-bottom:2px;
 }
 
 .mistakeCard small{
-  color:var(--muted);
-  font-weight:900;
+  font-size:11px;     
 }
   .mapRight{
   display:flex;
   flex-direction:column;
   gap:16px;
 }
-
+.homeTypeSetting{
+  display:none;
+}
 </style>
 </head>
 <body>
@@ -553,15 +553,15 @@
 
       <div class="divider"></div>
 
-      <h2>⚙️ 題型設定</h2>
-      <div class="row">
-      <span class="pill">
-      目前題型：<b id="typeSummary">全選 A/B/C/D</b>
-      </span>
-      </div>
-      <div class="help">
-      若選「全選」，每關 10 題會混合 A/B/C/D（平均分配，並隨機排序）。
+      <div class="homeTypeSetting">
+  <h2>⚙️ 題型設定</h2>
+  <div class="row">
+    <span class="pill">目前題型：<b id="typeSummary">全選 A/B/C/D</b></span>
   </div>
+  <div class="help">
+    若選「全選」，每關 10 題會混合 A/B/C/D（平均分配，並隨機排序）。
+  </div>
+</div>
 
   <div class="divider"></div>
 
