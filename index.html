@@ -725,7 +725,7 @@ fetch("./words.json")
   .then(data => {
     WORDS = data;
     console.log("📚 題庫載入完成，共", WORDS.length, "筆");
-    realInit(); // 題庫載好才啟動
+    init(); // 題庫載好才啟動
   })
   .catch(err => {
     alert("題庫載入失敗，請確認 words.json 是否存在");
