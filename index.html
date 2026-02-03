@@ -1495,6 +1495,7 @@ function updateTop(){
       .forEach(e=>e.style.display="none");
     document.querySelectorAll(".challengeOnly")
       .forEach(e=>e.style.display="none");
+    el("btnOpenTypeModal").style.display = "none";
 
     // 進度條不使用
     barEl.parentElement.style.display = "none";
@@ -1509,16 +1510,19 @@ function updateTop(){
       .forEach(e=>e.style.display="none");
     document.querySelectorAll(".challengeOnly")
       .forEach(e=>e.style.display="inline-flex");
+    
+    el("btnOpenTypeModal").style.display = "inline-flex"; 
 
     qIdx2El.textContent = game.score;
     streakEl.textContent = game.streak;
     streakBestEl.textContent = game.streakBest;
-
+ 
     barEl.parentElement.style.display = "none";
     return;
   }
 
   /* 🗺️ 關卡模式（原本的） */
+  el("btnOpenTypeModal").style.display = "none";
   barEl.parentElement.style.display = "";
   document.querySelectorAll(".levelOnly")
     .forEach(e=>e.style.display="inline-flex");
