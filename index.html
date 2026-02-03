@@ -1655,7 +1655,7 @@ function startChallenge(){
     startedAt: Date.now(),
     timeLimit: 60 * 1000,
     questions: pickWordsAI(999),
-    history: []
+    history: [],
     usedWords: new Set()
   };
 
@@ -1668,8 +1668,6 @@ function startChallenge(){
   modeTagEl.textContent = "挑戰";
   el("btnBackToMap").style.display = "none";
   el("btnPrev").style.display = "none";
-  document.querySelector(".gameHeader .pill:nth-child(3)").innerHTML =
-  "目標：<b>盡量得分</b>";
 }
   
 function renderQuestion(){
