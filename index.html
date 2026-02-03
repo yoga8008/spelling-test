@@ -1513,10 +1513,10 @@ function updateTop(){
 if(game.mode === "challenge"){
   gameTitle.textContent = "🏁 限時挑戰";
 
-  // ⭐ 這一行就是重點
-  qIdxEl.textContent = `已作答 ${game.qIndex}`;
+  qIdxEl.textContent = game.score;            // 已答對
+  streakEl.textContent = game.streak;         // 目前連對
+  streakBestEl.textContent = game.streakBest; // 最高連對
 
-  scoreEl.textContent = String(game.score);
   barEl.style.width = "0%";
   return;
 }
