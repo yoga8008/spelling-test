@@ -1880,7 +1880,6 @@ function finishLevel(){
   finishPractice();
   return;
 }
-  stopTimer();
   const spent = Date.now() - game.startedAt;
   const s = game.score;
   const passed = s >= PASS_SCORE;
