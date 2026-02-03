@@ -565,14 +565,14 @@
 
       <h2>▶️ 選單</h2>
       <div class="row" style="flex-wrap:nowrap; gap:10px">
-        <button class="btn primary" id="btnStartNext">🚀 關卡模式</button>
+        <button class="btn primary" id="btnStartNext">🚀 挑戰模式</button>
         <button class="btn ghost" id="btnQuickPractice" style="display:none">📖 複習模式</button>
-        <button class="btn ghost" id="btnGoMap">🗺️ 世界地圖</button>
+        <button class="btn ghost" id="btnGoMap">🗺️ 關卡模式</button>
       </div>
       <div class="kpi">
         <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
         <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
-        <div class="k"><b id="kBest">—</b><small>本關最高分</small></div>
+        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
       </div>
     </div>
 
@@ -1221,8 +1221,8 @@ function refreshHomeStats(){
 
   const next = Math.min(LEVEL_COUNT, passedCount+1);
   kLevelEl.textContent = `${levelCity(next)}`;
-  const best = currentStudent.cleared?.[String(next)]?.bestScore;
-  kBestEl.textContent = (best==null) ? "—" : `${best}/10`;
+  const best = currentStudent.challengeBest ?? null;
+  kBestEl.textContent = (best==null) ? "—" : `${best} 分`;
 
   // update continent hint (summary)
   const grouped = groupLevelsByContinent();
