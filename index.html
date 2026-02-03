@@ -1485,11 +1485,26 @@ function buildChoices(correctZh){
 }
 
 function updateTop(){
-  // 🏁 挑戰模式
+
+  /* 🧠 複習模式 */
+  if(game.mode === "practice"){
+    gameTitle.textContent = "🧠 複習模式";
+
+    // 隱藏關卡 / 挑戰 KPI
+    document.querySelectorAll(".levelOnly")
+      .forEach(e=>e.style.display="none");
+    document.querySelectorAll(".challengeOnly")
+      .forEach(e=>e.style.display="none");
+
+    // 進度條不使用
+    barEl.parentElement.style.display = "none";
+    return;
+  }
+
+  /* 🏁 限時挑戰 */
   if(game.mode === "challenge"){
     gameTitle.textContent = "🏁 挑戰模式";
 
-    // 🔥 只顯示挑戰用
     document.querySelectorAll(".levelOnly")
       .forEach(e=>e.style.display="none");
     document.querySelectorAll(".challengeOnly")
@@ -1503,7 +1518,7 @@ function updateTop(){
     return;
   }
 
-  // 🗺️ 關卡模式（⭐ 目標 ≥8 只在這裡出現）
+  /* 🗺️ 關卡模式（原本的） */
   barEl.parentElement.style.display = "";
   document.querySelectorAll(".levelOnly")
     .forEach(e=>e.style.display="inline-flex");
@@ -1517,7 +1532,7 @@ function updateTop(){
   scoreEl.textContent = game.score;
 
   barEl.style.width =
-  `${((game.qIndex + 1) / Q_PER_LEVEL) * 100}%`;
+    `${((game.qIndex + 1) / Q_PER_LEVEL) * 100}%`;
 }
 
 function startLevel(level){
