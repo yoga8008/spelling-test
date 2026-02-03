@@ -1477,6 +1477,40 @@ function buildTypePlan(){
     return plan;
   }
 }
+function pickWordsAI(count){
+  const stats = currentStudent.wordStats || {};
+  const pool = WORDS.map(w=>{
+    const s = stats[w.en] || {};
+    const wrong = s.wrong || 0;
+    const streak = s.correctStreak || 0;
+    const weight = Math.max(1, 1 + wrong * 2 - streak);
+    return { word:w, weight };
+  });
+
+  const used = new Set();
+  const result = [];
+
+  while(result.length < count && pool.length){
+    const total = pool.reduce((a,b)=>a+b.weight,0);
+    let r = Math.random() * total;
+
+    let picked;
+    for(const p of pool){
+      r -= p.weight;
+      if(r <= 0){ picked = p.word; break; }
+    }
+    if(!picked) picked = pool[0].word;
+
+    if(!used.has(picked.en)){
+      used.add(picked.en);
+      result.push(picked);
+    }
+
+    const idx = pool.findIndex(p=>p.word.en === picked.en);
+    if(idx > -1) pool.splice(idx,1);
+  }
+  return result;
+}  
 
 function updateRateUI(){
   rateSlider.value = String(speechRate);
@@ -1618,8 +1652,9 @@ function startChallenge(){
     streakBest: 0,
     startedAt: Date.now(),
     timeLimit: 60 * 1000,
-    questions: pickWords(999),
+    questions: pickWordsAI(999),
     history: []
+    usedWords: new Set()
   };
 
   gameTitle.textContent = "🏁 限時挑戰";
