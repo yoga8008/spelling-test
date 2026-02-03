@@ -1296,6 +1296,7 @@ function login(name){
 
   refreshHomeStats();
   renderMap();
+  renderMistakeCard();
 
   el("studentName").value = "";
 
@@ -1315,6 +1316,7 @@ el("btnResetStudent").onclick=()=>{
   currentName="";
   refreshHomeStats();
   renderMap();
+  mistakeBox.innerHTML = `<div class="small">尚無錯誤紀錄 🎉</div>`;
   alert("已清除。");
 };
 
@@ -1962,6 +1964,7 @@ function applyScore(gain, msg){
 
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
+  renderMistakeCard();
 }
 
 function nextQuestion(){
