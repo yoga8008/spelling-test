@@ -2342,8 +2342,9 @@ function goToMap(){
 }
 function navigate(to){
 
-  // ⭐ 只有「不是 map」時才關遊戲（避免雙重捲動）
+  // ⭐ 只有「不是 user / map」才可能關遊戲
   if(
+    to !== "user" &&
     to !== "map" &&
     gameBack &&
     gameBack.style.display === "flex"
