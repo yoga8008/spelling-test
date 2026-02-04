@@ -1380,11 +1380,16 @@ function shuffle(arr){
   return a;
 }
 function pickWords(n){ return shuffle(WORDS).slice(0,n); }
-
 function getSelectedTypes(){
   if(typeMode.all) return ["A","B","C","D"];
-  const t = ["A","B","C","D"].filter(k=>typeMode[k]);
+  const t = ["A","B","C","D"].filter(k => typeMode[k]);
   return t.length ? t : ["A"];
+}
+
+// 🔹 挑戰模式用（永遠不出 C）
+function getChallengeTypes(){
+  if(typeMode.all) return ["A","B","D"];
+  return ["A","B","D"].filter(t => typeMode[t]);
 }
 function buildTypePlan(){
   if(typeMode.all){
@@ -1598,23 +1603,39 @@ function startChallenge(){
   }
 
   game = {
-    mode: "challenge",
-    level: "challenge",
-    qIndex: 0,
-    score: 0,
-    streak: 0,
-    streakBest: 0,
-    startedAt: Date.now(),
-    timeLimit: 60 * 1000,
-    questions: pickWordsAI(999).map(w => ({
-  type: getSelectedTypes()[Math.floor(Math.random() * getSelectedTypes().length)],
-  word: w,
-  choices: buildChoices(w.zh),
-  answered: false
-})),
-    history: [],
-    usedWords: new Set()
-  };
+  mode: "challenge",
+  level: "challenge",
+  qIndex: 0,
+  score: 0,
+  streak: 0,
+  streakBest: 0,
+  startedAt: Date.now(),
+  timeLimit: 60 * 1000,
+
+  // ⭐⭐ 關鍵在這裡：補上挑戰題目（不含 C）
+  questions: pickWordsAI(999).map(w => {
+    const types = getChallengeTypes(); // 只會 A / B / D
+    const type = types[Math.floor(Math.random() * types.length)];
+
+    if(type === "D"){
+      return {
+        type,
+        word: w,
+        answered: false
+      };
+    }
+
+    return {
+      type,
+      word: w,
+      choices: buildChoices(w.zh),
+      answered: false
+    };
+  }),
+
+  history: [],
+  usedWords: new Set()
+};
 
   gameTitle.textContent = "🏁 挑戰模式";
   openGame();
