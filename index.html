@@ -2357,39 +2357,49 @@ function init(){
       }
    initMobileBar();
 }
+function navigate(to){
+  // 如果正在遊戲中，先關掉
+  if(gameBack && gameBack.style.display === "flex"){
+    closeGame();
+  }
 
-  function initMobileBar(){
+  if(to === "user"){
+    el("userInfoCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  if(to === "map"){
+    el("btnGoMap").click();
+  }
+
+  if(to === "challenge"){
+    el("btnStartNext").click();
+  }
+
+  if(to === "practice"){
+    const btn = el("btnQuickPractice");
+    if(btn && btn.style.display !== "none"){
+      btn.click();
+    }else{
+      alert("目前沒有需要複習的單字");
+    }
+  }
+}
+
+ function initMobileBar(){
+  const mbUser = el("mbUser");
   const mbMap = el("mbMap");
   const mbChallenge = el("mbChallenge");
   const mbPractice = el("mbPractice");
-  const mbUser = el("mbUser");
 
-  if(mbMap){
-    mbMap.onclick = () => el("btnGoMap")?.click();
-  }
-
-  if(mbChallenge){
-    mbChallenge.onclick = () => el("btnStartNext")?.click();
-  }
-
-  if(mbPractice){
-    mbPractice.onclick = () => {
-      const btn = el("btnQuickPractice");
-      if(btn && btn.style.display !== "none"){
-        btn.click();
-      }else{
-        alert("目前沒有需要複習的單字");
-      }
-    };
-  }
-
-mbUser.onclick = () => {
-  el("userInfoCard").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-};
+  if(mbUser)      mbUser.onclick      = () => navigate("user");
+  if(mbMap)       mbMap.onclick       = () => navigate("map");
+  if(mbChallenge) mbChallenge.onclick = () => navigate("challenge");
+  if(mbPractice)  mbPractice.onclick  = () => navigate("practice");
 }
+
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
