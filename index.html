@@ -2318,19 +2318,17 @@ function init(){
   const names = all.students ? Object.keys(all.students) : [];
 
   if(names.length){
-    let best = names[0], bestTs=0;
-    names.forEach(n=>{
-      const s = all.students[n];
-      const ts = s.lastPlayed || 0;
-      if(ts>bestTs){ bestTs=ts; best=n; }
-    });
-    login(best);   // ⭐ login 裡面會 renderMap / stats
-  }else{
-    currentStudent = null;
-    refreshHomeStats();
-    renderMap();
-    renderBadges();
-  }
+  // ⭐ 只顯示資料，不要自動 login
+  currentStudent = ensureStudent(loadAll(), names[0]);
+  refreshHomeStats();
+  renderMap();
+  renderBadges();
+}else{
+  currentStudent = null;
+  refreshHomeStats();
+  renderMap();
+  renderBadges();
+}
 }
 
 function goToMap(){
