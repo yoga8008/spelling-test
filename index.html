@@ -2359,7 +2359,14 @@ function init(){
       }
    initMobileBar();
 }
-function navigate(to){
+function goToMap(){
+  const map = el("mapCanvas");
+  if(!map) return;
+
+  const y = map.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
+  function navigate(to){
   // 如果正在遊戲中，先關掉
   if(gameBack && gameBack.style.display === "flex"){
     closeGame();
@@ -2372,8 +2379,8 @@ function navigate(to){
   }
 
   if(to === "map"){
-    el("btnGoMap").click();
-  }
+  goToMap();
+}
 
   if(to === "challenge"){
     el("btnStartNext").click();
