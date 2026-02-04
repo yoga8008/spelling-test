@@ -1237,9 +1237,11 @@ function refreshHomeStats(){
     kBestEl.textContent="—";
     continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
     renderBadges();
+    el("homeTypeSetting")?.style.display = "none";
     return;
   }
   curStudentEl.textContent = currentStudent.name;
+  el("homeTypeSetting").style.display = "block";
   const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
   curClearedEl.textContent = String(passedCount);
 
@@ -2364,10 +2366,9 @@ function navigate(to){
   }
 
   if(to === "user"){
-    el("userInfoCard").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    const card = el("userInfoCard");
+    const y = card.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: y, behavior: "smooth" });
   }
 
   if(to === "map"){
