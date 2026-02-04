@@ -1405,7 +1405,8 @@ function startMistakePractice(){
       answered:false
     })),
     history:[]
-  };
+    playCount: 0
+      };
 
   gameTitle.textContent = "🧠 複習模式";
   openGame();
@@ -1955,6 +1956,13 @@ inp.addEventListener("keydown", (e) => {
           }
         }else{
           q.mistake = true;
+            // ⭐ 補：記錄錯誤
+          const w = q.selected.en;
+          currentStudent.wordStats = currentStudent.wordStats || {};
+          currentStudent.wordStats[w] = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
+          currentStudent.wordStats[w].wrong += 1;
+          currentStudent.wordStats[w].correctStreak = 0;
+          saveAll(ALL);
           setFeedback("bad", `❌ 錯了！正確答案：<b>${q.selected.en}</b> = <b>${q.selected.zh}</b>`);
           q.selected = null;
           box.querySelectorAll(".mcard").forEach(x=>x.classList.remove("active"));
