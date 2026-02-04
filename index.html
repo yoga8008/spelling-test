@@ -1329,33 +1329,12 @@ el("btnResetStudent").onclick=()=>{
   alert("已清除。");
 };
 
-el("btnGoMap").onclick=()=>{
+el("btnGoMap").onclick = () => {
   if(!currentStudent){
     alert("請先輸入姓名登入。");
     return;
   }
-
-  // 1️⃣ 算出目前應該挑戰的關卡
-  const passedCount = Object.values(currentStudent.cleared||{})
-    .filter(x=>x.passed).length;
-  const next = Math.min(LEVEL_COUNT, passedCount + 1);
-
-  // 2️⃣ 先捲到地圖區塊
-  el("mapCanvas").scrollIntoView({ behavior:"smooth", block:"start" });
-
-  // 3️⃣ 再捲到該城市關卡（等 DOM 穩定）
-  setTimeout(()=>{
-    const btns = document.querySelectorAll(".levelBtn");
-    const target = btns[next - 1]; // 關卡是從 1 開始
-    if(target){
-      target.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-      });
-      target.classList.add("highlight");
-      setTimeout(()=>target.classList.remove("highlight"), 1200);
-    }
-  }, 300);
+  goToMap();
 };
 
 el("btnStartNext").onclick=()=>{
@@ -2373,10 +2352,10 @@ function goToMap(){
   }
 
   if(to === "user"){
-    const card = el("userInfoCard");
-    const y = card.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  }
+  const left = document.querySelector(".leftCol");
+  const y = left.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
 
   if(to === "map"){
   goToMap();
