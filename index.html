@@ -2312,23 +2312,15 @@ function init(){
     window.speechSynthesis.onvoiceschanged = ()=>{};
   }
 
-  initMobileBar(); // ⭐ 一定要最先
+  initMobileBar();
 
-  const all = loadAll();
-  const names = all.students ? Object.keys(all.students) : [];
-
-  if(names.length){
-  // ⭐ 只顯示資料，不要自動 login
-  currentStudent = ensureStudent(loadAll(), names[0]);
-  refreshHomeStats();
-  renderMap();
-  renderBadges();
-}else{
+  // ⭐ init 永遠「不碰使用者狀態」
   currentStudent = null;
+  currentName = "";
+
   refreshHomeStats();
   renderMap();
   renderBadges();
-}
 }
 
 function goToMap(){
