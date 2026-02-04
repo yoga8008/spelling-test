@@ -194,6 +194,21 @@
     max-height: 680px;
     padding: 14px;
   }
+  .mistakeList{
+  max-height: 260px;      /* 固定高度 */
+  overflow-y: auto;       /* 超出就滾 */
+  padding-right: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 卷軸美化（跟地圖同感覺） */
+.mistakeList::-webkit-scrollbar{
+  width: 6px;
+}
+.mistakeList::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.25);
+  border-radius: 6px;
+}
   .continentBlock{
     background: rgba(255,255,255,.78);
     border: 1px solid rgba(148,163,184,.18);
