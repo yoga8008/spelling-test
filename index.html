@@ -583,16 +583,6 @@ and (orientation: landscape){
 @media (min-width: 769px){
   .mobileBar{ display:none; }
 }
-/* 📱 手機只隱藏「主畫面」的遊戲模式按鈕列 */
-@media (max-width: 768px){
-  .homeTypeSetting,
-  .kpi,
-  .leftCol > .card .row button#btnGoMap,
-  .leftCol > .card .row button#btnStartNext,
-  .leftCol > .card .row button#btnQuickPractice{
-    display:none !important;
-  }
-}
 
 </style>
 </head>
@@ -2347,25 +2337,39 @@ function init(){
     refreshHomeStats();
   }
 // 📱 Mobile bottom bar actions
-el("mbMap").onclick = () => el("btnGoMap").click();
+const mbMap = el("mbMap");
+const mbChallenge = el("mbChallenge");
+const mbPractice = el("mbPractice");
+const mbUser = el("mbUser");
 
-el("mbChallenge").onclick = () => el("btnStartNext").click();
+if(mbMap){
+  mbMap.onclick = () => el("btnGoMap")?.click();
+}
 
-el("mbPractice").onclick = () => {
-  if (el("btnQuickPractice").style.display !== "none") {
-    el("btnQuickPractice").click();
-  } else {
-    alert("目前沒有需要複習的單字");
-  }
-};
+if(mbChallenge){
+  mbChallenge.onclick = () => el("btnStartNext")?.click();
+}
 
-// 👤 使用者資訊
-el("mbUser").onclick = () => {
-  el("userInfoCard").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-};
+if(mbPractice){
+  mbPractice.onclick = () => {
+    const btn = el("btnQuickPractice");
+    if(btn && btn.style.display !== "none"){
+      btn.click();
+    }else{
+      alert("目前沒有需要複習的單字");
+    }
+  };
+}
+
+if(mbUser){
+  mbUser.onclick = () => {
+    el("userInfoCard")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  };
+}
+
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
