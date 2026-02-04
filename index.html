@@ -1451,13 +1451,25 @@ function startTimer(){
     }
   }, 200);
 }
-function openGame(){ gameBack.style.display="flex"; }
+function openGame(){ 
+  gameBack.style.display="flex";
+
+  // 📱 進入遊戲 → 隱藏手機底部列
+  const mb = document.querySelector(".mobileBar");
+  if(mb) mb.style.display = "none";
+}
 function closeGame(){
   gameBack.style.display="none";
   stopTimer();
 
   el("btnBackToMap").style.display = "";
   el("btnPrev").style.display = "";
+
+  // 📱 回主畫面 → 顯示手機底部列
+  const mb = document.querySelector(".mobileBar");
+  if(mb && window.innerWidth <= 768){
+    mb.style.display = "flex";
+  }
 }
 el("btnCloseGame").onclick = closeGame;
 gameBack.addEventListener("click",(e)=>{ if(e.target===gameBack) closeGame(); });
