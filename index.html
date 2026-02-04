@@ -519,50 +519,7 @@
   margin:0 0 10px;
   letter-spacing:.5px;
 }
-  /* =============================
-   📱 Mobile Bottom Bar
-============================= */
-.mobileBar{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:64px;
-  background: rgba(255,255,255,.95);
-  border-top:1px solid rgba(148,163,184,.25);
-  display:none;
-  gap:8px;
-  justify-content:space-around;
-  align-items:center;
-  z-index:40;
-}
 
-.mobileBar button{
-  flex:1;
-  height:48px;
-  margin:0 6px;
-  border-radius:16px;
-  border:0;
-  background: linear-gradient(180deg,#2563eb,#1d4ed8);
-  color:#fff;
-  font-weight:900;
-  font-size:16px;
-}
-
-/* 📱 只在手機顯示 */
-@media (max-width: 768px){
-  .mobileBar{ display:flex; }
-
-  /* 底部留空，避免被擋住 */
-  body{ padding-bottom:72px; }
-
-  /* 隱藏原本左邊的模式按鈕 */
-  #btnGoMap,
-  #btnStartNext,
-  #btnQuickPractice{
-    display:none !important;
-  }
-}
   /* =============================
    📱📐 Tablet Landscape
 ============================= */
