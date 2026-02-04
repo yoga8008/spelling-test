@@ -583,12 +583,15 @@ and (orientation: landscape){
 @media (min-width: 769px){
   .mobileBar{ display:none; }
 }
-/* 📱 手機隱藏上方遊戲模式區 */
-h2:has(+ .row),
-#btnGoMap,
-#btnStartNext,
-#btnQuickPractice{
-  display:none !important;
+/* 📱 手機只隱藏「主畫面」的遊戲模式按鈕列 */
+@media (max-width: 768px){
+  .homeTypeSetting,
+  .kpi,
+  .leftCol > .card .row button#btnGoMap,
+  .leftCol > .card .row button#btnStartNext,
+  .leftCol > .card .row button#btnQuickPractice{
+    display:none !important;
+  }
 }
 
 </style>
