@@ -611,8 +611,7 @@ and (orientation: landscape){
   <!-- 👤 登入 / 使用者切換 -->
 
 <div class="leftCol">
-<div id="homeTop"></div>
-<div class="card panel" >
+<div id="homeTop" class="card panel">
   <h2>🔐 使用者登入</h2>
   <div class="row" style="gap:16px; flex-wrap:nowrap">
     <input
@@ -2318,6 +2317,7 @@ function init(){
 
   const all = loadAll();
   const names = all.students ? Object.keys(all.students) : [];
+  initMobileBar();
   if(names.length){
     let best = names[0], bestTs=0;
     names.forEach(n=>{
@@ -2329,7 +2329,6 @@ function init(){
   }else{
     refreshHomeStats();
       }
-   initMobileBar();
 }
 function goToMap(){
   const shell = document.querySelector(".mapShell");
