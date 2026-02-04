@@ -637,7 +637,7 @@ h2:has(+ .row),
     ⚠️ 不同裝置登入：資料只存在各自裝置，未支援即時同步。
   </div>
 </div>
-    <div class="card panel">
+    <div class="card panel" id="userInfoCard">
       <h2>👤 使用者資訊</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
@@ -2328,19 +2328,29 @@ function init(){
   }
 // 📱 Mobile bottom bar actions
 el("mbMap").onclick = () => el("btnGoMap").click();
+
 el("mbChallenge").onclick = () => el("btnStartNext").click();
+
 el("mbPractice").onclick = () => {
-  if(el("btnQuickPractice").style.display !== "none"){
+  if (el("btnQuickPractice").style.display !== "none") {
     el("btnQuickPractice").click();
-  }else{
+  } else {
     alert("目前沒有需要複習的單字");
   }
 };
-}
+
+// 👤 使用者資訊
+el("mbUser").onclick = () => {
+  el("userInfoCard").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+};
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
-  <button id="mbMap">🗺️<small>地圖</small></button>
+  <button id="mbUser">👤<small>使用者</small></button>
+  <button id="mbMap">🗺️<small>關卡</small></button>
   <button id="mbChallenge">🚀<small>挑戰</small></button>
   <button id="mbPractice">📖<small>複習</small></button>
 </div>
