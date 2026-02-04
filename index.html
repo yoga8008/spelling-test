@@ -588,6 +588,56 @@ and (orientation: landscape){
     max-height: 200px;
   }
 }
+  <div class="mobileBar">
+  <button id="mbMap">🗺️<small>地圖</small></button>
+  <button id="mbChallenge">🚀<small>挑戰</small></button>
+  <button id="mbPractice">📖<small>複習</small></button>
+</div>
+  /* =========================
+   📱 Mobile Bottom Bar
+========================= */
+.mobileBar{
+  position: fixed;
+  left:0; right:0; bottom:0;
+  height:64px;
+  background: rgba(255,255,255,.95);
+  border-top:1px solid rgba(148,163,184,.3);
+  display:none;               /* 預設不顯示 */
+  justify-content:space-around;
+  align-items:center;
+  z-index:99;
+}
+
+.mobileBar button{
+  flex:1;
+  border:0;
+  background:none;
+  font-size:18px;
+  font-weight:900;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  color:#0f172a;
+}
+
+.mobileBar small{
+  font-size:11px;
+  font-weight:800;
+  color:#64748b;
+}
+
+/* 📱 手機才顯示 */
+@media (max-width: 768px){
+  .mobileBar{ display:flex; }
+  body{ padding-bottom:72px; } /* 避免被底部列蓋住 */
+}
+
+/* 💻 平板 / 電腦不顯示 */
+@media (min-width: 769px){
+  .mobileBar{ display:none; }
+}
+
 </style>
 </head>
 <body>
