@@ -96,6 +96,18 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
+  .leftCol{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* 右欄卡片間距（世界地圖 / 常錯誤單字） */
+.mapRight{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
   .panel{padding:16px;}
   .panel h2{margin:0 0 10px; font-size:16px; letter-spacing:.5px;}
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
@@ -538,7 +550,8 @@
   <div class="grid">
     <!-- left -->
   <!-- 👤 登入 / 使用者切換 -->
-<div class="card panel" style="margin-bottom:16px">
+<div class="leftCol">
+<div class="card panel" >
   <h2>🔐 使用者登入</h2>
 
   <div class="label">輸入姓名（不可空白）</div>
@@ -604,7 +617,6 @@
     </div>
 
     <!-- right -->
-<!-- right -->
 <div class="mapRight">
 
   <!-- 世界地圖 -->
