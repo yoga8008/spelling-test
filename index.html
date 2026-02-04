@@ -2327,7 +2327,16 @@ function init(){
     refreshHomeStats();
   }
 }
-
+// 📱 Mobile bottom bar actions
+el("mbMap").onclick = () => el("btnGoMap").click();
+el("mbChallenge").onclick = () => el("btnStartNext").click();
+el("mbPractice").onclick = () => {
+  if(el("btnQuickPractice").style.display !== "none"){
+    el("btnQuickPractice").click();
+  }else{
+    alert("目前沒有需要複習的單字");
+  }
+};
 </script>
 </body>
 </html>
