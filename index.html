@@ -936,7 +936,6 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
    UI refs
 ================================ */
 const curStudentEl = el("curStudent");
-const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
 const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
@@ -1229,7 +1228,6 @@ function renderMap(){
 function refreshHomeStats(){
   if(!currentStudent){
     curStudentEl.textContent="（尚未登入）";
-    curClearedEl.textContent="0";
     kLevelEl.textContent="—";
     kBestEl.textContent="—";
     continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
@@ -1240,7 +1238,6 @@ function refreshHomeStats(){
   curStudentEl.textContent = currentStudent.name;
   el("homeTypeSetting").style.display = "block";
   const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
-  curClearedEl.textContent = String(passedCount);
 
   const next = Math.min(LEVEL_COUNT, passedCount+1);
   kLevelEl.textContent = `${levelCity(next)}`;
