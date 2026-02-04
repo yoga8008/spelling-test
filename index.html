@@ -522,31 +522,33 @@
 <div class="wrap">
   <div class="grid">
     <!-- left -->
+  <!-- 👤 登入 / 使用者切換 -->
+<div class="card panel" style="margin-bottom:16px">
+  <h2>🔐 使用者登入</h2>
+
+  <div class="label">輸入姓名（不可空白）</div>
+
+  <div class="row" style="margin-top:6px; gap:16px; flex-wrap:nowrap">
+    <input
+      class="input"
+      id="studentName"
+      placeholder="e.g. Name"
+      style="flex:1"
+    />
+    <button class="btn primary" id="btnLogin">登入</button>
+  </div>
+
+  <div class="help">
+    ✅ 同一台手機／平板可記住多位使用者。<br/>
+    ⚠️ 不同裝置登入：資料只存在各自裝置，未支援即時同步。
+  </div>
+</div>
     <div class="card panel">
       <h2>👤 使用者</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">目前：<span id="curStudent">（尚未登入）</span></div>
         <div class="pill">已通關：<span id="curCleared">0</span>/100</div>
       </div>
-
-      <div style="margin-top:10px">
-  <div class="label">輸入姓名（不可空白）</div>
-
-<div class="row" style="margin-top:6px; gap:16px; flex-wrap:nowrap">
-  <input
-    class="input"
-    id="studentName"
-    placeholder="e.g. Name"
-    style="flex:1"
-  />
-  <button class="btn primary" id="btnLogin">登入</button>
-</div>
-        <div class="help">
-          ✅ 同一台手機/平板會記住多位使用者。<br/>
-          ⚠️ 不同手機登入：資料只存在各自裝置。無線上即時同步資料。
-        </div>
-      </div>
-
       <div class="divider"></div>
 
       <h2>🏅 徽章</h2>
