@@ -1602,50 +1602,49 @@ function startChallenge(){
     return;
   }
 
+  /* =========================
+     1️⃣ 初始化挑戰狀態
+  ========================= */
   game = {
-  mode: "challenge",
-  level: "challenge",
-  qIndex: 0,
-  score: 0,
-  streak: 0,
-  streakBest: 0,
-  startedAt: Date.now(),
-  timeLimit: 60 * 1000,
+    mode: "challenge",
+    level: "challenge",
+    qIndex: 0,
+    score: 0,
+    streak: 0,
+    streakBest: 0,
+    startedAt: Date.now(),
+    timeLimit: 60 * 1000,
 
-  // ⭐⭐ 關鍵在這裡：補上挑戰題目（不含 C）
-  questions: pickWordsAI(999).map(w => {
-    const types = getChallengeTypes(); // 只會 A / B / D
-    const type = types[Math.floor(Math.random() * types.length)];
+    questions: [],           // ⭐ 題目會「一題一題生成」
+    usedWords: new Set(),    // ⭐ 真正用來避免重複
+    history: []
+  };
 
-    if(type === "D"){
-      return {
-        type,
-        word: w,
-        answered: false
-      };
-    }
+  /* =========================
+     2️⃣ 準備「可出題單字池」
+        - 用 AI 權重排序
+        - 但還沒真的出題
+  ========================= */
+  game.wordPool = pickWordsAI(999); // 大池，後面慢慢用
 
-    return {
-      type,
-      word: w,
-      choices: buildChoices(w.zh),
-      answered: false
-    };
-  }),
+  /* =========================
+     3️⃣ 預先生出第一題
+  ========================= */
+  generateNextChallengeQuestion();
 
-  history: [],
-  usedWords: new Set()
-};
-
+  /* =========================
+     4️⃣ 開始遊戲
+  ========================= */
   gameTitle.textContent = "🏁 挑戰模式";
+  modeTagEl.textContent = "挑戰";
+
+  el("btnBackToMap").style.display = "none";
+  el("btnPrev").style.display = "none";
+
   openGame();
   updateRateUI();
   startTimer();
   renderQuestion();
-
-  modeTagEl.textContent = "挑戰";
-  el("btnBackToMap").style.display = "none";
-  el("btnPrev").style.display = "none";
 }
   
 function renderQuestion(){
@@ -1952,6 +1951,41 @@ function applyScore(gain, msg){
   updateTop();
   renderMistakeCard();
 }
+  
+function generateNextChallengeQuestion(){
+  // 從還沒用過的單字中挑一個
+  const nextWord = game.wordPool.find(
+    w => !game.usedWords.has(w.en)
+  );
+
+  if(!nextWord){
+    return;
+  }
+
+  game.usedWords.add(nextWord.en);
+
+  const types = getChallengeTypes(); // 只會 A / B / D
+  const type = types[Math.floor(Math.random() * types.length)];
+
+  let q;
+
+  if(type === "D"){
+    q = {
+      type,
+      word: nextWord,
+      answered: false
+    };
+  }else{
+    q = {
+      type,
+      word: nextWord,
+      choices: buildChoices(nextWord.zh),
+      answered: false
+    };
+  }
+
+  game.questions.push(q);
+}
 
 function nextQuestion(){
   if(!game) return;
@@ -1970,6 +2004,9 @@ function nextQuestion(){
 
   if(game.qIndex < Q_PER_LEVEL-1){
     game.qIndex += 1;
+    if(game.mode === "challenge"){
+    generateNextChallengeQuestion();
+  }
     renderQuestion();
   }else{
     finishLevel();
