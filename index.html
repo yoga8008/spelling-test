@@ -2354,8 +2354,8 @@ function init(){
     login(best);
   }else{
     refreshHomeStats();
-     initMobileBar(); 
-  }
+      }
+   initMobileBar();
 // 📱 Mobile bottom bar actions
 const mbMap = el("mbMap");
 const mbChallenge = el("mbChallenge");
@@ -2378,15 +2378,6 @@ if(mbPractice){
     }else{
       alert("目前沒有需要複習的單字");
     }
-  };
-}
-
-if(mbUser){
-  mbUser.onclick = () => {
-    el("userInfoCard")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
   };
 }
 }
@@ -2415,14 +2406,12 @@ if(mbUser){
     };
   }
 
-  if(mbUser){
-    mbUser.onclick = () => {
-      el("userInfoCard")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    };
-  }
+mbUser.onclick = () => {
+  el("userInfoCard").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+};
 }
 </script>
   <!-- 📱 Mobile Bottom Bar -->
