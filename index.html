@@ -715,9 +715,9 @@
         </div>
       </div>
 
-      <div id="feedback" style="margin-top:12px"></div>
+      <div id="feedback"></div
 
-      <div class="small" style="margin-top:8px">
+      <div class="small">
         ※ A：聽→選中文（不顯示英文）｜D：聽→拼英文（不顯示英文）｜錯了會顯示正解。<br/>
         ※ C：中英配對每題 4 組；點錯會提示正解，但這題記 0 分（仍可完成配對）。
       </div>
@@ -733,7 +733,7 @@
       <button class="btn ghost" id="btnCloseType">✖ 關閉</button>
     </div>
     <div class="modalBody">
-      <div class="pill" style="background:rgba(37,99,235,.14); border-color:rgba(37,99,235,.30); margin-bottom:10px">
+      <div class="pill" style="background:rgba(37,99,235,.14); border-color:rgba(37,99,235,.30);>
         選「全選」：每關 10 題會混合 A/B/C/D（平均分配＋隨機排序）
       </div>
       <div class="typePick">
@@ -743,7 +743,7 @@
         <div class="chip" id="chipC">C：中英配對（每題 4 組）</div>
         <div class="chip" id="chipD">D：聽力拼音（聽→拼英文）</div>
       </div>
-      <div class="help" style="margin-top:10px">
+      <div class="help">
         至少要選 1 種題型。配對題（C）固定 4 組，點錯會直接提示正解。
       </div>
     </div>
@@ -1750,7 +1750,7 @@ if(q.type==="D"){
         autocomplete="off"
         autocapitalize="none" />
     </div>
-    <div class="row" style="justify-content:center; margin-top:12px">
+    <div class="row" style="justify-content:center">
       <button class="btn primary" id="btnCheck">✅ 確認</button>
     </div>
   `;
@@ -1785,7 +1785,7 @@ if(!isNoHint){
     hint.innerHTML = `
       🔔 拼字小提醒<br>
       ・這個單字有 <b>${len}</b> 個字母<br>
-      <div style="margin-top:6px;font-size:22px;letter-spacing:4px">
+      <div style="font-size:22px;letter-spacing:4px">
         ${masked}
       </div>
     `;
@@ -2150,12 +2150,12 @@ if(game.mode !== "level"){
       <div class="msg ${passed?"good":"bad"}" style="display:inline-block; max-width:860px">
         <b>📍 ${city}</b><br/>${msg}
       </div>
-      <div style="margin-top:14px" class="row">
+      <div class="row">
         <button class="btn ghost" id="btnReplayLevel">🔁 重玩本關</button>
         <button class="btn primary" id="btnGoMap2">🗺️ 回世界地圖</button>
         <button class="btn ${passed?"primary":"ghost"}" id="btnNextLevel">${passed?`➡️ 下一關：${nextCity}`:"🔒 下一關（未解鎖）"}</button>
       </div>
-      <div class="help" style="max-width:860px; margin:12px auto 0">
+      <div class="help" style="max-width:860px">
         ✅ 下一關是否可點：取決於本關是否達到 8 分（含）。<br/>
         🔁 重玩：不會取消已解鎖關卡；本關最高分會更新。
       </div>
@@ -2225,7 +2225,7 @@ function finishPractice(){
         🏆 最高紀錄：<b>${currentStudent.challengeBest}</b> 分<br/>
         <span class="small">時間：${fmt(spent)}</span>
       </div>
-      <div style="margin-top:14px" class="row">
+      <div class="row">
         <button class="btn ghost" id="btnReplayChallenge">🔁 再挑戰一次</button>
         <button class="btn primary" id="btnBackHome">⬅️ 回主畫面</button>
       </div>
