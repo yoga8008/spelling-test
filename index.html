@@ -2340,22 +2340,27 @@ function goToMap(){
   const y = shell.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top: y, behavior: "smooth" });
 }
-  function navigate(to){
-  // 如果正在遊戲中，先關掉
-  if(gameBack && gameBack.style.display === "flex"){
+function navigate(to){
+
+  // ⭐ 只有「不是 map」時才關遊戲（避免雙重捲動）
+  if(
+    to !== "map" &&
+    gameBack &&
+    gameBack.style.display === "flex"
+  ){
     closeGame();
   }
 
-if(to === "user"){
-  const top = el("homeTop");
-  if(!top) return;
-  const y = top.getBoundingClientRect().top + window.scrollY - 80;
-  window.scrollTo({ top: y, behavior: "smooth" });
-}
+  if(to === "user"){
+    const top = el("homeTop");
+    if(!top) return;
+    const y = top.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
 
   if(to === "map"){
-  goToMap();
-}
+    goToMap();
+  }
 
   if(to === "challenge"){
     el("btnStartNext").click();
