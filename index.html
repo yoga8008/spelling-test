@@ -137,6 +137,26 @@
     gap: 10px;
     margin-top: 12px;
   }
+  /* ▶️ 遊戲模式：滿版三等分 */
+.modeGrid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.modeGrid .btn{
+  justify-content: center;
+  padding: 14px 10px;
+  font-size: 15px;
+}
+
+/* 📱 手機直排 */
+@media (max-width: 540px){
+  .modeGrid{
+    grid-template-columns: 1fr;
+  }
+}
   @media(max-width: 540px){ .kpi{grid-template-columns:1fr} }
   .k{
     background: rgba(255,255,255,.9);
@@ -683,8 +703,6 @@ and (orientation: landscape){
         <span class="pill">🔁 可重玩</span>
       </div>
     </div>
-
-    <div class="mapNote">提示：達 8 分 → 解鎖下一個城市。</div>
 
     <div class="mapWrap">
       <div class="mapCanvas" id="mapCanvas">
