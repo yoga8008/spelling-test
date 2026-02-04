@@ -634,6 +634,7 @@ and (orientation: landscape){
       <h2>👤 使用者資訊</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">使用者：<span id="curStudent">（尚未登入）</span></div>
+        <div class="pill">已通關：<span id="curCleared">0</span></div>
       </div>
       <div class="divider"></div>
 
@@ -2089,28 +2090,37 @@ function generateNextChallengeQuestion(){
 
 function nextQuestion(){
   if(!game) return;
+
   const q = game.questions[game.qIndex];
 
+  // 必須先作答
   if((q.type==="A"||q.type==="B") && !q.answered){
-    alert("請先作答（選一個中文）。"); return;
+    alert("請先作答"); return;
   }
   if(q.type==="D"){
     const inp = questionArea.querySelector(".typeInput");
-    if(inp && !inp.disabled){ alert("請先輸入並確認答案。"); return; }
+    if(inp && !inp.disabled){
+      alert("請先輸入並確認答案"); return;
+    }
   }
   if(q.type==="C" && (q.donePairs||0) < 4){
-    alert("請先完成 4 組配對。"); return;
+    alert("請先完成配對"); return;
   }
 
-  if(game.qIndex < Q_PER_LEVEL-1){
-    game.qIndex += 1;
-    if(game.mode === "challenge"){
+  // 🔥【挑戰模式】不看 Q_PER_LEVEL
+  if(game.mode === "challenge"){
+    game.qIndex++;
     generateNextChallengeQuestion();
+    renderQuestion();
+    return;
   }
+
+  // 【關卡 / 複習】維持 10 題
+  if(game.qIndex < Q_PER_LEVEL - 1){
+    game.qIndex++;
     renderQuestion();
   }else{
     finishLevel();
-    renderMistakeCard();
   }
 }
 
@@ -2404,7 +2414,6 @@ if(mbUser){
       });
     };
   }
-}function init
 
 </script>
   <!-- 📱 Mobile Bottom Bar -->
