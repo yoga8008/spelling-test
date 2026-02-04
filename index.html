@@ -519,12 +519,6 @@
   margin:0 0 10px;
   letter-spacing:.5px;
 }
-<!-- 📱 Mobile Bottom Bar -->
-<div class="mobileBar">
-  <button id="mbMap">🗺️</button>
-  <button id="mbChallenge">🚀</button>
-  <button id="mbPractice">📖</button>
-</div>
   /* =============================
    📱 Mobile Bottom Bar
 ============================= */
@@ -556,7 +550,7 @@
 }
 
 /* 📱 只在手機顯示 */
-@media (max-width: 540px){
+@media (max-width: 768px){
   .mobileBar{ display:flex; }
 
   /* 底部留空，避免被擋住 */
@@ -2383,5 +2377,11 @@ el("mbPractice").onclick = () => {
   }
 };
 </script>
+  <!-- 📱 Mobile Bottom Bar -->
+<div class="mobileBar">
+  <button id="mbMap">🗺️<small>地圖</small></button>
+  <button id="mbChallenge">🚀<small>挑戰</small></button>
+  <button id="mbPractice">📖<small>複習</small></button>
+</div>
 </body>
 </html>
