@@ -612,9 +612,6 @@ and (orientation: landscape){
 <div class="leftCol">
 <div class="card panel" >
   <h2>🔐 使用者登入</h2>
-
-  <div class="label">輸入姓名（不可空白）</div>
-
   <div class="row" style="gap:16px; flex-wrap:nowrap">
     <input
       class="input"
@@ -634,7 +631,10 @@ and (orientation: landscape){
       <h2>👤 使用者資訊</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">使用者：<span id="curStudent">（尚未登入）</span></div>
-        <div class="pill">已通關：<span id="curCleared">0</span></div>
+        <div class="kpi">
+        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
+        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
+      </div>
       </div>
       <div class="divider"></div>
 
@@ -664,11 +664,6 @@ and (orientation: landscape){
         <button class="btn ghost" id="btnGoMap">🗺️ 關卡模式</button>
         <button class="btn ghost" id="btnStartNext">🚀 挑戰模式</button>
         <button class="btn ghost" id="btnQuickPractice" style="display:none">📖 複習模式</button>
-      </div>
-      <div class="kpi">
-        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
-        <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
-        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
       </div>
     </div>
 
