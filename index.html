@@ -609,10 +609,12 @@ and (orientation: landscape){
   <div class="grid">
     <!-- left -->
   <!-- 👤 登入 / 使用者切換 -->
-
 <div class="leftCol">
-<div id="homeTop" class="card panel">
+<div class="card panel" >
   <h2>🔐 使用者登入</h2>
+
+  <div class="label">輸入姓名（不可空白）</div>
+
   <div class="row" style="gap:16px; flex-wrap:nowrap">
     <input
       class="input"
@@ -632,10 +634,7 @@ and (orientation: landscape){
       <h2>👤 使用者資訊</h2>
       <div class="row" style="justify-content:space-between">
         <div class="pill">使用者：<span id="curStudent">（尚未登入）</span></div>
-        <div class="kpi">
-        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
-        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
-      </div>
+        <div class="pill">已通關：<span id="curCleared">0</span></div>
       </div>
       <div class="divider"></div>
 
@@ -649,7 +648,7 @@ and (orientation: landscape){
 
       <div class="divider"></div>
 
-      <div id="homeTypeSetting" class="homeTypeSetting">
+      <div class="homeTypeSetting">
   <h2>⚙️ 題型設定</h2>
   <div class="row">
     <span class="pill">目前題型：<b id="typeSummary">全選 A/B/C/D</b></span>
@@ -665,6 +664,11 @@ and (orientation: landscape){
         <button class="btn ghost" id="btnGoMap">🗺️ 關卡模式</button>
         <button class="btn ghost" id="btnStartNext">🚀 挑戰模式</button>
         <button class="btn ghost" id="btnQuickPractice" style="display:none">📖 複習模式</button>
+      </div>
+      <div class="kpi">
+        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
+        <div class="k"><b id="kNeed">8/10</b><small>過關門檻</small></div>
+        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
       </div>
     </div>
 
@@ -935,6 +939,7 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
    UI refs
 ================================ */
 const curStudentEl = el("curStudent");
+const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
 const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
@@ -1227,16 +1232,16 @@ function renderMap(){
 function refreshHomeStats(){
   if(!currentStudent){
     curStudentEl.textContent="（尚未登入）";
+    curClearedEl.textContent="0";
     kLevelEl.textContent="—";
     kBestEl.textContent="—";
     continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
     renderBadges();
-    el("homeTypeSetting")?.style.display = "none";
     return;
   }
   curStudentEl.textContent = currentStudent.name;
-  el("homeTypeSetting").style.display = "block";
   const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
+  curClearedEl.textContent = String(passedCount);
 
   const next = Math.min(LEVEL_COUNT, passedCount+1);
   kLevelEl.textContent = `${levelCity(next)}`;
@@ -1284,6 +1289,7 @@ function login(name){
   // ⭐ 先清空舊狀態（關鍵）
   currentStudent = null;
   currentName = "";
+  game = null;
   name = sanitizeName(name);
   if(!name){
     alert("⚠️ 姓名不可空白");
@@ -1321,12 +1327,33 @@ el("btnResetStudent").onclick=()=>{
   alert("已清除。");
 };
 
-el("btnGoMap").onclick = () => {
+el("btnGoMap").onclick=()=>{
   if(!currentStudent){
     alert("請先輸入姓名登入。");
     return;
   }
-  goToMap();
+
+  // 1️⃣ 算出目前應該挑戰的關卡
+  const passedCount = Object.values(currentStudent.cleared||{})
+    .filter(x=>x.passed).length;
+  const next = Math.min(LEVEL_COUNT, passedCount + 1);
+
+  // 2️⃣ 先捲到地圖區塊
+  el("mapCanvas").scrollIntoView({ behavior:"smooth", block:"start" });
+
+  // 3️⃣ 再捲到該城市關卡（等 DOM 穩定）
+  setTimeout(()=>{
+    const btns = document.querySelectorAll(".levelBtn");
+    const target = btns[next - 1]; // 關卡是從 1 開始
+    if(target){
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+      target.classList.add("highlight");
+      setTimeout(()=>target.classList.remove("highlight"), 1200);
+    }
+  }, 300);
 };
 
 el("btnStartNext").onclick=()=>{
@@ -2297,8 +2324,8 @@ function finishPractice(){
     </div>
   `;
 
-  document.getElementById("btnReplayChallenge").onclick = startChallenge;
-  document.getElementById("btnBackHome").onclick = closeGame;
+  el("btnReplayChallenge").onclick = startChallenge;
+  el("btnBackHome").onclick = closeGame;
     
   refreshHomeStats(); 
 }
@@ -2312,73 +2339,57 @@ function init(){
     window.speechSynthesis.onvoiceschanged = ()=>{};
   }
 
-  initMobileBar();
-
-  // ⭐ init 永遠「不碰使用者狀態」
-  currentStudent = null;
-  currentName = "";
-
-  refreshHomeStats();
-  renderMap();
   renderBadges();
+  renderMap();
+
+  const all = loadAll();
+  const names = all.students ? Object.keys(all.students) : [];
+  if(names.length){
+    let best = names[0], bestTs=0;
+    names.forEach(n=>{
+      const s = all.students[n];
+      const ts = s.lastPlayed || 0;
+      if(ts>bestTs){ bestTs=ts; best=n; }
+    });
+    login(best);
+  }else{
+    refreshHomeStats();
+      }
+   initMobileBar();
 }
 
-function goToMap(){
-  const shell = document.querySelector(".mapShell");
-  if(!shell) return;
-
-  const y = shell.getBoundingClientRect().top + window.scrollY - 80;
-  window.scrollTo({ top: y, behavior: "smooth" });
-}
-function navigate(to){
-
-  // ⭐ 只有「不是 user / map」才可能關遊戲
-  if(
-    to !== "user" &&
-    to !== "map" &&
-    gameBack &&
-    gameBack.style.display === "flex"
-  ){
-    closeGame();
-  }
-
-  if(to === "user"){
-    const top = el("homeTop");
-    if(!top) return;
-    const y = top.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  }
-
-  if(to === "map"){
-    goToMap();
-  }
-
-  if(to === "challenge"){
-    el("btnStartNext").click();
-  }
-
-  if(to === "practice"){
-    const btn = el("btnQuickPractice");
-    if(btn && btn.style.display !== "none"){
-      btn.click();
-    }else{
-      alert("目前沒有需要複習的單字");
-    }
-  }
-}
-
- function initMobileBar(){
-  const mbUser = el("mbUser");
+  function initMobileBar(){
   const mbMap = el("mbMap");
   const mbChallenge = el("mbChallenge");
   const mbPractice = el("mbPractice");
+  const mbUser = el("mbUser");
 
-  if(mbUser)      mbUser.onclick      = () => navigate("user");
-  if(mbMap)       mbMap.onclick       = () => navigate("map");
-  if(mbChallenge) mbChallenge.onclick = () => navigate("challenge");
-  if(mbPractice)  mbPractice.onclick  = () => navigate("practice");
+  if(mbMap){
+    mbMap.onclick = () => el("btnGoMap")?.click();
+  }
+
+  if(mbChallenge){
+    mbChallenge.onclick = () => el("btnStartNext")?.click();
+  }
+
+  if(mbPractice){
+    mbPractice.onclick = () => {
+      const btn = el("btnQuickPractice");
+      if(btn && btn.style.display !== "none"){
+        btn.click();
+      }else{
+        alert("目前沒有需要複習的單字");
+      }
+    };
+  }
+
+mbUser.onclick = () => {
+  el("userInfoCard").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+};
 }
-
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
