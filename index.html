@@ -1604,7 +1604,12 @@ function startChallenge(){
     streakBest: 0,
     startedAt: Date.now(),
     timeLimit: 60 * 1000,
-    questions: pickWordsAI(999),
+    questions: pickWordsAI(999).map(w => ({
+  type: getSelectedTypes()[Math.floor(Math.random() * getSelectedTypes().length)],
+  word: w,
+  choices: buildChoices(w.zh),
+  answered: false
+})),
     history: [],
     usedWords: new Set()
   };
@@ -1624,6 +1629,10 @@ function renderQuestion(){
   clearFeedback();
   updateTop();
   const q = game.questions[game.qIndex];
+  if(!q || !q.type){
+  setFeedback("bad", "⚠️ 題目載入異常，請按下一題");
+  return;
+}
 
   modeTagEl.textContent = q.type;
   const modeTitle = {
