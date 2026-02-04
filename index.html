@@ -2346,6 +2346,7 @@ function goToMap(){
 
 if(to === "user"){
   const top = el("homeTop");
+  if(!top) return;
   const y = top.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top: y, behavior: "smooth" });
 }
