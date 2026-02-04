@@ -609,7 +609,9 @@ and (orientation: landscape){
   <div class="grid">
     <!-- left -->
   <!-- 👤 登入 / 使用者切換 -->
+
 <div class="leftCol">
+<div id="homeTop"></div>
 <div class="card panel" >
   <h2>🔐 使用者登入</h2>
   <div class="row" style="gap:16px; flex-wrap:nowrap">
@@ -2334,10 +2336,10 @@ function init(){
    initMobileBar();
 }
 function goToMap(){
-  const map = el("mapCanvas");
-  if(!map) return;
+  const shell = document.querySelector(".mapShell");
+  if(!shell) return;
 
-  const y = map.getBoundingClientRect().top + window.scrollY - 80;
+  const y = shell.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top: y, behavior: "smooth" });
 }
   function navigate(to){
@@ -2346,9 +2348,9 @@ function goToMap(){
     closeGame();
   }
 
-  if(to === "user"){
-  const left = document.querySelector(".leftCol");
-  const y = left.getBoundingClientRect().top + window.scrollY - 80;
+if(to === "user"){
+  const top = el("homeTop");
+  const y = top.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top: y, behavior: "smooth" });
 }
 
