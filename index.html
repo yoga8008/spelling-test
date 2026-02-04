@@ -1286,6 +1286,12 @@ function refreshHomeStats(){
     btn.style.display = "inline-flex";
     btn.textContent = "📖 複習模式";
   }
+     // 📱 同步手機底部「複習」按鈕狀態
+  const mbPractice = el("mbPractice");
+  if(mbPractice){
+    mbPractice.disabled = (count === 0);
+    mbPractice.style.opacity = (count === 0 ? 0.4 : 1);
+  }
 }
 
 function login(name){
