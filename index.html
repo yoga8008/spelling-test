@@ -2312,12 +2312,11 @@ function init(){
     window.speechSynthesis.onvoiceschanged = ()=>{};
   }
 
-  renderBadges();
-  renderMap();
+  initMobileBar(); // ⭐ 一定要最先
 
   const all = loadAll();
   const names = all.students ? Object.keys(all.students) : [];
-  initMobileBar();
+
   if(names.length){
     let best = names[0], bestTs=0;
     names.forEach(n=>{
@@ -2325,11 +2324,15 @@ function init(){
       const ts = s.lastPlayed || 0;
       if(ts>bestTs){ bestTs=ts; best=n; }
     });
-    login(best);
+    login(best);   // ⭐ login 裡面會 renderMap / stats
   }else{
+    currentStudent = null;
     refreshHomeStats();
-      }
+    renderMap();
+    renderBadges();
+  }
 }
+
 function goToMap(){
   const shell = document.querySelector(".mapShell");
   if(!shell) return;
