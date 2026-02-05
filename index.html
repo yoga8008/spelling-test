@@ -1190,6 +1190,15 @@ function checkBadges(context){
   const byCont = groupLevelsByContinent();
   if(byCont["亞洲 Asia"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
     awardBadge("asiaMaster");
+  if(byCont["歐洲 Europe"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
+  awardBadge("europeMaster");
+  if(byCont["美洲 Americas"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
+  awardBadge("americaMaster");
+  if(byCont["非洲 Africa"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
+  awardBadge("africaMaster");
+  if(byCont["大洋洲 Oceania"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
+  awardBadge("oceaniaMaster");
+
 
   // 🚀 挑戰模式
   if(context.mode === "challenge"){
@@ -2179,18 +2188,7 @@ function applyScore(gain, msg){
     if(game.streak===10){ awardBadge("streak10"); popToast("🔥 連續答對 10 題！"); }
     
         // ⭐ 新增：同一單字連續答對次數
-    const q = game.questions[game.qIndex];
-    if(q.word){
-      const w = q.word.en;
-      currentStudent.wordStats = currentStudent.wordStats || {};
-      currentStudent.wordStats[w] = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
-
-      currentStudent.wordStats[w].correctStreak += 1;
-
-      saveAll(ALL);
-    }
-
-}else{
+   }else{
   game.streak = 0;
   setFeedback("bad", msg);
 
@@ -2448,6 +2446,8 @@ if(game.mode !== "level"){
 }
 
 function finishPractice(){
+  currentStudent.practiceFinishedCount =
+  (currentStudent.practiceFinishedCount || 0) + 1;
   const s = game.score;
   const spent = Date.now() - game.startedAt;
 
@@ -2465,6 +2465,7 @@ function finishPractice(){
   `;
 
   document.getElementById("btnBackHome").onclick = closeGame;
+  checkBadges({ practiceFinished:true });
 }  
   function finishChallenge(){
   stopTimer();
