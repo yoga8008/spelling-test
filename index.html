@@ -111,6 +111,36 @@
   .panel{padding:16px;}
   .panel h2{margin:0 0 10px; font-size:16px; letter-spacing:.5px;}
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  /* 使用者列：左資訊、右頭像 */
+.userRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* 頭像 */
+.avatar{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#e5e7eb;
+  border:2px solid rgba(148,163,184,.35);
+  flex-shrink:0;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* 使用者名稱 */
+.userName{
+  font-size:16px;
+  font-weight:1000;
+}
+
   .label{font-weight:900; color: var(--muted); font-size:12px; letter-spacing:.5px;}
   .pill{
     display:inline-flex; gap:8px; align-items:center;
@@ -652,10 +682,17 @@ and (orientation: landscape){
 </div>
     <div class="card panel" id="userInfoCard">
       <h2>👤 使用者資訊</h2>
-      <div class="row" style="justify-content:space-between">
-        <div class="pill">使用者：<span id="curStudent">（尚未登入）</span></div>
-        <div class="pill">已通關：<span id="curCleared">0</span></div>
-      </div>
+      <div class="row userRow">
+  <div>
+    <div class="label">使用者</div>
+    <div class="userName" id="curStudent">（尚未登入）</div>
+    <div class="small">已通關：<b id="curCleared">0</b></div>
+  </div>
+
+  <div class="avatar">
+    <img id="avatarImg" src="avatar-default.png" alt="avatar">
+  </div>
+</div>
       <div class="divider"></div>
 
       <h2>🏅 徽章</h2>
