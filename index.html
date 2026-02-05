@@ -487,7 +487,9 @@
 ============================= */
 .mistakeGrid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  max-width: 520px;   /* ⭐ 限制整區寬度 */
+  margin: 0 auto;     /* ⭐ 置中 */
   gap:12px;
 }
 
@@ -729,6 +731,7 @@ and (orientation: landscape){
   <!-- 世界地圖 -->
   <div class="card mapShell">
     <div class="mapHeader">
+    <div id="mapAnchor"></div>
       <h2>🗺️ 世界地圖</h2>
       <div class="row">
         <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
