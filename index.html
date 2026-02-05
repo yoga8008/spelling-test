@@ -1175,10 +1175,19 @@ function checkBadges(context){
   }
 
   // 🗻 日本通達人（前 10 關）
-  const JAPAN = [1,2,3,4,5,6,7,8,9,10];
-  if(JAPAN.every(lv => s.cleared?.[lv]?.bestScore === 10)){
-    awardBadge("japanMaster");
-  }
+  const japanLevels = LEVELS
+  .map((l,i)=>({lvl:i+1, city:l.city}))
+  .filter(x =>
+    ["沖繩 Okinawa","大阪 Osaka","京都 Kyoto","名古屋 Nagoya","東京 Tokyo"]
+      .some(j => x.city.includes(j))
+  )
+  .map(x=>x.lvl)
+  .slice(0,10);
+
+if(japanLevels.length === 10 &&
+   japanLevels.every(lv => s.cleared?.[lv]?.bestScore === 10)){
+  awardBadge("japanMaster");
+}
 
   // 🗺️ 環遊世界
   if(Object.values(s.cleared||{}).length === 100 &&
@@ -1233,6 +1242,7 @@ function awardBadge(id){
 }
 function renderBadges(){
   badgeBox.innerHTML="";
+  if(!currentStudent) return;
   const owned = (currentStudent && currentStudent.badges) ? currentStudent.badges : {};
   BADGE_DEFS.forEach(b=>{
     const on = !!owned[b.id];
@@ -1463,7 +1473,6 @@ function login(name){
 
   refreshHomeStats();
   renderMap();
-  checkBadges({});
 
   el("studentName").value = "";
 
@@ -2175,39 +2184,7 @@ function answerTyping(value){
   else applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
 }
 
-function applyScore(gain, msg){
-  const before = game.streak;
-
-  if(gain===1){
-    game.score += 1;
-    game.streak += 1;
-    game.streakBest = Math.max(game.streakBest, game.streak);
-    setFeedback("good", msg);
-
-    if(game.streak===5){ awardBadge("streak5"); popToast("🔥 連續答對 5 題！"); }
-    if(game.streak===10){ awardBadge("streak10"); popToast("🔥 連續答對 10 題！"); }
-    
-        // ⭐ 新增：同一單字連續答對次數
-   }else{
-  game.streak = 0;
-  setFeedback("bad", msg);
- }
-  const q = game.questions[game.qIndex];
-  if(q.word){
-    const w = q.word.en;
-    currentStudent.wordStats = currentStudent.wordStats || {};
-    currentStudent.wordStats[w] = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
-
-    currentStudent.wordStats[w].wrong += 1;      // 錯誤 +1
-    currentStudent.wordStats[w].correctStreak = 0; // 錯了就斷連對
-
-    saveAll(ALL);
-  }
-}
-
-  game.history[game.qIndex] = { gain, streakBefore: before };
-  updateTop();
-}
+function applyScor
   
 function generateNextChallengeQuestion(){
   // 從還沒用過的單字中挑一個
@@ -2353,12 +2330,7 @@ if(game.mode !== "level"){
 
   old.attempts = (old.attempts||0) + 1;
   old.bestScore = Math.max(old.bestScore||0, s);
-  checkBadges({
-  mode: "level",
-  score: s,
-  levelPassed: passed,
-  attempts: old.attempts
-});
+  
   if(passed) old.passed = true;
 
   const firstTimeClear = passed && !old.firstClearTs;
