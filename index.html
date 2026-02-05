@@ -1114,16 +1114,92 @@ el("btnSaveType").onclick=()=>{
    Home badges
 ================================ */
 const BADGE_DEFS = [
-  {id:"firstClear", icon:"🏁", color:"gold", name:"首次通關", desc:"第一次過關"},
-  {id:"streak5", icon:"🏅", color:"gold", name:"連勝 5 題", desc:"同一關連續答對 5 題"},
-  {id:"streak10", icon:"🏆", color:"gold", name:"連勝 10 題", desc:"同一關連續答對 10 題"},
-  {id:"perfect10", icon:"💯", color:"gold", name:"單關滿分", desc:"任一關 10/10"},
-  {id:"pass10", icon:"🗻", color:"gold", name:"日本小達人", desc:"累積過關 10 關"},
-  {id:"pass30", icon:"🌏", color:"gold", name:"亞洲小達人", desc:"過關 30 關"},
-  {id:"pass60", icon:"🌍", color:"gold", name:"歐洲小達人", desc:"累積過關 60 關"},
-  {id:"pass100", icon:"🗺️", color:"gold", name:"環遊世界", desc:"全部 100 關完成"}
-];
+   // 學習歷程
+  { id:"learnFromMistake", name:"不怕錯小勇士", icon:"🧠" },
+  { id:"practiceMaster", name:"複習小達人", icon:"📖" },
+  { id:"neverGiveUp", name:"不放棄挑戰者", icon:"🔁" },
+  { id:"steadyLearner", name:"穩定學習小高手", icon:"⏱️" },
 
+  // 關卡模式
+  { id:"firstClear", name:"首次通關", icon:"🏁" },
+  { id:"streak5", name:"連勝 5 題", icon:"🏅" },
+  { id:"streak10", name:"連勝 10 題", icon:"🏆" },
+  { id:"perfect10", name:"單關滿分", icon:"💯" },
+  { id:"japanMaster", name:"日本通達人", icon:"🗻" },
+  { id:"worldMaster", name:"環遊世界", icon:"🗺️" },
+
+  // 洲別
+  { id:"asiaMaster", name:"亞洲冒險家", icon:"🏯" },
+  { id:"europeMaster", name:"歐洲冒險家", icon:"🏰" },
+  { id:"americaMaster", name:"美洲冒險家", icon:"🗽" },
+  { id:"africaMaster", name:"非洲冒險家", icon:"🦁" },
+  { id:"oceaniaMaster", name:"大洋洲冒險家", icon:"🦘" },
+
+  // 挑戰模式
+  { id:"challenge10", name:"挑戰新手", icon:"🚀" },
+  { id:"challenge15", name:"挑戰達人", icon:"🎯" },
+  { id:"challenge20", name:"挑戰高手", icon:"🔥" },
+  { id:"challenge30", name:"挑戰王者", icon:"👑" },
+  { id:"calmFighter", name:"冷靜應戰", icon:"🧊" },
+];
+function checkBadges(context){
+  const s = currentStudent;
+  if(!s) return;
+
+  // 🧠 不怕錯小勇士
+  if(context.word){
+    const st = s.wordStats?.[context.word];
+    if(st && st.wrong >= 3 && st.correctStreak >= 3){
+      awardBadge("learnFromMistake");
+    }
+  }
+
+  // 📖 複習小達人
+  if(context.practiceFinished && s.practiceFinishedCount >= 5){
+    awardBadge("practiceMaster");
+  }
+
+  // 🔁 不放棄挑戰者
+  if(context.levelPassed && context.attempts >= 3){
+    awardBadge("neverGiveUp");
+  }
+
+  // ⏱️ 穩定學習
+  if(s.loginDays?.length >= 5){
+    awardBadge("steadyLearner");
+  }
+
+  // 💯 單關滿分
+  if(context.score === 10 && context.mode === "level"){
+    awardBadge("perfect10");
+  }
+
+  // 🗻 日本通達人（前 10 關）
+  const JAPAN = [1,2,3,4,5,6,7,8,9,10];
+  if(JAPAN.every(lv => s.cleared?.[lv]?.bestScore === 10)){
+    awardBadge("japanMaster");
+  }
+
+  // 🗺️ 環遊世界
+  if(Object.values(s.cleared||{}).length === 100 &&
+     Object.values(s.cleared).every(lv=>lv.bestScore===10)){
+    awardBadge("worldMaster");
+  }
+
+  // 🌍 洲別
+  const byCont = groupLevelsByContinent();
+  if(byCont["亞洲 Asia"]?.every(lv=>s.cleared?.[lv]?.bestScore===10))
+    awardBadge("asiaMaster");
+
+  // 🚀 挑戰模式
+  if(context.mode === "challenge"){
+    if(context.score >= 10) awardBadge("challenge10");
+    if(context.score >= 15) awardBadge("challenge15");
+    if(context.score >= 20) awardBadge("challenge20");
+    if(context.score >= 30) awardBadge("challenge30");
+    if(context.streak >= 15) awardBadge("calmFighter");
+  }
+}
 function popToast(text){
   const p = el("pop");
   p.textContent = text;
@@ -1154,12 +1230,12 @@ function renderBadges(){
     const div = document.createElement("div");
     div.className="badge";
     div.innerHTML = `
-      <div class="icon ${on?b.color:"gray"}">${b.icon}</div>
-      <div class="t">
-        <b>${b.name}${on?" ✅":""}</b>
-        <small>${b.desc}</small>
-      </div>
-    `;
+  <div class="icon ${on ? "gold" : "gray"}">${b.icon}</div>
+  <div class="t">
+    <b>${b.name}${on ? " ✅" : ""}</b>
+    <small>${on ? "已解鎖" : "尚未解鎖"}</small>
+  </div>
+`;
     badgeBox.appendChild(div);
   });
 }
@@ -1369,10 +1445,16 @@ function login(name){
   ALL = loadAll();
   currentStudent = ensureStudent(ALL, name);
   currentName = name;
+  currentStudent.loginDays = currentStudent.loginDays || [];
+  const today = new Date().toDateString();
+  if(!currentStudent.loginDays.includes(today)){
+    currentStudent.loginDays.push(today);
+  }
   saveAll(ALL);
 
   refreshHomeStats();
   renderMap();
+  checkBadges({});
 
   el("studentName").value = "";
 
@@ -2113,6 +2195,24 @@ function applyScore(gain, msg){
   setFeedback("bad", msg);
 
   const q = game.questions[game.qIndex];
+
+  if(q?.word){
+    checkBadges({
+      word: q.word.en,
+      mode: game.mode,
+      streak: game.streak
+    });
+
+    currentStudent.wordStats = currentStudent.wordStats || {};
+    currentStudent.wordStats[q.word.en] =
+      currentStudent.wordStats[q.word.en] || { wrong:0, correctStreak:0 };
+
+    currentStudent.wordStats[q.word.en].wrong += 1;
+    currentStudent.wordStats[q.word.en].correctStreak = 0;
+    saveAll(ALL);
+  }
+}
+  const q = game.questions[game.qIndex];
   if(q.word){
     const w = q.word.en;
     currentStudent.wordStats = currentStudent.wordStats || {};
@@ -2273,7 +2373,12 @@ if(game.mode !== "level"){
 
   old.attempts = (old.attempts||0) + 1;
   old.bestScore = Math.max(old.bestScore||0, s);
-
+  checkBadges({
+  mode: "level",
+  score: s,
+  levelPassed: passed,
+  attempts: old.attempts
+});
   if(passed) old.passed = true;
 
   const firstTimeClear = passed && !old.firstClearTs;
@@ -2392,6 +2497,11 @@ function finishPractice(){
   el("btnBackHome").onclick = closeGame;
     
   refreshHomeStats(); 
+  checkBadges({
+  mode: "challenge",
+  score: s,
+  streak: game.streak
+}); 
 }
 /* ==============================
    Init
