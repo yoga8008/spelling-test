@@ -226,7 +226,15 @@
     max-height: 680px;
     padding: 14px;
   }
+  .mistakeScroll{
+  max-height: 240px;      /* 你可調 200~300 */
+  overflow-y: auto;
+  overflow-x: hidden;     /* 🔒 封死左右滑 */
+  padding-right: 6px;
+  -webkit-overflow-scrolling: touch;
+}
   .mistakeList{
+  width: 100%;
   max-height: 260px;      /* 固定高度 */
   overflow-y: auto;       /* 超出就滾 */
   padding-right: 6px;
@@ -776,6 +784,7 @@ and (orientation: landscape){
   <!-- 常錯誤單字（獨立一塊） -->
   <div class="card errorShell">
     <h2>⚠️ 常錯誤單字</h2>
+    <div class="mistakeScroll">
     <div id="mistakeBox" class="mistakeGrid mistakeList">
       <div class="small">尚無錯誤紀錄 🎉</div>
     </div>
