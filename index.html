@@ -108,6 +108,12 @@
   flex-direction:column;
   gap:16px;
 }
+  @media (min-width: 768px) and (orientation: landscape){
+  .mapRight{
+    align-self: start;
+    min-height: 0;   /* ⭐ 一定要一起加 */
+  }
+}
   .panel{padding:16px;}
   .panel h2{margin:0 0 10px; font-size:16px; letter-spacing:.5px;}
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
