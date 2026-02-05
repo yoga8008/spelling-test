@@ -108,15 +108,7 @@
   flex-direction:column;
   gap:16px;
 }
-/* 📱📐 只限平板橫向（不影響手機） */
-@media (min-width: 768px) and (max-width: 1024px)
-and (orientation: landscape){
 
-  .mapRight{
-    align-self: start;
-    min-height: 0;
-  }
-}
   .panel{padding:16px;}
   .panel h2{margin:0 0 10px; font-size:16px; letter-spacing:.5px;}
   .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
@@ -651,6 +643,27 @@ and (orientation: landscape){
 
   .mapRight{
     margin-top:16px;
+  }
+}
+  @media (max-width: 768px){
+  .grid{
+    display: block;   /* 手機完全不用 grid */
+  }
+
+  .leftCol,
+  .mapRight{
+    width: 100%;
+  }
+
+  .mapRight{
+    margin-top:16px;
+  }
+
+  /* 防止橫向爆版 */
+  .badges,
+  .mistakeGrid,
+  .levelGrid{
+    max-width: 100%;
   }
 }
 </style>
