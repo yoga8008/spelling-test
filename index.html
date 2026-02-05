@@ -1839,6 +1839,7 @@ function updateTop(){
   /* 🧠 複習模式 */
   if(game.mode === "practice"){
     gameTitle.textContent = "🧠 複習模式";
+    modeTagEl.textContent = "複習";
 
     // 隱藏關卡 / 挑戰 KPI
     document.querySelectorAll(".levelOnly")
@@ -2309,12 +2310,22 @@ function nextQuestion(){
   }
 
   // 【關卡 / 複習】維持 10 題
-  if(game.qIndex < Q_PER_LEVEL - 1){
+ if(game.mode === "practice"){
+  if(game.qIndex < game.questions.length - 1){
     game.qIndex++;
     renderQuestion();
   }else{
-    finishLevel();
+    finishPractice();
   }
+  return;
+}
+
+// 【關卡模式】固定 10 題
+if(game.qIndex < Q_PER_LEVEL - 1){
+  game.qIndex++;
+  renderQuestion();
+}else{
+  finishLevel();
 }
 
 function prevQuestion(){
@@ -2473,6 +2484,7 @@ function finishPractice(){
 
   document.getElementById("btnBackHome").onclick = closeGame;
   checkBadges({ practiceFinished:true });
+  refreshHomeStats();
 }  
   function finishChallenge(){
   stopTimer();
