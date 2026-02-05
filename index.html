@@ -742,7 +742,7 @@ and (orientation: landscape){
   <div class="card errorShell">
     <h2>⚠️ 常錯誤單字</h2>
     <div class="mistakeScroll">
-    <div id="mistakeBox" class="mistakeGrid mistakeList">
+    <div id="mistakeBox" class="mistakeGrid">
     </div>
   </div>
 </div>
@@ -987,7 +987,6 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
 const curStudentEl = safe("curStudent");
 const kLevelEl = safe("kLevel");
 const kBestEl = safe("kBest");
-const typeSummaryEl = safe("typeSummary");
 const badgeBox = safe("badgeBox");
 const mapInner = el("mapInner");
 const mistakeBox = el("mistakeBox");
@@ -1039,13 +1038,7 @@ function refreshTypeChips(){
   chipC.classList.toggle("on", !!typeMode.C && !typeMode.all);
   chipD.classList.toggle("on", !!typeMode.D && !typeMode.all);
 
-  if(typeMode.all){
-    typeSummaryEl.textContent = "全選 A/B/C/D";
-  }else{
-    const chosen = ["A","B","C","D"].filter(k=>typeMode[k]);
-    typeSummaryEl.textContent = chosen.length? chosen.join(" / ") : "（未選）";
   }
-}
 function openTypeModal(){ refreshTypeChips(); typeBack.style.display="flex"; }
 function closeTypeModal(){ typeBack.style.display="none"; }
 el("btnOpenTypeModal").onclick=openTypeModal;
