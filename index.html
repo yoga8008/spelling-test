@@ -1241,20 +1241,26 @@ function awardBadge(id){
   }
 }
 function renderBadges(){
-  badgeBox.innerHTML="";
+   badgeBox.innerHTML="";
   if(!currentStudent) return;
-  const owned = (currentStudent && currentStudent.badges) ? currentStudent.badges : {};
-  BADGE_DEFS.forEach(b=>{
+
+  const owned = currentStudent.badges || {};
+
+  const list = [...BADGE_DEFS].sort((a,b)=>{
+    return (owned[b.id]?1:0) - (owned[a.id]?1:0);
+  });
+
+  list.forEach(b=>{
     const on = !!owned[b.id];
     const div = document.createElement("div");
     div.className="badge";
     div.innerHTML = `
-  <div class="icon ${on ? "gold" : "gray"}">${b.icon}</div>
-  <div class="t">
-    <b>${b.name}${on ? " ✅" : ""}</b>
-    <small>${on ? "已解鎖" : "尚未解鎖"}</small>
-  </div>
-`;
+      <div class="icon ${on ? "gold" : "gray"}">${b.icon}</div>
+      <div class="t">
+        <b>${b.name}${on ? " ✅" : ""}</b>
+        <small>${on ? "已解鎖" : "尚未解鎖"}</small>
+      </div>
+    `;
     badgeBox.appendChild(div);
   });
 }
@@ -1331,6 +1337,10 @@ function continentProgress(cont){
    Render world map (grid by continents)
 ================================ */
 function renderMap(){
+  if(!currentStudent){
+  mapInner.innerHTML = `<div class="small">請先登入以顯示世界地圖</div>`;
+  return;
+}
   mapInner.innerHTML = "";
 
   const grouped = groupLevelsByContinent();
@@ -1542,11 +1552,54 @@ el("btnQuickPractice").onclick = startMistakePractice;
 ================================ */
 let game = null;
 let tick=null, t0=0;
-function startMistakePractice(){
-  if(!currentStudent){
-    alert("請先登入");
-    return;
+  function applyScore(gain, msg){
+  const before = game.streak;
+
+  if(gain === 1){
+    game.score += 1;
+    game.streak += 1;
+    game.streakBest = Math.max(game.streakBest, game.streak);
+    setFeedback("good", msg);
+
+    if(game.streak === 5){
+      awardBadge("streak5");
+      popToast("🔥 連續答對 5 題！");
+    }
+    if(game.streak === 10){
+      awardBadge("streak10");
+      popToast("🔥 連續答對 10 題！");
+    }
+  }else{
+    game.streak = 0;
+    setFeedback("bad", msg);
   }
+
+  const q = game.questions[game.qIndex];
+  if(q && q.word){
+    const w = q.word.en;
+    currentStudent.wordStats = currentStudent.wordStats || {};
+    const st = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
+
+    if(gain === 1){
+      st.correctStreak += 1;
+    }else{
+      st.wrong += 1;
+      st.correctStreak = 0;
+    }
+
+    currentStudent.wordStats[w] = st;
+    saveAll(ALL);
+
+    checkBadges({
+      word: w,
+      mode: game.mode,
+      streak: game.streak
+    });
+  }
+
+  game.history[game.qIndex] = { gain, streakBefore: before };
+  updateTop();
+}
 
   const stats = currentStudent.wordStats || {};
   const mistakeWords = Object.entries(stats)
