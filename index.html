@@ -175,6 +175,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap:10px;
     margin-top: 10px;
+    width: 100%;
   }
   @media(max-width: 540px){ .badges{grid-template-columns:repeat(2,1fr)} }
   .badge{
@@ -986,6 +987,8 @@ const CONTINENT_BADGE = {
 ================================ */
 const LS_KEY = "nmps_spelling_go_world_final_v1";
 const el = id=>document.getElementById(id);
+const safe = id => document.getElementById(id) || { textContent:"", style:{}, classList:{ add(){}, remove(){} } };  
+  
 function loadAll(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||"{}"); }catch{ return {}; } }
 function saveAll(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
 
@@ -1310,36 +1313,33 @@ function renderMap(){
 ================================ */
 function refreshHomeStats(){
   if(!currentStudent){
-    curStudentEl.textContent="（尚未登入）";
-    curClearedEl.textContent="0";
-    kLevelEl.textContent="—";
-    kBestEl.textContent="—";
-    continentHint.textContent="登入後會顯示每洲進度與完成徽章。";
+    curStudentEl.textContent = "（尚未登入）";
+    kLevelEl.textContent = "—";
+    kBestEl.textContent = "—";
     renderBadges();
+    updateQuickPracticeBtn();
     return;
   }
-  curStudentEl.textContent = currentStudent.name;
-  const passedCount = Object.values(currentStudent.cleared||{}).filter(x=>x.passed).length;
-  curClearedEl.textContent = String(passedCount);
 
-  const next = Math.min(LEVEL_COUNT, passedCount+1);
-  kLevelEl.textContent = `${levelCity(next)}`;
+  curStudentEl.textContent = currentStudent.name;
+
+  const passedCount = Object.values(currentStudent.cleared||{})
+    .filter(x=>x.passed).length;
+
+  // ⭐ 當前關卡 = 已完成的最高關
+  if(passedCount === 0){
+    kLevelEl.textContent = "—";
+  }else{
+    kLevelEl.textContent = levelCity(passedCount);
+  }
+
   const best = currentStudent.challengeBest ?? null;
   kBestEl.textContent = (best==null) ? "—" : `${best} 分`;
-
-  // update continent hint (summary)
-  const grouped = groupLevelsByContinent();
-  const lines = Object.keys(CONTINENT_BADGE).filter(c=>grouped[c]).map(c=>{
-    const p = continentProgress(c);
-    const done = (p.total>0 && p.passed===p.total);
-    const badge = CONTINENT_BADGE[c];
-    return `${badge} ${c}：${p.passed}/${p.total}${done?" ✅":""}`;
-  });
-  continentHint.textContent = lines.join(" ｜ ");
 
   renderBadges();
   updateQuickPracticeBtn();
 }
+    
   
   function updateQuickPracticeBtn(){
   const btn = el("btnQuickPractice");
