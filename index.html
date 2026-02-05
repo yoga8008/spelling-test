@@ -1237,6 +1237,7 @@ function renderMap(){
 
       const btn = document.createElement("div");
       btn.className="levelBtn";
+      btn.dataset.level = lvl;
       if(passed) btn.classList.add("cleared");
       if(!unlocked) btn.classList.add("locked");
 
@@ -1368,33 +1369,34 @@ el("btnResetStudent").onclick=()=>{
   alert("已清除。");
 };
 
-el("btnGoMap").onclick=()=>{
-  if(!currentStudent){
-    alert("請先輸入姓名登入。");
-    return;
-  }
+el("btnGoMap").onclick = () => {
+  if(!currentStudent) return;
 
-  // 1️⃣ 算出目前應該挑戰的關卡
-  const passedCount = Object.values(currentStudent.cleared||{})
-    .filter(x=>x.passed).length;
-  const next = Math.min(LEVEL_COUNT, passedCount + 1);
+  // 已通關數
+  const passedCount = Object.values(currentStudent.cleared || {})
+    .filter(x => x.passed).length;
 
-  // 2️⃣ 先捲到地圖區塊
-  el("mapCanvas").scrollIntoView({ behavior:"smooth", block:"start" });
+  // 當前關卡 = 下一個可挑戰
+  const currentLevel = Math.min(LEVEL_COUNT, passedCount + 1);
 
-  // 3️⃣ 再捲到該城市關卡（等 DOM 穩定）
-  setTimeout(()=>{
-    const btns = document.querySelectorAll(".levelBtn");
-    const target = btns[next - 1]; // 關卡是從 1 開始
+  // 先捲到世界地圖標題
+  el("mapAnchor").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  // 再捲到當前關卡
+  setTimeout(() => {
+    const target = document.querySelector(
+      `.levelBtn[data-level="${currentLevel}"]`
+    );
     if(target){
       target.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
+        behavior: "smooth",
+        block: "center"
       });
-      target.classList.add("highlight");
-      setTimeout(()=>target.classList.remove("highlight"), 1200);
     }
-  }, 300);
+  }, 200);
 };
 
 el("btnStartNext").onclick=()=>{
