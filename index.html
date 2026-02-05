@@ -1553,8 +1553,55 @@ el("btnQuickPractice").onclick = startMistakePractice;
 let game = null;
 let tick=null, t0=0;
   function startMistakePractice(){
-  alert("複習模式尚未啟用（先確認主流程正常）");
+  if(!currentStudent) return;
+
+  const stats = currentStudent.wordStats || {};
+  const mistakeWords = Object.entries(stats)
+    .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
+    .map(([w]) => WORDS.find(x => x.en === w))
+    .filter(Boolean);
+
+  if(mistakeWords.length === 0){
+    alert("目前沒有需要複習的單字");
+    return;
+  }
+
+  game = {
+    mode: "practice",
+    level: "practice",
+    qIndex: 0,
+    score: 0,
+    streak: 0,
+    streakBest: 0,
+    startedAt: Date.now(),
+    questions: [],
+    history: [],
+    playCount: 0
+  };
+
+  // 每個錯字出一題（隨機 A/B/D）
+  mistakeWords.forEach(word => {
+    const types = ["A","B","D"];
+    const type = types[Math.floor(Math.random()*types.length)];
+
+    if(type === "D"){
+      game.questions.push({ type, word, answered:false });
+    }else{
+      game.questions.push({
+        type,
+        word,
+        choices: buildChoices(word.zh),
+        answered:false
+      });
+    }
+  });
+
+  openGame();
+  updateRateUI();
+  startTimer();
+  renderQuestion();
 }
+
   function applyScore(gain, msg){
   const before = game.streak;
 
