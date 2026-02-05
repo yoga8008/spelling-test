@@ -1078,7 +1078,6 @@ el("btnSaveType").onclick=()=>{
   ALL.settings.typeMode = typeMode;
   saveAll(ALL);
   closeTypeModal();
-  renderMap();
 };
 
 /* ==============================
@@ -1114,7 +1113,6 @@ function awardBadge(id){
   if(!currentStudent.badges[id]){
     currentStudent.badges[id]=true;
     saveAll(ALL);
-    renderBadges();
     popToast("🏅 解鎖徽章： " + (BADGE_DEFS.find(x=>x.id===id)?.name || id));
   }
 }
@@ -1285,27 +1283,21 @@ function refreshHomeStats(){
     curStudentEl.textContent = "（尚未登入）";
     kLevelEl.textContent = "—";
     kBestEl.textContent = "—";
-    renderBadges();
-    updateQuickPracticeBtn();
-    renderMistakeCard();
-    return;
-  }
-
-  curStudentEl.textContent = currentStudent.name;
-
-  const passedCount = Object.values(currentStudent.cleared||{})
-    .filter(x=>x.passed).length;
-
-  // ⭐ 當前關卡 = 已完成的最高關
-  if(passedCount === 0){
-    kLevelEl.textContent = "—";
   }else{
-    kLevelEl.textContent = levelCity(passedCount);
+    curStudentEl.textContent = currentStudent.name;
+
+    const passedCount = Object.values(currentStudent.cleared || {})
+      .filter(x => x.passed).length;
+
+    // 當前關卡：已完成的最高關
+    kLevelEl.textContent =
+      passedCount === 0 ? "—" : levelCity(passedCount);
+
+    const best = currentStudent.challengeBest ?? null;
+    kBestEl.textContent = best == null ? "—" : `${best} 分`;
   }
 
-  const best = currentStudent.challengeBest ?? null;
-  kBestEl.textContent = (best==null) ? "—" : `${best} 分`;
-
+  // ⭐⭐⭐ 統一在這裡（只留這裡）
   renderBadges();
   updateQuickPracticeBtn();
   renderMistakeCard();
@@ -1353,7 +1345,6 @@ function login(name){
 
   refreshHomeStats();
   renderMap();
-  renderMistakeCard();
 
   el("studentName").value = "";
 
@@ -2087,7 +2078,6 @@ function applyScore(gain, msg){
       currentStudent.wordStats[w].correctStreak += 1;
 
       saveAll(ALL);
-      renderMistakeCard();
     }
 
 }else{
@@ -2104,13 +2094,11 @@ function applyScore(gain, msg){
     currentStudent.wordStats[w].correctStreak = 0; // 錯了就斷連對
 
     saveAll(ALL);
-    renderMistakeCard();
   }
 }
 
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
-  renderMistakeCard();
 }
   
 function generateNextChallengeQuestion(){
@@ -2306,11 +2294,8 @@ if(game.mode !== "level"){
   `;
 
   if(firstTimeClear) fireConfetti();
-
-  refreshHomeStats();
   renderMap();
-  renderMistakeCard();
-  updateQuickPracticeBtn();
+  refreshHomeStats();
 
   document.getElementById("btnGoMap2").onclick=closeGame;
   document.getElementById("btnReplayLevel").onclick=()=>startLevel(game.level);
@@ -2389,10 +2374,6 @@ function init(){
   if("speechSynthesis" in window){
     window.speechSynthesis.onvoiceschanged = ()=>{};
   }
-
-  renderBadges();
-  renderMap();
-
   const all = loadAll();
   const names = all.students ? Object.keys(all.students) : [];
   if(names.length){
