@@ -1552,6 +1552,9 @@ el("btnQuickPractice").onclick = startMistakePractice;
 ================================ */
 let game = null;
 let tick=null, t0=0;
+  function startMistakePractice(){
+  alert("複習模式尚未啟用（先確認主流程正常）");
+}
   function applyScore(gain, msg){
   const before = game.streak;
 
@@ -2228,6 +2231,7 @@ function generateNextChallengeQuestion(){
   }
 
   game.questions.push(q);
+  game.qIndex = game.questions.length - 1;
 }
 
 function nextQuestion(){
@@ -2509,7 +2513,7 @@ function init(){
       }
     };
   }
-
+if(mbUser){
 mbUser.onclick = () => {
   el("userAnchor").scrollIntoView({
     behavior: "smooth",
