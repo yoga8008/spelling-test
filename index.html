@@ -604,7 +604,50 @@ and (orientation: landscape){
 @media (min-width: 769px){
   .mobileBar{ display:none; }
 }
+.userRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
+.userName{
+  font-size:16px;
+  font-weight:1000;
+}
+
+.avatar{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid rgba(148,163,184,.35);
+  background:#e5e7eb;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+  .badgeScroll{
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+  .modeStack{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.modeStack .btn{
+  justify-content:center;
+  padding:16px;
+  font-size:16px;
+}
+  .levelStatus .label{
+  margin-bottom:6px;
+}
 </style>
 </head>
 <body>
@@ -651,25 +694,47 @@ and (orientation: landscape){
     ⚠️ 不同裝置登入：資料只存在各自裝置，未支援即時同步。
   </div>
 </div>
-    <div class="card panel" id="userInfoCard">
-      <h2>👤 使用者資訊</h2>
-      <div class="row" style="justify-content:space-between">
-        <div class="pill">使用者：<span id="curStudent">（尚未登入）</span></div>
-        <div class="pill">已通關：<span id="curCleared">0</span></div>
+   <div class="card panel" id="userInfoCard">
+  <h2>👤 使用者資訊</h2>
+
+  <!-- 使用者名稱＋頭像 -->
+  <div class="row userRow">
+    <div>
+      <div class="label">使用者</div>
+      <div class="userName" id="curStudent">（尚未登入）</div>
+    </div>
+    <div class="avatar">
+      <img id="avatarImg" src="avatar-default.png" alt="avatar">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ⭐ 關卡狀態（小資訊區） -->
+  <div class="levelStatus">
+    <div class="label">關卡狀態</div>
+
+    <div class="kpi">
+      <div class="k">
+        <b id="kLevel">—</b>
+        <small>當前關卡</small>
       </div>
-      <div class="divider"></div>
+      <div class="k">
+        <b id="kBest">—</b>
+        <small>挑戰最高分</small>
+      </div>
+    </div>
+  </div>
 
-      <h2>🏅 徽章</h2>
-      <div class="badges" id="badgeBox"></div>
+  <div class="divider"></div>
 
-      <div class="divider"></div>
-
-      <h2>🌍 旅遊進度</h2>
-      <div class="help" id="continentHint">登入後會顯示每洲進度。</div>
-
-      <div class="divider"></div>
-
-      <div class="homeTypeSetting">
+  <!-- 徽章 -->
+  <h2>🏅 徽章</h2>
+  <div class="badgeScroll">
+    <div class="badges" id="badgeBox"></div>
+  </div>
+</div>
+        <div class="homeTypeSetting">
   <h2>⚙️ 題型設定</h2>
   <div class="row">
     <span class="pill">目前題型：<b id="typeSummary">全選 A/B/C/D</b></span>
@@ -678,20 +743,16 @@ and (orientation: landscape){
     若選「全選」，每關 10 題會混合 A/B/C/D（平均分配，並隨機排序）。
   </div>
 </div>
-  <div class="divider"></div>
+  
+<div class="card panel" id="gameModeCard">
+  <h2>▶️ 遊戲模式</h2>
 
-      <h2>▶️ 遊戲模式</h2>
-      <div class="modeGrid">
-      <button class="btn ghost" id="btnGoMap">🗺️ 關卡模式</button>
-      <button class="btn ghost" id="btnStartNext">🚀 挑戰模式</button>
-      <button class="btn ghost" id="btnQuickPractice">📖 複習模式</button>
+  <div class="modeStack">
+    <button class="btn primary" id="btnGoMap">🗺️ 關卡模式</button>
+    <button class="btn primary" id="btnStartNext">🚀 挑戰模式</button>
+    <button class="btn primary" id="btnQuickPractice">📖 複習模式</button>
+  </div>
 </div>
-      <div class="kpi">
-        <div class="k"><b id="kLevel">—</b><small>當前關卡</small></div>
-        <div class="k"><b id="kBest">—</b><small>挑戰最高分</small></div>
-      </div>
-    </div>
-
     <!-- right -->
 <div class="mapRight">
 
@@ -957,7 +1018,6 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
    UI refs
 ================================ */
 const curStudentEl = el("curStudent");
-const curClearedEl = el("curCleared");
 const kLevelEl = el("kLevel");
 const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
