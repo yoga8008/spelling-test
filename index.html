@@ -765,6 +765,12 @@ and (orientation: landscape){
     </div>
     <div class="avatar">
       <img id="avatarImg" src="avatar-default.png" alt="avatar">
+      <input
+  type="file"
+  id="avatarInput"
+  accept="image/*"
+  style="display:none"
+/>
     </div>
   </div>
 
@@ -1460,6 +1466,11 @@ function refreshHomeStats(){
     kBestEl.textContent = "—";
   }else{
     curStudentEl.textContent = currentStudent.name;
+    if(currentStudent && currentStudent.avatar){
+  el("avatarImg").src = currentStudent.avatar;
+}else{
+  el("avatarImg").src = "avatar-default.png";
+}
 
     const passedCount = Object.values(currentStudent.cleared || {})
       .filter(x => x.passed).length;
@@ -1476,7 +1487,7 @@ function refreshHomeStats(){
   renderBadges();
   updateQuickPracticeBtn();
   renderMistakeCard();
-}
+  }
     
   
   function updateQuickPracticeBtn(){
@@ -2632,6 +2643,31 @@ mbUser.onclick = () => {
   void btn.offsetWidth;              // 重新觸發動畫
   btn.classList.add("glow-once");
 }
+// 點頭像 → 開啟選檔
+el("avatarImg").onclick = () => {
+  el("avatarInput").click();
+};
+
+// 選照片後
+el("avatarInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+
+    // 顯示頭像
+    el("avatarImg").src = dataUrl;
+
+    // 存到目前使用者
+    if(currentStudent){
+      currentStudent.avatar = dataUrl;
+      saveAll(ALL);
+    }
+  };
+  reader.readAsDataURL(file);
+});
 
 </script>
   <!-- 📱 Mobile Bottom Bar -->
