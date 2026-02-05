@@ -600,7 +600,11 @@ and (orientation: landscape){
   justify-content:space-between;
   align-items:center;
 }
-
+#userAnchor{
+  position: relative;
+  top: -80px;   /* 等於 topbar 高度，可微調 */
+  height: 0;
+}
 .userName{
   font-size:16px;
   font-weight:1000;
@@ -686,6 +690,7 @@ and (orientation: landscape){
     ⚠️ 不同裝置登入：資料只存在各自裝置，未支援即時同步。
   </div>
 </div>
+  <div id="userAnchor"></div>
    <div class="card panel" id="userInfoCard">
   <h2>👤 使用者資訊</h2>
 
@@ -2442,7 +2447,7 @@ function init(){
   }
 
 mbUser.onclick = () => {
-  el("userInfoCard").scrollIntoView({
+  el("userAnchor").scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
