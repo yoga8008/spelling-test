@@ -666,6 +666,37 @@ and (orientation: landscape){
     max-width: 100%;
   }
 }
+/* 🎓 學習感配色（穩定 / 成就 / 成長） */
+.btn.primary.study-blue{
+  background: linear-gradient(180deg,#2563eb,#1e40af);
+}
+
+.btn.primary.study-gold{
+  background: linear-gradient(180deg,#f59e0b,#d97706);
+}
+
+.btn.primary.study-green{
+  background: linear-gradient(180deg,#22c55e,#15803d);
+}
+  /* ✨ 完成後發光動畫 */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34,197,94,.6);
+    transform: scale(1.04);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transform: scale(1);
+  }
+}
+
+.glow-once{
+  animation: glowPulse 0.9s ease-out;
+}
 </style>
 </head>
 <body>
@@ -754,11 +785,10 @@ and (orientation: landscape){
 <div class="card panel" id="gameModeCard">
   <h2>▶️ 遊戲模式</h2>
 
-  <div class="modeStack">
-    <button class="btn primary" id="btnGoMap">🗺️ 關卡模式</button>
-    <button class="btn primary" id="btnStartNext">🚀 挑戰模式</button>
-    <button class="btn primary" id="btnQuickPractice">📖 複習模式</button>
-  </div>
+<div class="modeStack">
+  <button class="btn primary blue" id="btnGoMap">🗺️ 關卡模式</button>
+  <button class="btn primary orange" id="btnStartNext">🚀 挑戰模式</button>
+  <button class="btn primary green" id="btnQuickPractice">📖 複習模式</button>
 </div>
     <!-- right -->
 <div class="mapRight">
@@ -2403,6 +2433,7 @@ if(game.mode !== "level"){
   old.bestScore = Math.max(old.bestScore||0, s);
   
   if(passed) old.passed = true;
+  glowButton("btnGoMap");
 
   const firstTimeClear = passed && !old.firstClearTs;
   if(firstTimeClear){
@@ -2581,6 +2612,15 @@ mbUser.onclick = () => {
 };
 }
 }  
+  function glowButton(id){
+  const btn = document.getElementById(id);
+  if(!btn) return;
+
+  btn.classList.remove("glow-once"); // 保險
+  void btn.offsetWidth;              // 重新觸發動畫
+  btn.classList.add("glow-once");
+}
+
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
