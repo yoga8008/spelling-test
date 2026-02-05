@@ -137,25 +137,7 @@
     margin-top: 12px;
   }
   /* ▶️ 遊戲模式：滿版三等分 */
-.modeGrid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 12px;
-}
 
-.modeGrid .btn{
-  justify-content: center;
-  padding: 14px 10px;
-  font-size: 15px;
-}
-
-/* 📱 手機直排 */
-@media (max-width: 540px){
-  .modeGrid{
-    grid-template-columns: 1fr;
-  }
-}
   @media(max-width: 540px){ .kpi{grid-template-columns:1fr} }
   .k{
     background: rgba(255,255,255,.9);
@@ -545,10 +527,6 @@ and (orientation: landscape){
 
   .mapCanvas{
     max-height: 520px;
-  }
-
-  .mistakeList{
-    max-height: 200px;
   }
 }
   /* =========================
@@ -1007,10 +985,10 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
    UI refs
 ================================ */
 const curStudentEl = safe("curStudent");
-const kLevelEl = el("kLevel");
-const kBestEl = el("kBest");
-const typeSummaryEl = el("typeSummary");
-const badgeBox = el("badgeBox");
+const kLevelEl = safe("kLevel");
+const kBestEl = safe("kBest");
+const typeSummaryEl = safe("typeSummary");
+const badgeBox = safe("badgeBox");
 const mapInner = el("mapInner");
 const mistakeBox = el("mistakeBox");
 
@@ -1302,6 +1280,7 @@ function refreshHomeStats(){
     kBestEl.textContent = "—";
     renderBadges();
     updateQuickPracticeBtn();
+    renderMistakeCard();
     return;
   }
 
@@ -1322,6 +1301,7 @@ function refreshHomeStats(){
 
   renderBadges();
   updateQuickPracticeBtn();
+  renderMistakeCard();
 }
     
   
