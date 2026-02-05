@@ -1601,48 +1601,6 @@ let tick=null, t0=0;
   updateTop();
 }
 
-  const stats = currentStudent.wordStats || {};
-  const mistakeWords = Object.entries(stats)
-    .filter(([w,st]) => (st.wrong||0) > 0 && (st.correctStreak||0) < 3)
-    .sort((a,b)=> (b[1].wrong||0)-(a[1].wrong||0))
-    .slice(0,10)
-    .map(([w])=> WORDS.find(x=>x.en===w))
-    .filter(Boolean);
-
-  if(mistakeWords.length===0){
-    alert("🎉 沒有需要複習的單字！");
-    return;
-  }
-
-  game = {
-    mode: "practice",
-    level: "mistake",
-    qIndex: 0,
-    score: 0,
-    streak: 0,
-    streakBest: 0,
-    startedAt: Date.now(),
-    questions: mistakeWords.map(w=>({
-      type: "D",
-      word: w,
-      answered:false
-    })),
-    history:[],
-    playCount: 0
-      };
-
-  gameTitle.textContent = "🧠 複習模式";
-  openGame();
-  updateRateUI();
-  startTimer();
-  renderQuestion();
-
-  // ⭐ 一定要在 function 裡
-  modeTagEl.textContent = "複習";
-  el("btnBackToMap").style.display = "none";
-  el("btnPrev").style.display = "none";
-}
-
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
 function fmt(ms){
   const s=Math.floor(ms/1000);
