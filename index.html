@@ -132,7 +132,7 @@
   .help{margin:10px 0 0; color: var(--muted); font-size: 12px; line-height:1.45; font-weight:800;}
   .kpi{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     margin-top: 12px;
   }
@@ -1019,13 +1019,12 @@ function sanitizeName(v){ return (v||"").replace(/\s+/g," ").trim(); }
 /* ==============================
    UI refs
 ================================ */
-const curStudentEl = el("curStudent");
+const curStudentEl = safe("curStudent");
 const kLevelEl = el("kLevel");
 const kBestEl = el("kBest");
 const typeSummaryEl = el("typeSummary");
 const badgeBox = el("badgeBox");
 const mapInner = el("mapInner");
-const continentHint = el("continentHint");
 const mistakeBox = el("mistakeBox");
 
 const gameBack = el("gameBack");
