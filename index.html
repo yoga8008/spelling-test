@@ -208,10 +208,10 @@
     max-height: 680px;
     padding: 14px;
   }
-  .mistakeScroll{
-  max-height: 240px;      /* 你可調 200~300 */
-  overflow-y: auto;
-  overflow-x: hidden;     /* 🔒 封死左右滑 */
+.mistakeScroll{
+  flex: 1;               /* ⭐ 吃掉標題以下所有高度 */
+  overflow-y: auto;      /* ⭐ 超出就自己捲 */
+  overflow-x: hidden;
   padding-right: 6px;
   -webkit-overflow-scrolling: touch;
 }
@@ -507,6 +507,11 @@
 
 .mistakeCard small{
   font-size:11px;     
+}
+  .errorShell{
+  height: 320px;          /* ← 關鍵：一定要有高度 */
+  display: flex;
+  flex-direction: column;
 }
 .errorShell h2{
   font-size:16px;        /* 跟 .panel h2 一樣 */
