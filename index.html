@@ -2191,25 +2191,7 @@ function applyScore(gain, msg){
    }else{
   game.streak = 0;
   setFeedback("bad", msg);
-
-  const q = game.questions[game.qIndex];
-
-  if(q?.word){
-    checkBadges({
-      word: q.word.en,
-      mode: game.mode,
-      streak: game.streak
-    });
-
-    currentStudent.wordStats = currentStudent.wordStats || {};
-    currentStudent.wordStats[q.word.en] =
-      currentStudent.wordStats[q.word.en] || { wrong:0, correctStreak:0 };
-
-    currentStudent.wordStats[q.word.en].wrong += 1;
-    currentStudent.wordStats[q.word.en].correctStreak = 0;
-    saveAll(ALL);
-  }
-}
+ }
   const q = game.questions[game.qIndex];
   if(q.word){
     const w = q.word.en;
@@ -2389,13 +2371,6 @@ if(game.mode !== "level"){
   const passedCount = Object.values(currentStudent.cleared).filter(x=>x.passed).length;
   currentStudent.totalPassed = passedCount;
   currentStudent.lastPlayed = Date.now();
-
-  if(s===10) awardBadge("perfect10");
-  if(passedCount>=10) awardBadge("pass10");
-  if(passedCount>=30) awardBadge("pass30");
-  if(passedCount>=60) awardBadge("pass60");
-  if(passedCount>=100) awardBadge("pass100");
-
   saveAll(ALL);
 
   const msg = passed
