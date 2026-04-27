@@ -1830,10 +1830,12 @@ function pickChallengePool(poolMode){
     return pickWordsAI(999);
   }
 
-  return WORDS.slice(
+  return shuffle(
+  WORDS.slice(
     challengeStart - 1,
     challengeEnd
-  );
+  )
+);
 }
 function updateRateUI(){
   rateSlider.value = String(speechRate);
