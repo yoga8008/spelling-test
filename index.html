@@ -2037,9 +2037,9 @@ function openChallengeRangePicker(){
   document.querySelectorAll(".levelOnly").forEach(e=>e.style.display="none");
   document.querySelectorAll(".challengeOnly").forEach(e=>e.style.display="none");
 
+  el("btnBackToMap").style.display = "";
   el("btnPrev").style.display = "none";
   el("btnNext").style.display = "none";
-  el("btnBackToMap").style.display = "";
 
   function refreshRange(){
     challengeStart = Number(el("rangeStart").value);
@@ -2118,6 +2118,8 @@ function openChallengeRangePicker(){
 
   el("btnBackToMap").style.display = "none";
   el("btnPrev").style.display = "none";
+  el("btnNext").style.display = "inline-flex";
+  el("btnNext").disabled = false;
 
   openGame();
   updateRateUI();
