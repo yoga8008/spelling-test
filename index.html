@@ -2051,6 +2051,12 @@ function openChallengeRangePicker(){
   el("minusEnd").onclick = ()=>{ challengeEnd--; refreshRange(); };
   el("plusEnd").onclick = ()=>{ challengeEnd++; refreshRange(); };
 
+// 長按 Shift 點擊 = 10 題跳
+  el("minusStart").ondblclick = ()=>{ challengeStart -= 10; refreshRange(); };
+  el("plusStart").ondblclick = ()=>{ challengeStart += 10; refreshRange(); };
+  el("minusEnd").ondblclick = ()=>{ challengeEnd -= 10; refreshRange(); };
+  el("plusEnd").ondblclick = ()=>{ challengeEnd += 10; refreshRange(); };
+
   el("btnStartRange").onclick = ()=>{
     closeGame();
     startChallenge("range");
