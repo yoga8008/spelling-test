@@ -2008,6 +2008,7 @@ function openChallengeRangePicker(){
   gameBack.style.display = "flex";
   gameTitle.textContent = "🚀 挑戰題庫範圍";
   feedback.innerHTML = "";
+  modeTagEl.style.display = "none";
 
   questionArea.innerHTML = `
     <div class="center">
@@ -2130,6 +2131,7 @@ function openChallengeRangePicker(){
 function renderQuestion(){
   clearFeedback();
   updateTop();
+  modeTagEl.style.display = "inline-flex";
   const q = game.questions[game.qIndex];
   if(!q || !q.type){
   setFeedback("bad", "⚠️ 題目載入異常，請按下一題");
