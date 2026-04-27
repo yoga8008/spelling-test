@@ -2003,21 +2003,22 @@ function openChallengeRangePicker(){
   gameBack.style.display = "flex";
   gameTitle.textContent = "🚀 挑戰題庫範圍";
   feedback.innerHTML = "";
+
   questionArea.innerHTML = `
     <div class="center">
       <div class="qTitle">選擇挑戰範圍</div>
 
       <div class="hintBox">
         第
-        <button class="btn ghost" id="minusStart">－</button>
-        <b id="rangeStart">${challengeStart}</b>
-        <button class="btn ghost" id="plusStart">＋</button>
+        <input type="number" id="rangeStart" class="input"
+          style="width:90px;display:inline-block;text-align:center"
+          min="1" max="${total}" value="${challengeStart}">
         題
         ～
         第
-        <button class="btn ghost" id="minusEnd">－</button>
-        <b id="rangeEnd">${challengeEnd}</b>
-        <button class="btn ghost" id="plusEnd">＋</button>
+        <input type="number" id="rangeEnd" class="input"
+          style="width:90px;display:inline-block;text-align:center"
+          min="1" max="${total}" value="${challengeEnd}">
         題
       </div>
 
@@ -2036,28 +2037,24 @@ function openChallengeRangePicker(){
   el("btnBackToMap").style.display = "";
 
   function refreshRange(){
+    challengeStart = Number(el("rangeStart").value);
+    challengeEnd = Number(el("rangeEnd").value);
+
     if(challengeStart < 1) challengeStart = 1;
     if(challengeEnd < 1) challengeEnd = 1;
     if(challengeStart > total) challengeStart = total;
     if(challengeEnd > total) challengeEnd = total;
     if(challengeStart > challengeEnd) challengeStart = challengeEnd;
 
-    el("rangeStart").textContent = challengeStart;
-    el("rangeEnd").textContent = challengeEnd;
+    el("rangeStart").value = challengeStart;
+    el("rangeEnd").value = challengeEnd;
   }
 
-  el("minusStart").onclick = ()=>{ challengeStart--; refreshRange(); };
-  el("plusStart").onclick = ()=>{ challengeStart++; refreshRange(); };
-  el("minusEnd").onclick = ()=>{ challengeEnd--; refreshRange(); };
-  el("plusEnd").onclick = ()=>{ challengeEnd++; refreshRange(); };
-
-// 長按 Shift 點擊 = 10 題跳
-  el("minusStart").ondblclick = ()=>{ challengeStart -= 10; refreshRange(); };
-  el("plusStart").ondblclick = ()=>{ challengeStart += 10; refreshRange(); };
-  el("minusEnd").ondblclick = ()=>{ challengeEnd -= 10; refreshRange(); };
-  el("plusEnd").ondblclick = ()=>{ challengeEnd += 10; refreshRange(); };
+  el("rangeStart").onchange = refreshRange;
+  el("rangeEnd").onchange = refreshRange;
 
   el("btnStartRange").onclick = ()=>{
+    refreshRange();
     closeGame();
     startChallenge("range");
   };
@@ -2070,6 +2067,7 @@ function openChallengeRangePicker(){
   };
 
   refreshRange();
+}
 }
   function startChallenge(poolMode="range"){
   if(!currentStudent){
