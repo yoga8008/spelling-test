@@ -1594,7 +1594,15 @@ el("btnStartNext").onclick=()=>{
     alert("請先輸入姓名登入。");
     return;
   }
-  startChallenge(); // ⭐ 進入挑戰模式
+
+  const mode = prompt(
+    "請選擇挑戰題庫：\n1 = 全部單字\n2 = 前20個單字\n3 = 第21-40個單字\n4 = 錯題優先"
+  );
+
+  if(mode === "1") startChallenge("all");
+  else if(mode === "2") startChallenge("range1");
+  else if(mode === "3") startChallenge("range2");
+  else if(mode === "4") startChallenge("mistake");
 };
 
   // ⭐ 複習模式按鈕（貼這行）
