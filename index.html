@@ -2215,7 +2215,7 @@ if(q.type==="D"){
 
   // ✅ Lv71+：D 題完全不顯示提示
 const isNoHint =
-  game.mode === "level" && game.level >= 71;
+  game.mode === "level" && game.level >= 71 && false;
 
 if(!isNoHint){
   const isEarlyLevel =
@@ -2247,7 +2247,7 @@ if(!isNoHint){
       </div>
     `;
   }else{
-    hint.textContent = "請聽發音，拼出正確英文單字。";
+    hint.textContent = "看中文意思，可按播放聽英文發音，再拼出英文單字。";
   }
 
   box.prepend(hint);
