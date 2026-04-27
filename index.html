@@ -1051,6 +1051,8 @@ let currentStudent = null;
 let currentName = "";
 let typeMode = (ALL.settings && ALL.settings.typeMode) || { all:true, A:true,B:true,C:true,D:true };
 let speechRate = (ALL.settings && ALL.settings.speechRate) || 0.90;
+let challengeStart = 1;
+let challengeEnd = 153;
 
 function ensureStudent(all, name){
   if(!all.students) all.students = {};
@@ -1594,15 +1596,7 @@ el("btnStartNext").onclick=()=>{
     alert("請先輸入姓名登入。");
     return;
   }
-
-  const mode = prompt(
-    "請選擇挑戰題庫：\n1 = 全部單字\n2 = 前20個單字\n3 = 第21-40個單字\n4 = 錯題優先"
-  );
-
-  if(mode === "1") startChallenge("all");
-  else if(mode === "2") startChallenge("range1");
-  else if(mode === "3") startChallenge("range2");
-  else if(mode === "4") startChallenge("mistake");
+  openChallengeRangePicker();
 };
 
   // ⭐ 複習模式按鈕（貼這行）
@@ -1830,7 +1824,17 @@ function pickWordsAI(count){
   }
   return result;
 }  
+  
+function pickChallengePool(poolMode){
+  if(poolMode === "all"){
+    return pickWordsAI(999);
+  }
 
+  return WORDS.slice(
+    challengeStart - 1,
+    challengeEnd
+  );
+}
 function updateRateUI(){
   rateSlider.value = String(speechRate);
   rateVal.textContent = Number(speechRate).toFixed(2);
@@ -1991,7 +1995,75 @@ function startLevel(level){
   startTimer();
   renderQuestion();
 }
-function startChallenge(){
+function openChallengeRangePicker(){
+  const total = WORDS.length;
+
+  gameBack.style.display = "flex";
+  gameTitle.textContent = "🚀 挑戰題庫範圍";
+  feedback.innerHTML = "";
+  questionArea.innerHTML = `
+    <div class="center">
+      <div class="qTitle">選擇挑戰範圍</div>
+
+      <div class="hintBox">
+        第
+        <button class="btn ghost" id="minusStart">－</button>
+        <b id="rangeStart">${challengeStart}</b>
+        <button class="btn ghost" id="plusStart">＋</button>
+        題
+        ～
+        第
+        <button class="btn ghost" id="minusEnd">－</button>
+        <b id="rangeEnd">${challengeEnd}</b>
+        <button class="btn ghost" id="plusEnd">＋</button>
+        題
+      </div>
+
+      <div class="row" style="justify-content:center;margin-top:14px">
+        <button class="btn primary" id="btnStartRange">開始挑戰</button>
+        <button class="btn ghost" id="btnAllRange">ALL</button>
+      </div>
+    </div>
+  `;
+
+  document.querySelectorAll(".levelOnly").forEach(e=>e.style.display="none");
+  document.querySelectorAll(".challengeOnly").forEach(e=>e.style.display="none");
+
+  el("btnPrev").style.display = "none";
+  el("btnNext").style.display = "none";
+  el("btnBackToMap").style.display = "";
+
+  function refreshRange(){
+    if(challengeStart < 1) challengeStart = 1;
+    if(challengeEnd < 1) challengeEnd = 1;
+    if(challengeStart > total) challengeStart = total;
+    if(challengeEnd > total) challengeEnd = total;
+    if(challengeStart > challengeEnd) challengeStart = challengeEnd;
+
+    el("rangeStart").textContent = challengeStart;
+    el("rangeEnd").textContent = challengeEnd;
+  }
+
+  el("minusStart").onclick = ()=>{ challengeStart--; refreshRange(); };
+  el("plusStart").onclick = ()=>{ challengeStart++; refreshRange(); };
+  el("minusEnd").onclick = ()=>{ challengeEnd--; refreshRange(); };
+  el("plusEnd").onclick = ()=>{ challengeEnd++; refreshRange(); };
+
+  el("btnStartRange").onclick = ()=>{
+    closeGame();
+    startChallenge("range");
+  };
+
+  el("btnAllRange").onclick = ()=>{
+    challengeStart = 1;
+    challengeEnd = total;
+    closeGame();
+    startChallenge("all");
+  };
+
+  refreshRange();
+}
+  function startChallenge(poolMode="range"){
   if(!currentStudent){
     alert("請先登入");
     return;
@@ -2021,7 +2093,7 @@ function startChallenge(){
         - 用 AI 權重排序
         - 但還沒真的出題
   ========================= */
-  game.wordPool = pickWordsAI(999); // 大池，後面慢慢用
+  game.wordPool = pickChallengePool(poolMode);
 
   /* =========================
      3️⃣ 預先生出第一題
@@ -2575,7 +2647,7 @@ function finishPractice(){
     </div>
   `;
 
-  el("btnReplayChallenge").onclick = startChallenge;
+  el("btnReplayChallenge").onclick = ()=>startChallenge("range");
   el("btnBackHome").onclick = closeGame;
     
   refreshHomeStats(); 
