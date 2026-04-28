@@ -887,10 +887,7 @@ and (orientation: landscape){
   <span class="pill challengeOnly" style="display:none">
     ✅ 已答對：<b id="qIdx2">0</b>
   </span>
-  <span class="pill challengeOnly" style="display:none">
-    ❤️ 生命：<b id="streak">3</b>
-  </span>
-  <span class="pill challengeOnly" style="display:none">
+   <span class="pill challengeOnly" style="display:none">
     🏆 最高連對：<b id="streakBest">0</b>
   </span>
 
@@ -1756,10 +1753,9 @@ function startTimer(){
     const elapsed = Date.now() - t0;
 
     // ⏱️ 挑戰模式：倒數
-    if(game?.mode === "challenge"){
-  timeEl.textContent =
-  "❤️".repeat(game.lives) +
-  "🖤".repeat(3 - game.lives);
+   if(game?.mode === "challenge"){
+  timeEl.textContent = "";
+}
 }else{
   timeEl.textContent = fmt(elapsed);
 }
@@ -1961,7 +1957,9 @@ function updateTop(){
     el("btnOpenTypeModal").style.display = "inline-flex"; 
 
     qIdx2El.textContent = game.score;
-    streakEl.textContent = game.lives;
+    streakEl.textContent =
+  "❤️".repeat(game.lives) +
+  "🖤".repeat(3 - game.lives);
     streakBestEl.textContent = game.streakBest;
  
     barEl.parentElement.style.display = "none";
