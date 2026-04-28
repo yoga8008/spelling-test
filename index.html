@@ -870,7 +870,7 @@ and (orientation: landscape){
     ✅ 已答對：<b id="qIdx2">0</b>
   </span>
   <span class="pill challengeOnly" style="display:none">
-    🔥 連對中：<b id="streak">0</b>
+    ❤️ 生命：<b id="streak">3</b>
   </span>
   <span class="pill challengeOnly" style="display:none">
     🏆 最高連對：<b id="streakBest">0</b>
@@ -1681,9 +1681,20 @@ let tick=null, t0=0;
       popToast("🔥 連續答對 10 題！");
     }
   }else{
-    game.streak = 0;
+  game.streak = 0;
+
+  if(game.mode === "challenge"){
+    game.lives -= 1;
+    setFeedback("bad", `${msg}<br>❤️ 剩餘生命：${game.lives}`);
+
+    if(game.lives <= 0){
+      setTimeout(()=>finishChallenge(), 500);
+      return;
+    }
+  }else{
     setFeedback("bad", msg);
   }
+}
 
   const q = game.questions[game.qIndex];
   if(q && q.word){
@@ -1727,18 +1738,11 @@ function startTimer(){
     const elapsed = Date.now() - t0;
 
     // ⏱️ 挑戰模式：倒數
-    if(game?.mode === "challenge" && game.timeLimit){
-      const left = Math.max(0, game.timeLimit - elapsed);
-      timeEl.textContent = fmt(left);
-
-      if(left <= 0){
-        stopTimer();
-        finishLevel(); // 會自動進 finishChallenge
-      }
-    }else{
-      // 其他模式：正計時
-      timeEl.textContent = fmt(elapsed);
-    }
+    if(game?.mode === "challenge"){
+  timeEl.textContent = "❤️".repeat(game.lives || 0);
+}else{
+  timeEl.textContent = fmt(elapsed);
+}
   }, 200);
 }
 function openGame(){ 
@@ -1937,7 +1941,7 @@ function updateTop(){
     el("btnOpenTypeModal").style.display = "inline-flex"; 
 
     qIdx2El.textContent = game.score;
-    streakEl.textContent = game.streak;
+    streakEl.textContent = game.lives;
     streakBestEl.textContent = game.streakBest;
  
     barEl.parentElement.style.display = "none";
@@ -2091,7 +2095,7 @@ function openChallengeRangePicker(){
     streak: 0,
     streakBest: 0,
     startedAt: Date.now(),
-    timeLimit: 60 * 1000,
+    lives: 3,
 
     questions: [],           // ⭐ 題目會「一題一題生成」
     usedWords: new Set(),    // ⭐ 真正用來避免重複
