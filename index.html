@@ -2243,7 +2243,7 @@ if(q.type==="D"){
 const isNoHint =
   game.mode === "level" && game.level >= 71 && false;
 
-if(game.mode !== "challenge" && !isNoHint){
+if(!isNoHint){
   const isEarlyLevel =
     game.mode === "practice" || game.level <= 30;
 
