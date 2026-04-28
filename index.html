@@ -2265,12 +2265,16 @@ if(game.mode !== "challenge" && !isNoHint){
       .map((ch,i)=> idxs.includes(i) ? ch : "_")
       .join(" ");
 
-    hint.innerHTML = `
-      🔔 拼字小提醒<br>
-      ・這個單字有 <b>${len}</b> 個字母<br>
-      <div style="font-size:22px;letter-spacing:4px">
-        ${masked}
-      </div>
+   hint.innerHTML = `
+  <div style="
+    font-size:28px;
+    font-weight:900;
+    text-align:center;
+    letter-spacing:2px;
+    line-height:1.6;
+  ">
+    題目：${q.word.zh}　${masked.toUpperCase()}
+  </div>
     `;
   }else{
     hint.textContent = "看中文意思，可按播放聽英文發音，再拼出英文單字。";
