@@ -1977,6 +1977,7 @@ function updateTop(){
     .forEach(e=>e.style.display="inline-flex");
   document.querySelectorAll(".challengeOnly")
     .forEach(e=>e.style.display="none");
+  el("btnBackToMap").style.display = "none";
 
   const city = levelCity(game.level);
   gameTitle.textContent = `📍 ${city}`;
@@ -2179,8 +2180,8 @@ else if(game.mode === "challenge"){
   qSubEl.textContent = "";
 }
 else{
-  qSubEl.textContent =
-    `第 ${game.qIndex+1} / 10 題｜本關目標：≥8 分解鎖下一關`;
+  else{
+  qSubEl.textContent = "";
 }
   questionArea.innerHTML = "";
 
