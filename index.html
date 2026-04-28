@@ -2204,6 +2204,7 @@ if(q.type==="D"){
       中文意思：<b style="font-size:22px">${q.word.zh}</b><br>
       可按播放聽英文發音，再拼出英文單字
     </div>
+  `}
 
   <div class="typeWrap">
     <input class="typeInput" id="typeAns"
@@ -2222,7 +2223,7 @@ if(q.type==="D"){
 const isNoHint =
   game.mode === "level" && game.level >= 71 && false;
 
-if(!isNoHint){
+if(game.mode !== "challenge" && !isNoHint){
   const isEarlyLevel =
     game.mode === "practice" || game.level <= 30;
 
