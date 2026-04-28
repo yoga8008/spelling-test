@@ -1754,12 +1754,13 @@ function startTimer(){
   tick = setInterval(()=>{
     const elapsed = Date.now() - t0;
 
-    // ⏱️ 挑戰模式：倒數
-   if(game?.mode === "challenge"){
-  timeEl.textContent = "";
-}else{
-  timeEl.textContent = fmt(elapsed);
-}
+    if(timeEl){
+      if(game?.mode === "challenge"){
+        timeEl.textContent = "";
+      }else{
+        timeEl.textContent = fmt(elapsed);
+      }
+    }
   }, 200);
 }
 function openGame(){ 
@@ -2180,7 +2181,6 @@ else if(game.mode === "challenge"){
   qSubEl.textContent = "";
 }
 else{
-  else{
   qSubEl.textContent = "";
 }
   questionArea.innerHTML = "";
