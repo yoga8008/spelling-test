@@ -709,6 +709,24 @@ and (orientation: landscape){
   border-radius: 18px;
   padding: 12px;
 }
+  @keyframes flashGreen{
+  50%{ box-shadow:0 0 0 9999px rgba(34,197,94,.18) inset; }
+}
+
+@keyframes shakeRed{
+  20%{ transform:translateX(-6px); }
+  40%{ transform:translateX(6px); }
+  60%{ transform:translateX(-4px); }
+  80%{ transform:translateX(4px); }
+}
+
+.flashGreen{
+  animation:flashGreen .45s ease;
+}
+
+.shakeRed{
+  animation:shakeRed .35s ease;
+}
 </style>
 </head>
 <body>
@@ -1685,7 +1703,7 @@ let tick=null, t0=0;
 
   if(game.mode === "challenge"){
     game.lives -= 1;
-    setFeedback("bad", `${msg}<br>❤️ 剩餘生命：${game.lives}`);
+    setFeedback("bad", msg);
 
     if(game.lives <= 0){
       setTimeout(()=>finishChallenge(), 500);
@@ -1739,7 +1757,9 @@ function startTimer(){
 
     // ⏱️ 挑戰模式：倒數
     if(game?.mode === "challenge"){
-  timeEl.textContent = "❤️".repeat(game.lives || 0);
+  timeEl.textContent =
+  "❤️".repeat(game.lives) +
+  "🖤".repeat(3 - game.lives);
 }else{
   timeEl.textContent = fmt(elapsed);
 }
@@ -2123,7 +2143,7 @@ function openChallengeRangePicker(){
 
   el("btnBackToMap").style.display = "none";
   el("btnPrev").style.display = "none";
-  el("btnNext").style.display = "inline-flex";
+  el("btnNext").style.display = "none";
   el("btnNext").disabled = false;
 
   openGame();
@@ -2340,9 +2360,20 @@ inp.addEventListener("keydown", (e) => {
           q.donePairs = (q.donePairs||0)+1;
 
           if(q.donePairs>=4){
-            const gained = q.mistake ? 0 : 1;
-            applyScore(gained, gained? "✅ 配對完成！本題 +1 分" : "⚠️ 配對完成，但本題曾答錯，故本題 0 分");
-          }
+  const gained = q.mistake ? 0 : 1;
+  playAnswerEffect(gained===1);
+
+  applyScore(
+    gained,
+    gained
+      ? "✅ 配對完成！本題 +1 分"
+      : "⚠️ 配對完成，但本題曾答錯，故本題 0 分"
+  );
+
+  setTimeout(()=>{
+    nextQuestion();
+  }, 500);
+}
         }else{
           q.mistake = true;
             // ⭐ 補：記錄錯誤
@@ -2372,7 +2403,7 @@ function answerChoice(pickedZh){
 
   const correct = q.word.zh;
   const ok = pickedZh === correct;
-
+  playAnswerEffect(ok);
   const nodes = questionArea.querySelectorAll(".choice");
   nodes.forEach(n=>{
     if(n.textContent===correct) n.classList.add("good");
@@ -2383,9 +2414,16 @@ function answerChoice(pickedZh){
   q.answered=true;
   q.correct=ok;
 
-  if(ok) applyScore(1, "✅ 答對！+1 分");
-  else applyScore(0, `❌ 錯了！正確答案是：<b>${correct}</b>`);
+  if(ok){
+  applyScore(1, "✅ 答對！+1 分");
+}else{
+  applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
 }
+
+// 0.8 秒後自動下一題
+setTimeout(()=>{
+  nextQuestion();
+}, 500);
 
 function answerTyping(value){
   const q = game.questions[game.qIndex];
@@ -2394,13 +2432,21 @@ function answerTyping(value){
   const ans = (value||"").trim().toLowerCase();
   const correct = q.word.en.trim().toLowerCase();
   const ok = ans === correct;
+  playAnswerEffect(ok);
 
   const inp = questionArea.querySelector(".typeInput");
   if(inp) inp.disabled=true;
 
-  if(ok) applyScore(1, "✅ 答對！+1 分");
-  else applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
+  if(ok){
+  applyScore(1, "✅ 答對！+1 分");
+}else{
+  applyScore(0, `❌ 錯了！正確拼字是：<b>${q.word.en}</b>（中文：${q.word.zh}）`);
 }
+
+// 0.8 秒後自動下一題
+setTimeout(()=>{
+  nextQuestion();
+}, 500);
   
 function generateNextChallengeQuestion(){
   // 從還沒用過的單字中挑一個
@@ -2771,7 +2817,14 @@ el("avatarInput").addEventListener("change", e => {
   };
   reader.readAsDataURL(file);
 });
+function playAnswerEffect(correct){
+  const modal = document.querySelector(".modal");
 
+  modal.classList.remove("flashGreen","shakeRed");
+  void modal.offsetWidth;
+
+  modal.classList.add(correct ? "flashGreen" : "shakeRed");
+}
 </script>
   <!-- 📱 Mobile Bottom Bar -->
 <div class="mobileBar">
