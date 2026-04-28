@@ -2245,7 +2245,7 @@ const isNoHint =
 
 if(!isNoHint){
   const isEarlyLevel =
-    game.mode === "practice" || game.level <= 30;
+  game.mode === "practice" || game.mode === "challenge" || game.level <= 30;
 
   const hint = document.createElement("div");
   hint.className = "hintBox";
