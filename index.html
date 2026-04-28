@@ -2221,11 +2221,7 @@ else{
 if(q.type==="D"){
   const box = document.createElement("div");
   box.className="center";
-  box.innerHTML = `
-  <div class="hintBox">
-    中文意思：<b style="font-size:22px">${q.word.zh}</b>
-  </div>
-
+ box.innerHTML = `
   <div class="typeWrap">
     <input class="typeInput" id="typeAns"
       placeholder="請輸入英文拼字"
