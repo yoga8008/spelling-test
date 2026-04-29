@@ -1679,41 +1679,11 @@ let tick=null, t0=0;
   startTimer();
   renderQuestion();
 }
-
-  function applyScore(gain, msg){
+function applyScore(gain, msg){
   const before = game.streak;
-
-  if(gain === 1){
-    game.score += 1;
-    game.streak += 1;
-    game.streakBest = Math.max(game.streakBest, game.streak);
-    setFeedback("good", msg);
-
-    if(game.streak === 5){
-      awardBadge("streak5");
-      popToast("🔥 連續答對 5 題！");
-    }
-    if(game.streak === 10){
-      awardBadge("streak10");
-      popToast("🔥 連續答對 10 題！");
-    }
-  }else{
-  game.streak = 0;
-
-  if(game.mode === "challenge"){
-    game.lives -= 1;
-    setFeedback("bad", msg);
-
-    if(game.lives <= 0){
-      setTimeout(()=>finishChallenge(), 500);
-      return;
-    }
-  }else{
-    setFeedback("bad", msg);
-  }
-}
-
   const q = game.questions[game.qIndex];
+
+  // ✅ 先記錄單字錯誤/連對，避免挑戰模式扣到 0 血時還沒存
   if(q && q.word){
     const w = q.word.en;
     currentStudent.wordStats = currentStudent.wordStats || {};
@@ -1736,10 +1706,42 @@ let tick=null, t0=0;
     });
   }
 
+  if(gain === 1){
+    game.score += 1;
+    game.streak += 1;
+    game.streakBest = Math.max(game.streakBest, game.streak);
+    setFeedback("good", msg);
+
+    if(game.streak === 5){
+      awardBadge("streak5");
+      popToast("🔥 連續答對 5 題！");
+    }
+    if(game.streak === 10){
+      awardBadge("streak10");
+      popToast("🔥 連續答對 10 題！");
+    }
+  }else{
+    game.streak = 0;
+
+    if(game.mode === "challenge"){
+      game.lives -= 1;
+      setFeedback("bad", msg);
+
+      refreshHomeStats(); // ✅ 立刻更新常錯字
+
+      if(game.lives <= 0){
+        setTimeout(()=>finishChallenge(), 500);
+        return;
+      }
+    }else{
+      setFeedback("bad", msg);
+    }
+  }
+
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
+  refreshHomeStats(); // ✅ 每題後更新常錯字
 }
-
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
 function fmt(ms){
   const s=Math.floor(ms/1000);
