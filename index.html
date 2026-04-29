@@ -1679,11 +1679,11 @@ let tick=null, t0=0;
   startTimer();
   renderQuestion();
 }
-
 function applyScore(gain, msg){
   const before = game.streak;
   const q = game.questions[game.qIndex];
 
+  // ✅ 先記錄單字錯誤/連對，避免挑戰模式扣到 0 血時還沒存
   if(q && q.word){
     const w = q.word.en;
     currentStudent.wordStats = currentStudent.wordStats || {};
@@ -1698,6 +1698,12 @@ function applyScore(gain, msg){
 
     currentStudent.wordStats[w] = st;
     saveAll(ALL);
+
+    checkBadges({
+      word: w,
+      mode: game.mode,
+      streak: game.streak
+    });
   }
 
   if(gain === 1){
@@ -1721,8 +1727,9 @@ function applyScore(gain, msg){
       game.lives -= 1;
       setFeedback("bad", msg);
 
+      refreshHomeStats(); // ✅ 立刻更新常錯字
+
       if(game.lives <= 0){
-        refreshHomeStats();
         setTimeout(()=>finishChallenge(), 500);
         return;
       }
@@ -1731,19 +1738,10 @@ function applyScore(gain, msg){
     }
   }
 
-  if(q && q.word){
-    checkBadges({
-      word: q.word.en,
-      mode: game.mode,
-      streak: game.streak
-    });
-  }
-
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
-  refreshHomeStats();
+  refreshHomeStats(); // ✅ 每題後更新常錯字
 }
-
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
 function fmt(ms){
   const s=Math.floor(ms/1000);
