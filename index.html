@@ -921,9 +921,6 @@ and (orientation: landscape){
       </div>
 
       <div id="questionArea"></div>
-
-        <button class="btn ghost" id="btnPrev">⬅️ 上一題</button>
-
   <div class="row" style="gap:8px">
     <button class="btn ghost" id="btnBackToMap" style="display:none">🗺️ 回關卡</button>
     <button class="btn primary" id="btnNext" style="display:none">➡️ 下一題</button>
@@ -2550,32 +2547,6 @@ if(game.qIndex < Q_PER_LEVEL - 1){
   finishLevel();
 }
 }
-function prevQuestion(){
-  if(!game) return;
-  if(game.qIndex===0) return;
-
-  const cur = game.history[game.qIndex];
-  if(cur){
-    if(cur.gain===1) game.score -= 1;
-    game.streak = cur.streakBefore;
-    game.history[game.qIndex] = null;
-  }
-
-  game.qIndex -= 1;
-
-  const prev = game.history[game.qIndex];
-  if(prev){
-    if(prev.gain===1) game.score -= 1;
-    game.streak = prev.streakBefore;
-    game.history[game.qIndex] = null;
-  }
-
-  renderQuestion();
-  setFeedback("bad","↩️ 已回到上一題，請重新作答。");
-}
-
-el("btnNext").onclick=nextQuestion;
-el("btnPrev").onclick=prevQuestion;
 
 function fireConfetti(){
   const box = el("confetti");
@@ -2656,22 +2627,15 @@ const msg = passed
         <b>📍 ${city}</b><br/>${msg}
       </div>
       <div class="row">
-        <button class="btn ghost" id="btnReplayLevel">🔁 重玩本關</button>
-        <button class="btn primary" id="btnGoMap2">🗺️ 回世界地圖</button>
+        <button class="btn ghost" id="btnReplayLevel">🔁 重新挑戰</button>
         <button class="btn ${passed?"primary":"ghost"}" id="btnNextLevel">${passed?`➡️ 下一關：${nextCity}`:"🔒 下一關（未解鎖）"}</button>
       </div>
-      <div class="help" style="max-width:860px">
-        ✅ 過關條件：本關至少達到 5 分（含）。<br/>
-        🔁 重玩：不會取消已解鎖關卡；本關最高分會更新。
-      </div>
-    </div>
   `;
 
   if(firstTimeClear) fireConfetti();
   renderMap();
   refreshHomeStats();
 
-  document.getElementById("btnGoMap2").onclick=closeGame;
   document.getElementById("btnReplayLevel").onclick=()=>startLevel(game.level);
 
   const btnNextLevel = document.getElementById("btnNextLevel");
