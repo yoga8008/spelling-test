@@ -513,9 +513,10 @@
   font-size:11px;     
 }
   .errorShell{
-  height: 180px;          /* ← 關鍵：一定要有高度 */
-  display: flex;
-  flex-direction: column;
+  min-height: 180px;
+  max-height: 220px;
+  display:flex;
+  flex-direction:column;
 }
 .errorShell h2{
   font-size:16px;        /* 跟 .panel h2 一樣 */
