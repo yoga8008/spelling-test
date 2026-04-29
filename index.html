@@ -1789,16 +1789,12 @@ function closeGame(){
   stopTimer();
 
   el("btnBackToMap").style.display = "";
-  el("btnPrev").style.display = "";
 
-  // 📱 回主畫面 → 顯示手機底部列
   const mb = document.querySelector(".mobileBar");
   if(mb && window.innerWidth <= 768){
     mb.style.display = "flex";
   }
 }
-el("btnCloseGame").onclick = closeGame;
-el("btnBackToMap").onclick = closeGame;
   
 function shuffle(arr){
   const a=[...arr];
@@ -2081,7 +2077,6 @@ function openChallengeRangePicker(){
   document.querySelectorAll(".challengeOnly").forEach(e=>e.style.display="none");
 
   el("btnBackToMap").style.display = "";
-  el("btnPrev").style.display = "none";
   el("btnNext").style.display = "none";
 
   function refreshRange(){
@@ -2102,16 +2097,14 @@ function openChallengeRangePicker(){
   el("rangeEnd").onchange = refreshRange;
 
   el("btnStartRange").onclick = ()=>{
-    refreshRange();
-    closeGame();
-    startChallenge("range");
-  };
+  refreshRange();
+  startChallenge("range");
+};
 
-  el("btnAllRange").onclick = ()=>{
-    challengeStart = 1;
-    challengeEnd = total;
-    closeGame();
-    startChallenge("all");
+el("btnAllRange").onclick = ()=>{
+  challengeStart = 1;
+  challengeEnd = total;
+  startChallenge("all");
   };
 
   refreshRange();
