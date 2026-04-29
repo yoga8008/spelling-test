@@ -535,7 +535,7 @@ and (orientation: landscape){
   }
 
   .mapCanvas{
-    max-height: 400px;
+    max-height: 520px;
   }
 }
   /* =========================
