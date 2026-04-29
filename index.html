@@ -839,7 +839,7 @@ and (orientation: landscape){
     <div id="mapAnchor"></div>
       <h2>🗺️ 世界地圖</h2>
       <div class="row">
-        <span class="pill">⭐ 過關：答對 ≥8 / 10</span>
+        <span class="pill">⭐ 過關：答對 ≥5 / 10</span>
         <span class="pill">🔁 可重玩</span>
       </div>
     </div>
@@ -880,8 +880,8 @@ and (orientation: landscape){
   <span class="pill levelOnly">
     🎯 得分：<b id="score">0</b>/10
   </span>
-  <span class="pill levelOnly">
-    ⭐ 目標：≥8 解鎖下一關
+<span class="pill levelOnly">
+  ⭐ 5分解鎖｜8分2星｜10分3星
   </span>
 
   <!-- 🏁 挑戰模式顯示 -->
@@ -1373,7 +1373,19 @@ function renderMistakeCard(){
 
 const LEVEL_COUNT = 100;
 const Q_PER_LEVEL = 10;
-const PASS_SCORE = 8;
+const PASS_SCORE = 5;
+
+function getStars(score){
+  if(score >= 10) return 3;
+  if(score >= 8) return 2;
+  if(score >= 5) return 1;
+  return 0;
+}
+
+function starText(score){
+  const s = getStars(score);
+  return "⭐".repeat(s) + "☆".repeat(3 - s);
+}
 
 function levelPassed(level){
   if(!currentStudent) return false;
@@ -1456,8 +1468,10 @@ function renderMap(){
       if(passed) btn.classList.add("cleared");
       if(!unlocked) btn.classList.add("locked");
 
-      const star = passed ? "⭐" : (unlocked ? "🎯" : "🔒");
-      const mini = passed ? `已通關｜最高 ${best ?? 0}/10` : (unlocked ? "可挑戰" : "未解鎖");
+      const star = passed ? starText(best ?? 0) : (unlocked ? "🎯" : "🔒");
+const mini = passed
+  ? `已通關｜最高 ${best ?? 0}/10`
+  : (unlocked ? "可挑戰" : "未解鎖");
       const city = levelCity(lvl);
 
       btn.innerHTML = `
@@ -2625,9 +2639,11 @@ if(game.mode !== "level"){
   currentStudent.lastPlayed = Date.now();
   saveAll(ALL);
 
-  const msg = passed
-    ? `🎉 通過！得分：<b>${s}/10</b>（≥8 會解鎖下一關）<br/><span class="small">時間：${fmt(spent)}</span>`
-    : `❌ 未通過。得分：<b>${s}/10</b>（需要 ≥8 才能解鎖下一關）<br/><span class="small">可以重新挑戰。</span>`;
+  const stars = starText(s);
+
+const msg = passed
+  ? `🎉 通過！得分：<b>${s}/10</b>　${stars}<br/><span class="small">5分解鎖下一關｜8分2星｜10分3星｜時間：${fmt(spent)}</span>`
+  : `❌ 未通過。得分：<b>${s}/10</b>　${stars}<br/><span class="small">需要至少 5 分才能解鎖下一關。</span>`;
 
   const city = levelCity(game.level);
   const next = Math.min(LEVEL_COUNT, game.level+1);
@@ -2645,7 +2661,7 @@ if(game.mode !== "level"){
         <button class="btn ${passed?"primary":"ghost"}" id="btnNextLevel">${passed?`➡️ 下一關：${nextCity}`:"🔒 下一關（未解鎖）"}</button>
       </div>
       <div class="help" style="max-width:860px">
-        ✅ 下一關是否可點：取決於本關是否達到 8 分（含）。<br/>
+        ✅ 過關條件：本關至少達到 5 分（含）。<br/>
         🔁 重玩：不會取消已解鎖關卡；本關最高分會更新。
       </div>
     </div>
