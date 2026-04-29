@@ -2153,7 +2153,6 @@ el("btnAllRange").onclick = ()=>{
   modeTagEl.textContent = "挑戰";
 
   el("btnBackToMap").style.display = "none";
-  el("btnPrev").style.display = "none";
   el("btnNext").style.display = "none";
   el("btnNext").disabled = false;
 
@@ -2402,7 +2401,6 @@ inp.addEventListener("keydown", (e) => {
     });
   }
 
-  el("btnPrev").disabled = (game.qIndex===0);
   el("btnNext").disabled = false;
 }
 
@@ -2641,7 +2639,6 @@ const msg = passed
     btnNextLevel.onclick=()=>alert("下一關尚未解鎖（本關需 ≥8 分）。");
   }
 
-  el("btnPrev").disabled=true;
   el("btnNext").disabled=true;
 }
 
