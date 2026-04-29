@@ -1680,8 +1680,25 @@ let tick=null, t0=0;
   renderQuestion();
 }
 
-  function applyScore(gain, msg){
+function applyScore(gain, msg){
   const before = game.streak;
+  const q = game.questions[game.qIndex];
+
+  if(q && q.word){
+    const w = q.word.en;
+    currentStudent.wordStats = currentStudent.wordStats || {};
+    const st = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
+
+    if(gain === 1){
+      st.correctStreak += 1;
+    }else{
+      st.wrong += 1;
+      st.correctStreak = 0;
+    }
+
+    currentStudent.wordStats[w] = st;
+    saveAll(ALL);
+  }
 
   if(gain === 1){
     game.score += 1;
@@ -1698,39 +1715,25 @@ let tick=null, t0=0;
       popToast("🔥 連續答對 10 題！");
     }
   }else{
-  game.streak = 0;
+    game.streak = 0;
 
-  if(game.mode === "challenge"){
-    game.lives -= 1;
-    setFeedback("bad", msg);
+    if(game.mode === "challenge"){
+      game.lives -= 1;
+      setFeedback("bad", msg);
 
-    if(game.lives <= 0){
-      setTimeout(()=>finishChallenge(), 500);
-      return;
-    }
-  }else{
-    setFeedback("bad", msg);
-  }
-}
-
-  const q = game.questions[game.qIndex];
-  if(q && q.word){
-    const w = q.word.en;
-    currentStudent.wordStats = currentStudent.wordStats || {};
-    const st = currentStudent.wordStats[w] || { wrong:0, correctStreak:0 };
-
-    if(gain === 1){
-      st.correctStreak += 1;
+      if(game.lives <= 0){
+        refreshHomeStats();
+        setTimeout(()=>finishChallenge(), 500);
+        return;
+      }
     }else{
-      st.wrong += 1;
-      st.correctStreak = 0;
+      setFeedback("bad", msg);
     }
+  }
 
-    currentStudent.wordStats[w] = st;
-    saveAll(ALL);
-
+  if(q && q.word){
     checkBadges({
-      word: w,
+      word: q.word.en,
       mode: game.mode,
       streak: game.streak
     });
@@ -1738,6 +1741,7 @@ let tick=null, t0=0;
 
   game.history[game.qIndex] = { gain, streakBefore: before };
   updateTop();
+  refreshHomeStats();
 }
 
 function stopTimer(){ if(tick){ clearInterval(tick); tick=null; } }
