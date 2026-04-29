@@ -881,7 +881,7 @@ and (orientation: landscape){
     🎯 得分：<b id="score">0</b>/10
   </span>
 <span class="pill levelOnly">
-  ⭐ 5分解鎖｜8分2星｜10分3星
+  ⭐ 5分⭐｜8分⭐⭐｜10分⭐⭐⭐
   </span>
 
   <!-- 🏁 挑戰模式顯示 -->
@@ -2613,8 +2613,8 @@ if(game.mode !== "level"){
   const stars = starText(s);
 
 const msg = passed
-  ? `🎉 通過！得分：<b>${s}/10</b>　${stars}<br/><span class="small">5分解鎖下一關｜8分2星｜10分3星｜時間：${fmt(spent)}</span>`
-  : `❌ 未通過。得分：<b>${s}/10</b>　${stars}<br/><span class="small">需要至少 5 分才能解鎖下一關。</span>`;
+  ? `🎉 通過！得分：<b>${s}/10</b>　${stars}<br/><span class="small">5分⭐｜8分⭐⭐｜10分⭐⭐⭐｜時間：${fmt(spent)}</span>`
+  : `❌ 未通過。得分：<b>${s}/10</b>　${stars}<br/><span class="small">需要至少⭐才能解鎖下一關。</span>`;
 
   const city = levelCity(game.level);
   const next = Math.min(LEVEL_COUNT, game.level+1);
